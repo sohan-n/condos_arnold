@@ -2,156 +2,133 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Our Vacation Condos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jaco Beach Condos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
-  
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    :root {
+      --bg-main: #181818;
+      --bg-slate: #232323;
+      --bg-card: #23201c;
+      --wood-brown: #a67c52;
+      --wood-tan: #d2b48c;
+      --industrial-gray: #444;
+      --text-main: #fff;
+      --text-accent: #d2b48c;
+      --text-brown: #a67c52;
+      --border-dark: #2d2d2d;
     }
-  
-    body {
-      font-family: 'Montserrat', sans-serif;
-      background: #f5f7fa;
-      color: #333;
-      line-height: 1.6;
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg-main); color: var(--text-main); }
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; padding: 1rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      z-index: 100; background: var(--bg-slate); box-shadow: 0 2px 10px rgba(0,0,0,0.18);
+      border-bottom: 1px solid var(--border-dark);
     }
-  
-    header {
-      background-image: url('banner.png');
-      background-size: cover;
-      background-position: center;
-      height: 60vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+    nav .logo { font-family: 'Inter', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--wood-brown); letter-spacing: 1px; }
+    nav ul { list-style: none; display: flex; }
+    nav ul li { margin-left: 1.5rem; }
+    nav ul li a { text-decoration: none; color: var(--text-main); font-weight: 600; position: relative; transition: color 0.2s; }
+    nav ul li a::after { content: ''; position: absolute; left: 0; bottom: -4px; width: 0; height: 2px; background: var(--wood-brown); transition: width 0.3s; }
+    nav ul li a:hover { color: var(--wood-tan); }
+    nav ul li a:hover::after { width: 100%; }
+    .hero {
+      min-height: 80vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      position: relative; margin-top: 80px; overflow: hidden;
+      background: linear-gradient(120deg, #181818 0%, #23201c 100%);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
     }
-  
-    header::before {
+    .hero::before {
       content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
+      position: absolute; left: 0; top: 0; width: 100%; height: 100%;
+      background: repeating-linear-gradient(135deg, var(--wood-brown) 0 2px, transparent 2px 40px), repeating-linear-gradient(45deg, var(--wood-tan) 0 1.5px, transparent 1.5px 40px);
+      opacity: 0.08;
+      z-index: 1;
+      pointer-events: none;
     }
-  
-    header h1 {
-      position: relative;
-      font-size: 3rem;
-      color: #fff;
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 1rem 2rem;
-      border-radius: 12px;
-      backdrop-filter: blur(5px);
-    }
-  
-    section {
-      max-width: 1200px;
-      margin: 0 auto;
+    .hero-content {
+      position: relative; z-index: 2; text-align: center; color: var(--text-main);
       padding: 2rem 1rem;
     }
-  
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
+    .hero h1 {
+      font-family: 'Inter', sans-serif; font-size: 3.2rem; font-weight: 800;
+      margin-bottom: 1.2rem; letter-spacing: -2px; line-height: 1.1;
+      color: var(--wood-tan);
+      text-shadow: 0 2px 16px #000, 0 1px 0 var(--wood-brown);
+      animation: fadeInDown 1s cubic-bezier(.77,0,.18,1.01);
     }
-  
-    .gallery img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 16px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    .hero p {
+      font-size: 1.35rem; margin-bottom: 2.2rem; color: var(--text-main);
+      animation: fadeInUp 1.2s cubic-bezier(.77,0,.18,1.01);
+      text-shadow: 0 1px 8px #000;
     }
-  
-    .gallery img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    }
-  
-    .info h2, .calendar h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #0077cc;
-    }
-  
-    .info ul {
-      list-style: none;
-      padding-left: 1rem;
-    }
-  
-    .info ul li {
-      margin-bottom: 0.5rem;
-      padding-left: 1.5rem;
-      position: relative;
-    }
-  
-    .info ul li::before {
-      content: '✔';
-      position: absolute;
-      left: 0;
-      color: #00b894;
-      font-weight: bold;
-    }
-  
-    .calendar iframe {
-      width: 100%;
-      height: 600px;
+    .btn-listing {
+      display: inline-block; padding: 1rem 2.2rem; font-size: 1.15rem; font-weight: 700;
+      background: linear-gradient(90deg, var(--wood-brown) 0%, var(--wood-tan) 100%);
+      color: #181818; border-radius: 50px; text-decoration: none;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      animation: fadeInUp 1.4s cubic-bezier(.77,0,.18,1.01);
       border: none;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      letter-spacing: 1px;
     }
-  
-    @media (max-width: 768px) {
-      header h1 {
-        font-size: 2rem;
-        padding: 0.5rem 1rem;
-      }
-  
-      .gallery img {
-        height: 180px;
-      }
+    .btn-listing:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.28);
+      background: linear-gradient(90deg, var(--wood-tan) 0%, var(--wood-brown) 100%);
+      color: var(--text-main);
+    }
+    /* Wood accent bar */
+    .wood-bar {
+      width: 120px; height: 10px; background: linear-gradient(90deg, #a67c52 60%, #d2b48c 100%);
+      border-radius: 6px; margin: 0 auto 2rem auto; box-shadow: 0 2px 8px #0002;
+      opacity: 0.85;
+      animation: barGrow 1.2s cubic-bezier(.77,0,.18,1.01);
+    }
+    @keyframes barGrow {
+      from { width: 0; opacity: 0; }
+      to { width: 120px; opacity: 0.85; }
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    footer {
+      text-align: center; padding: 1rem; font-size: 0.9rem; color: #b8b8b8; background: #181818; border-top: 1px solid var(--border-dark); margin-top: 0;
+    }
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2.1rem; }
+      .hero p { font-size: 1.05rem; }
+      .btn-listing { font-size: 1rem; padding: 0.8rem 1.5rem; }
+      nav { padding: 1rem 1rem; }
+      .wood-bar { width: 70px; }
     }
   </style>
-  
 </head>
 <body>
-
-  <header>
-    <h1>Arnold Beach Condos</h1>
-  </header>
-
-  <section class="gallery">
-    <img src="condo1.png" alt="Condo 1">
-    <img src="condo2.png" alt="Condo 2">
-    <img src="condo3.png" alt="Condo 3">
-    <img src="condo4.png" alt="Condo 4">
-  </section>
-
-  <section class="info">
-    <h2>Amenities</h2>
+  <nav>
+    <div class="logo">Jaco Beach Condos</div>
     <ul>
-      <li>Oceanfront views</li>
-      <li>High-speed Wi-Fi</li>
-      <li>Smart TVs & streaming</li>
-      <li>pool</li>
-      <li>free parking</li>
-      <li>clean</li>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="listings.html">Listings</a></li>
+      <li><a href="about.html">About</a></li>
     </ul>
+  </nav>
+  <section class="hero">
+    <div class="hero-content">
+      <div class="wood-bar"></div>
+      <h1>Welcome to Jaco Beach Condos</h1>
+      <p>Your perfect oceanfront getaway in Jaco, Costa Rica. Relax, unwind, and make memories by the sea.</p>
+      <a class="btn-listing" href="listings.html">View Listings</a>
+    </div>
   </section>
-
-  <section class="calendar">
-    <h2>Availability Calendar</h2>
-    <!-- Replace the iframe below with your Google Calendar embed code -->
-    <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&showPrint=0&title=asdas&showTitle=0&showTabs=0&showCalendars=0&src=dGlvcXNpM2lsYmtiaGs5c2pmb3JxMGNyM3NtdHI1bnFAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%233f51b5" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
-  </section>
-
+  <footer>
+    &copy; 2025 Jaco Beach Condos. All rights reserved.
+  </footer>
 </body>
 </html>
