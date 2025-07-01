@@ -4,11 +4,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ModernCarousel from '../components/ModernCarousel';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import FullCalendar from '@fullcalendar/react';
-import dayGridPlugin from '@fullcalendar/daygrid';
-import icalendarPlugin from '@fullcalendar/icalendar';
-
-const ICAL_URL = 'https://www.airbnb.com/calendar/ical/648803575821899223.ics?s=e97fdbf0e6864327677e52fb17585f88';
 
 const quickFacts = [
   { label: 'Bedrooms', value: '4' },
