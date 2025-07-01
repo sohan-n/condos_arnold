@@ -32,7 +32,7 @@ const Header: React.FC = () => {
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}>
-              Condos Arnold
+              Jaco Beach Penthouse Rental
             </span>
           </Link>
         </Typography>

@@ -70,6 +70,14 @@ const dropAnimation = keyframes`
   }
 `;
 
+// Loop offsets (for seamless wrap)
+const loopOffset = (offset: number, rowWidth: number) => {
+  if (rowWidth === 0) return 0;
+  let x = offset % rowWidth;
+  if (x > 0) x -= rowWidth;
+  return x;
+};
+
 const HomePage: React.FC = () => {
   const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
   const [offsetY, setOffsetY] = useState(0);
@@ -213,8 +221,9 @@ const HomePage: React.FC = () => {
 
   // Calculate total width for seamless loop
   const cardWidth = 320 + 24; // card width + gap
-  // Repeat enough cards to fill at least 3x the viewport width
-  const minCards = Math.ceil((window.innerWidth * 3) / cardWidth);
+  const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
+  // Repeat enough cards to fill at least 10x the viewport width
+  const minCards = Math.ceil((viewportWidth * 10) / cardWidth);
   const repeatTop = Math.ceil(minCards / amenitiesTop.length);
   const repeatBottom = Math.ceil(minCards / amenitiesBottom.length);
   const topCards = Array.from({ length: repeatTop }).flatMap(() => amenitiesTop);
@@ -222,13 +231,30 @@ const HomePage: React.FC = () => {
   const topRowWidth = topCards.length * cardWidth;
   const bottomRowWidth = bottomCards.length * cardWidth;
 
-  // Loop offsets
-  const loopOffset = (offset: number, rowWidth: number) => {
-    if (rowWidth === 0) return 0;
-    let x = offset % rowWidth;
-    if (x > 0) x -= rowWidth;
-    return x;
-  };
+  // On mount, set initial offset to the middle of the repeated array
+  useEffect(() => {
+    setBaseOffsetTop(-Math.floor(topRowWidth / 2));
+  }, [topRowWidth]);
+  useEffect(() => {
+    setBaseOffsetBottom(-Math.floor(bottomRowWidth / 2));
+  }, [bottomRowWidth]);
+
+  // Recenter logic for seamless infinite scroll
+  const RECENTER_THRESHOLD = cardWidth * amenitiesTop.length * 2; // 2 full cycles from center
+  useEffect(() => {
+    if (topRowWidth === 0) return;
+    const center = -Math.floor(topRowWidth / 2);
+    if (baseOffsetTop < center - RECENTER_THRESHOLD || baseOffsetTop > center + RECENTER_THRESHOLD) {
+      setBaseOffsetTop((prev) => prev - (baseOffsetTop - center));
+    }
+  }, [baseOffsetTop, topRowWidth]);
+  useEffect(() => {
+    if (bottomRowWidth === 0) return;
+    const center = -Math.floor(bottomRowWidth / 2);
+    if (baseOffsetBottom < center - RECENTER_THRESHOLD || baseOffsetBottom > center + RECENTER_THRESHOLD) {
+      setBaseOffsetBottom((prev) => prev - (baseOffsetBottom - center));
+    }
+  }, [baseOffsetBottom, bottomRowWidth]);
 
   return (
     <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
@@ -277,7 +303,7 @@ const HomePage: React.FC = () => {
         {/* Content */}
         <Container maxWidth="md" sx={{ position: 'relative', zIndex: 2 }}>
           <Typography variant="h3" fontWeight={800} color="white" gutterBottom>
-            Unparalleled Luxury and Comfort
+            Spacious Ocean View Condo for Groups
           </Typography>
           <Typography variant="h6" color="rgba(255,255,255,0.9)" mb={4}>
             Your exclusive beachfront oasis in Jaco awaits.
@@ -372,7 +398,7 @@ const HomePage: React.FC = () => {
       </Container>
 
       {/* Amenities Section - 2 rows, auto-scrolling, cards from both sides */}
-      <Container maxWidth="lg" sx={{ py: { xs: 8, md: 12 } }}>
+      <Container maxWidth="lg" sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 2, md: 3 } }}>
         <Typography variant="h4" fontWeight={700} color="text.primary" align="center" mb={2}>
           Amenities
         </Typography>
@@ -410,8 +436,8 @@ const HomePage: React.FC = () => {
                       boxShadow: '0 8px 32px 0 rgba(25, 147, 229, 0.12), 0 1.5px 8px 0 rgba(30, 41, 59, 0.10)',
                       p: 2,
                       minHeight: 120,
-                      maxHeight: item.collapsible ? (expanded[item.key] ? 400 : 180) : 180,
-                      transition: 'box-shadow 0.3s, transform 0.3s, max-height 0.3s',
+                      maxHeight: item.details ? 180 : 180,
+                      transition: 'box-shadow 0.3s, transform 0.3s, max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
                       overflow: 'hidden',
                       display: 'flex',
                       flexDirection: 'column',
@@ -422,28 +448,25 @@ const HomePage: React.FC = () => {
                       '&:hover': {
                         boxShadow: '0 16px 48px 0 rgba(25, 147, 229, 0.18), 0 4px 24px 0 rgba(30, 41, 59, 0.13)',
                         transform: 'translateY(-8px) scale(1.04) rotateY(8deg)',
+                        maxHeight: item.details ? 400 : 180,
                       },
                     }}
                   >
                     <Box display="flex" alignItems="center" mb={1}>
                       {item.icon}
                       <Typography variant="h6" fontWeight={700}>{item.title}</Typography>
-                      {item.collapsible && (
-                        <IconButton size="small" onClick={() => handleExpand(item.key)} sx={{ ml: 'auto', transform: expanded[item.key] ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
-                          <ExpandMoreIcon />
-                        </IconButton>
-                      )}
                     </Box>
-                    {item.collapsible ? (
-                      <Collapse in={expanded[item.key]} collapsedSize={60}>
+                    {item.details ? (
+                      <Box
+                        sx={{
+                          maxHeight: 400,
+                          overflow: 'hidden',
+                        }}
+                      >
                         <ul style={{ paddingLeft: 20, margin: 0, color: '#637988', fontSize: 15 }}>
-                          {item.details.map((d, i) => <li key={i}>{d}</li>)}
+                          {item.details.map((d: string, i: number) => <li key={i}>{d}</li>)}
                         </ul>
-                      </Collapse>
-                    ) : item.details ? (
-                      <ul style={{ paddingLeft: 20, margin: 0, color: '#637988', fontSize: 15 }}>
-                        {item.details.map((d, i) => <li key={i}>{d}</li>)}
-                      </ul>
+                      </Box>
                     ) : (
                       <Typography color="text.secondary">{item.desc}</Typography>
                     )}
@@ -481,8 +504,8 @@ const HomePage: React.FC = () => {
                       boxShadow: '0 8px 32px 0 rgba(25, 147, 229, 0.12), 0 1.5px 8px 0 rgba(30, 41, 59, 0.10)',
                       p: 2,
                       minHeight: 120,
-                      maxHeight: item.collapsible ? (expanded[item.key] ? 400 : 180) : 180,
-                      transition: 'box-shadow 0.3s, transform 0.3s, max-height 0.3s',
+                      maxHeight: item.details ? 180 : 180,
+                      transition: 'box-shadow 0.3s, transform 0.3s, max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
                       overflow: 'hidden',
                       display: 'flex',
                       flexDirection: 'column',
@@ -493,28 +516,25 @@ const HomePage: React.FC = () => {
                       '&:hover': {
                         boxShadow: '0 16px 48px 0 rgba(25, 147, 229, 0.18), 0 4px 24px 0 rgba(30, 41, 59, 0.13)',
                         transform: 'translateY(-8px) scale(1.04) rotateY(-8deg)',
+                        maxHeight: item.details ? 400 : 180,
                       },
                     }}
                   >
                     <Box display="flex" alignItems="center" mb={1}>
                       {item.icon}
                       <Typography variant="h6" fontWeight={700}>{item.title}</Typography>
-                      {item.collapsible && (
-                        <IconButton size="small" onClick={() => handleExpand(item.key)} sx={{ ml: 'auto', transform: expanded[item.key] ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s' }}>
-                          <ExpandMoreIcon />
-                        </IconButton>
-                      )}
                     </Box>
-                    {item.collapsible ? (
-                      <Collapse in={expanded[item.key]} collapsedSize={60}>
+                    {item.details ? (
+                      <Box
+                        sx={{
+                          maxHeight: 400,
+                          overflow: 'hidden',
+                        }}
+                      >
                         <ul style={{ paddingLeft: 20, margin: 0, color: '#637988', fontSize: 15 }}>
-                          {item.details.map((d, i) => <li key={i}>{d}</li>)}
+                          {item.details.map((d: string, i: number) => <li key={i}>{d}</li>)}
                         </ul>
-                      </Collapse>
-                    ) : item.details ? (
-                      <ul style={{ paddingLeft: 20, margin: 0, color: '#637988', fontSize: 15 }}>
-                        {item.details.map((d, i) => <li key={i}>{d}</li>)}
-                      </ul>
+                      </Box>
                     ) : (
                       <Typography color="text.secondary">{item.desc}</Typography>
                     )}
@@ -523,14 +543,6 @@ const HomePage: React.FC = () => {
               </div>
             </animated.div>
           </Box>
-        </Box>
-        {/* Not included */}
-        <Box mt={6} textAlign="center">
-          <Typography variant="subtitle2" color="text.secondary" fontWeight={600}>
-            <BlockIcon sx={{ verticalAlign: 'middle', fontSize: 22, mr: 1 }} />
-            <span>Private entrance</span> &nbsp;|&nbsp; <span>Heating</span>
-            <span style={{ marginLeft: 6, color: '#b0b8c1', fontWeight: 400 }}>(not included)</span>
-          </Typography>
         </Box>
       </Container>
 
