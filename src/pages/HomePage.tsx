@@ -11,11 +11,6 @@ import KitchenIcon from '@mui/icons-material/Kitchen';
 import DeckIcon from '@mui/icons-material/Deck';
 import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import BlockIcon from '@mui/icons-material/Block';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Collapse from '@mui/material/Collapse';
-import IconButton from '@mui/material/IconButton';
-import { keyframes } from '@emotion/react';
 import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
 import { Link as RouterLink } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
@@ -24,6 +19,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
+import { keyframes } from '@emotion/react';
 
 // Controls the border radius for main call-to-action buttons
 const BUTTON_BORDER_RADIUS = .5;
@@ -79,12 +75,7 @@ const loopOffset = (offset: number, rowWidth: number) => {
 };
 
 const HomePage: React.FC = () => {
-  const [expanded, setExpanded] = useState<{ [key: string]: boolean }>({});
   const [offsetY, setOffsetY] = useState(0);
-
-  const handleExpand = (key: string) => {
-    setExpanded((prev) => ({ ...prev, [key]: !prev[key] }));
-  };
 
   useEffect(() => {
     const handleScroll = () => setOffsetY(window.pageYOffset);
