@@ -88,24 +88,60 @@ const CondoPage: React.FC = () => {
           bgcolor: 'rgba(0,0,0,0.35)',
           zIndex: 1,
         }} />
-        <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 2 }}>
-          <Typography variant="h3" fontWeight={800} color="white" gutterBottom>
-            Spacious Ocean View Condo for Groups
-          </Typography>
-          <Typography variant="h6" color="rgba(255,255,255,0.9)" mb={4}>
-            Luxury 4BR/4BA Penthouse · Sleeps 10 · Beachfront Jaco
-          </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            href="https://www.airbnb.com/rooms/648803575821899223"
-            target="_blank"
-            rel="noopener"
-            sx={{ fontWeight: 700, fontSize: 14, px: 4, py: 1.5 }}
-          >
-            Book Now
-          </Button>
+        <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+          <Box sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            height: '100%',
+            position: 'relative',
+          }}>
+            <Box sx={{
+              position: 'absolute',
+              left: '50%',
+              top: '50%',
+              transform: 'translate(-50%, -50%)',
+              filter: 'blur(0.5rem)',
+              zIndex: 0,
+              width: 320,
+              height: 90,
+              borderRadius: 99,
+              background: 'rgba(255,255,255,0.18)',
+              boxShadow: '0 0 48px 24px #ffffff55, 0 0 32px 8px #8882',
+            }} />
+            <Button
+              href="https://www.airbnb.com/rooms/648803575821899223"
+              target="_blank"
+              rel="noopener"
+              sx={{
+                fontWeight: 500,
+                fontSize: 26,
+                px: 8,
+                py: 2.5,
+                borderRadius: 99,
+                background: 'rgba(255,255,255,0.22)',
+                color: '#222',
+                boxShadow: '0 8px 32px 0 rgba(30,41,59,0.10)',
+                backdropFilter: 'blur(18px)',
+                border: '1.5px solid rgba(255,255,255,0.35)',
+                position: 'relative',
+                zIndex: 1,
+                letterSpacing: 6,
+                textTransform: 'uppercase',
+                fontFamily: 'inherit',
+                transition: 'background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s',
+                '&:hover': {
+                  background: 'rgba(255,255,255,0.36)',
+                  color: '#111',
+                  boxShadow: '0 12px 36px 0 rgba(30,41,59,0.13)',
+                  border: '1.5px solid rgba(255,255,255,0.55)',
+                },
+              }}
+            >
+              BOOK NOW
+            </Button>
+          </Box>
         </Container>
       </Box>
 
@@ -115,17 +151,18 @@ const CondoPage: React.FC = () => {
           <Typography variant="h5" fontWeight={700} mb={2} align="center">
             Availability
           </Typography>
-          <FullCalendar
-            plugins={[dayGridPlugin, icalendarPlugin]}
-            initialView="dayGridMonth"
-            height="auto"
-            events={{ url: ICAL_URL, format: 'ics' }}
-            headerToolbar={{ start: 'title', center: '', end: 'prev,next' }}
-            eventColor="#1993e5"
-            displayEventTime={false}
-            fixedWeekCount={false}
-            aspectRatio={1.5}
-          />
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <iframe
+              src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&showPrint=0&title=asdas&showTitle=0&showTabs=0&showCalendars=0&src=dGlvcXNpM2lsYmtiaGs5c2pmb3JxMGNyM3NtdHI1bnFAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%233f51b5"
+              style={{ borderWidth: 0, borderRadius: 12 }}
+              width="100%"
+              height="600"
+              frameBorder="0"
+              scrolling="no"
+              title="Availability Calendar"
+              allowFullScreen
+            />
+          </Box>
         </Paper>
       </Container>
 
