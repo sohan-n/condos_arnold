@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Box, Typography, Button, Card, CardContent, Container, Collapse, IconButton, Paper, CircularProgress, Alert } from '@mui/material';
+import React from 'react';
+import { Box, Typography, Button, Card, CardContent, Container, Collapse, IconButton, Paper } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ModernCarousel from '../components/ModernCarousel';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
-// @ts-ignore: No types for ical.js
-import ical from 'ical.js';
+import icalendarPlugin from '@fullcalendar/icalendar';
 
 const ICAL_URL = 'https://www.airbnb.com/calendar/ical/648803575821899223.ics?s=e97fdbf0e6864327677e52fb17585f88';
 
@@ -47,42 +46,6 @@ const CondoPage: React.FC = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
   const [expanded, setExpanded] = React.useState(false);
-
-  // Calendar state
-  const [calendarEvents, setCalendarEvents] = useState<any[]>([]);
-  const [calendarLoading, setCalendarLoading] = useState(true);
-  const [calendarError, setCalendarError] = useState<string | null>(null);
-
-  useEffect(() => {
-    setCalendarLoading(true);
-    setCalendarError(null);
-    fetch(ICAL_URL)
-      .then((res) => {
-        if (!res.ok) throw new Error('Failed to fetch calendar');
-        return res.text();
-      })
-      .then((icsText) => {
-        const jcalData = ical.parse(icsText);
-        const comp = new ical.Component(jcalData);
-        const vevents = comp.getAllSubcomponents('vevent');
-        const events = vevents.map((vevent: any) => {
-          const e = new ical.Event(vevent);
-          return {
-            title: e.summary || 'Booked',
-            start: e.startDate.toJSDate(),
-            end: e.endDate.toJSDate(),
-            allDay: true,
-            color: '#1993e5',
-          };
-        });
-        setCalendarEvents(events);
-        setCalendarLoading(false);
-      })
-      .catch(() => {
-        setCalendarError('Could not load calendar.');
-        setCalendarLoading(false);
-      });
-  }, []);
 
   React.useEffect(() => {
     if (inView) controls.start('visible');
@@ -152,25 +115,17 @@ const CondoPage: React.FC = () => {
           <Typography variant="h5" fontWeight={700} mb={2} align="center">
             Availability
           </Typography>
-          {calendarLoading ? (
-            <Box display="flex" justifyContent="center" alignItems="center" minHeight={320}>
-              <CircularProgress />
-            </Box>
-          ) : calendarError ? (
-            <Alert severity="error">{calendarError}</Alert>
-          ) : (
-            <FullCalendar
-              plugins={[dayGridPlugin]}
-              initialView="dayGridMonth"
-              height="auto"
-              events={calendarEvents}
-              headerToolbar={{ start: 'title', center: '', end: 'prev,next' }}
-              eventColor="#1993e5"
-              displayEventTime={false}
-              fixedWeekCount={false}
-              aspectRatio={1.5}
-            />
-          )}
+          <FullCalendar
+            plugins={[dayGridPlugin, icalendarPlugin]}
+            initialView="dayGridMonth"
+            height="auto"
+            events={{ url: ICAL_URL, format: 'ics' }}
+            headerToolbar={{ start: 'title', center: '', end: 'prev,next' }}
+            eventColor="#1993e5"
+            displayEventTime={false}
+            fixedWeekCount={false}
+            aspectRatio={1.5}
+          />
         </Paper>
       </Container>
 
