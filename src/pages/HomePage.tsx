@@ -253,7 +253,7 @@ const HomePage: React.FC = () => {
           transform: `translateY(${offsetY * 0.5}px)`, // Parallax effect
         }}>
           <img
-            src="/condo1_banner.png"
+            src="condo1_banner.png"
             alt="Beachfront condo view"
             style={{
               width: '100%',
@@ -327,33 +327,33 @@ const HomePage: React.FC = () => {
         </Typography>
         <ModernCarousel
           images={[
-            '/slideshow/slide_3ad59832-3b10-4e8e-942b-54f6090441b6.jpeg',
-            '/slideshow/slide_b7c18217-04cf-46a3-86b9-f1ed72182bb2.avif',
-            '/slideshow/slide_9f9cf9e8-1082-4f4c-9ef6-0485af4e71b5.avif',
-            '/slideshow/slide_5b2f2e0e-85e2-45ab-a142-bd6fddd23c51.avif',
-            '/slideshow/slide_bcc6b5c4-eb0c-436a-a04e-cf32e79d67d7.avif',
-            '/slideshow/slide_d636ab14-de68-41a2-bb59-356aa55e9fb4.avif',
-            '/slideshow/slide_d5da1151-a7b9-4169-89d4-d29395f9032c.avif',
-            '/slideshow/slide_eca1b684-f785-482b-be91-0b48862701ff.avif',
-            '/slideshow/slide_b2e8a954-3400-4c63-82ac-66000c4c5012.avif',
-            '/slideshow/slide_42fb3f45-9831-4bf4-b339-f3389c2699f8.avif',
-            '/slideshow/slide_9fd8e9cf-d51b-4070-b6e5-fda1301ea64d.avif',
-            '/slideshow/slide_f9d66cf2-ecf2-4913-929e-c4651926560e.avif',
-            '/slideshow/slide_dc82f325-76c6-4176-b694-034e60828880.jpeg',
-            '/slideshow/slide_11ca710a-bcb2-4ebe-817f-b8243ea79bc9.avif',
-            '/slideshow/slide_ad0ceb99-f2df-4495-a928-8df8e011b8d5.avif',
-            '/slideshow/slide_447cbbc2-e550-4636-9b2e-b2e7cc3c4d86.avif',
-            '/slideshow/slide_8a448b19-2e47-40d1-8e64-050bb233a148.avif',
-            '/slideshow/slide_3ef416d8-b475-4086-b885-122a9de440dd.avif',
-            '/slideshow/slide_97b93768-476c-464f-bab6-f74140220ea7.avif',
-            '/slideshow/slide_2bb3967a-1d44-45d8-a3f6-6f4375e7abd3.avif',
-            '/slideshow/slide_d84243cd-bfad-455b-b04a-9098b1ecd4ae.avif',
-            '/slideshow/slide_slide1.png',
-            '/slideshow/slide_slide2.png',
-            '/slideshow/slide_slide3.png',
-            '/slideshow/slide_slide4.png',
-            '/slideshow/slide_slide5.png',
-            '/slideshow/slide_slide6.jpeg',
+            'slideshow/slide_3ad59832-3b10-4e8e-942b-54f6090441b6.jpeg',
+            'slideshow/slide_b7c18217-04cf-46a3-86b9-f1ed72182bb2.avif',
+            'slideshow/slide_9f9cf9e8-1082-4f4c-9ef6-0485af4e71b5.avif',
+            'slideshow/slide_5b2f2e0e-85e2-45ab-a142-bd6fddd23c51.avif',
+            'slideshow/slide_bcc6b5c4-eb0c-436a-a04e-cf32e79d67d7.avif',
+            'slideshow/slide_d636ab14-de68-41a2-bb59-356aa55e9fb4.avif',
+            'slideshow/slide_d5da1151-a7b9-4169-89d4-d29395f9032c.avif',
+            'slideshow/slide_eca1b684-f785-482b-be91-0b48862701ff.avif',
+            'slideshow/slide_b2e8a954-3400-4c63-82ac-66000c4c5012.avif',
+            'slideshow/slide_42fb3f45-9831-4bf4-b339-f3389c2699f8.avif',
+            'slideshow/slide_9fd8e9cf-d51b-4070-b6e5-fda1301ea64d.avif',
+            'slideshow/slide_f9d66cf2-ecf2-4913-929e-c4651926560e.avif',
+            'slideshow/slide_dc82f325-76c6-4176-b694-034e60828880.jpeg',
+            'slideshow/slide_11ca710a-bcb2-4ebe-817f-b8243ea79bc9.avif',
+            'slideshow/slide_ad0ceb99-f2df-4495-a928-8df8e011b8d5.avif',
+            'slideshow/slide_447cbbc2-e550-4636-9b2e-b2e7cc3c4d86.avif',
+            'slideshow/slide_8a448b19-2e47-40d1-8e64-050bb233a148.avif',
+            'slideshow/slide_3ef416d8-b475-4086-b885-122a9de440dd.avif',
+            'slideshow/slide_97b93768-476c-464f-bab6-f74140220ea7.avif',
+            'slideshow/slide_2bb3967a-1d44-45d8-a3f6-6f4375e7abd3.avif',
+            'slideshow/slide_d84243cd-bfad-455b-b04a-9098b1ecd4ae.avif',
+            'slideshow/slide_slide1.png',
+            'slideshow/slide_slide2.png',
+            'slideshow/slide_slide3.png',
+            'slideshow/slide_slide4.png',
+            'slideshow/slide_slide5.png',
+            'slideshow/slide_slide6.jpeg',
           ]}
           autoplayInterval={4000}
         />
@@ -549,7 +549,7 @@ const HomePage: React.FC = () => {
           willChange: 'transform',
         }}>
           <video
-            poster="/outsideshot.jpeg"
+            poster="outsideshot.jpeg"
             autoPlay
             loop
             muted
@@ -561,8 +561,8 @@ const HomePage: React.FC = () => {
               display: 'block',
             }}
           >
-            <source src="/google_earth_1.webm" type="video/webm" />
-            <source src="/google_earth_1.mp4" type="video/mp4" />
+            <source src="google_earth_1.webm" type="video/webm" />
+            <source src="google_earth_1.mp4" type="video/mp4" />
           </video>
            {/* Overlay for readability */}
           <Box sx={{
