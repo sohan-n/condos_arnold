@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Typography, Button, Card, CardContent, Container, Collapse, IconButton, Paper, CircularProgress, Alert } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ModernCarousel from '../components/ModernCarousel';
@@ -78,7 +78,7 @@ const CondoPage: React.FC = () => {
         setCalendarEvents(events);
         setCalendarLoading(false);
       })
-      .catch((err) => {
+      .catch(() => {
         setCalendarError('Could not load calendar.');
         setCalendarLoading(false);
       });
@@ -235,7 +235,7 @@ const CondoPage: React.FC = () => {
             Amenities
           </Typography>
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
-            {amenities.map((a, i) => (
+            {amenities.map((a) => (
               <Paper key={a} elevation={1} sx={{ px: 2, py: 1, borderRadius: 2, bgcolor: '#eaf2fb', color: '#1993e5', fontWeight: 600, fontSize: 15, boxShadow: '0 2px 8px #1993e51a', minWidth: 120, textAlign: 'center' }}>
                 {a}
               </Paper>
