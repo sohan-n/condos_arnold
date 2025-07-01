@@ -562,7 +562,7 @@ const HomePage: React.FC = () => {
             }}
           >
             <source src="google_earth_1.webm" type="video/webm" />
-            <source src="google_earth_1.mp4" type="video/mp4" />
+            <source src="google_earth_pressed.mp4" type="video/mp4" />
           </video>
            {/* Overlay for readability */}
           <Box sx={{
