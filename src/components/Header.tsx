@@ -4,7 +4,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { Link as RouterLink, NavLink } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 
 const navItems = [

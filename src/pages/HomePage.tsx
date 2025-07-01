@@ -1,10 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Button, Card, CardContent, CardMedia, TextField, Container, Stack, Paper } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/pagination';
+import { Box, Typography, Button, Card, CardContent, CardMedia, Container } from '@mui/material';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import KingBedIcon from '@mui/icons-material/KingBed';
@@ -15,8 +10,6 @@ import WifiIcon from '@mui/icons-material/Wifi';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import DeckIcon from '@mui/icons-material/Deck';
 import LocalParkingIcon from '@mui/icons-material/LocalParking';
-import PoolIcon from '@mui/icons-material/Pool';
-import ElevatorIcon from '@mui/icons-material/Elevator';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import BlockIcon from '@mui/icons-material/Block';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -31,52 +24,6 @@ import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
-
-const features = [
-  {
-    title: 'Spacious Living Areas',
-    desc: 'Expansive living spaces designed for relaxation and entertainment.',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAbnTblNfuI_TolBsLrTcICnd486sNX1KlwLr3hETUsv0N_R0TySuJWUGdk8lNZTrhSaHrmX2pxi_aYjtlHEDRv5hP_yJUaZ-5K6x6AbE-nplJfBIFyyR4mScBfYz1ksX6PuZSC6cLXxiaRMlQL19gaAvwpEhgO4iqkzVFQzSdrMLwspXHY8jiVU6n7RWM32peqRpGDjr833sdrBrz8SXh24TJRpieBSEQkSRyw2HDj7HRMhhDshutZf1FDDxBht9Rn0KH5-wwvqZk',
-  },
-  {
-    title: 'Breathtaking Views',
-    desc: 'Wake up to stunning ocean vistas from your private balcony.',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAF8ZamuuZoBSj7tcL5DuYL-FXW5U7O2WDtD3ZfbfVofIFwfK4m7drLw4gxJjEC074RKzd6C68FQ_-bcQvioDZ6ZgDLTIC0cgt7KPN7EvAdLRYSErK5dnZsLEQUZkgxC8_qUtKKj6sQL_liw-tSRw-tBd_8Ys4U-GcSjkGAQoWNElutqRhr5tFJSaK9tx2-c77rsKBrIxlD62k1c000vSN3wbHxmnYUZTdS96-EOc3jourat1zNl4f2VyIYR06m7fXxV4FRcdsUaBw',
-  },
-  {
-    title: 'Gourmet Kitchen',
-    desc: 'Fully equipped kitchen with top-of-the-line appliances.',
-    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA1r0CEiCCRhAT_8aX1-aVyoEnK8GlfZo4s-QSSnmq7cLqixmcfqdPxV2tLrieXsD9iUInbyJQgBKVlNsv7OdijtCPDVkXZp1e2L-WsLAUiZfWSUBwZfdJrTo_og5yazaTSOR3wi39_c5GqmpUqxaN0xgO6mvhe-LsXt1XnY8X_n5Txm8-eu23ZlW3UwGpdQzjx1-njgwYx-yoevUPnvvastWamUlKOSpz08cZdH2AYgf-7WKrh24HCeODjv5prkK6jZuVSlemG7FE',
-  },
-];
-
-const featureSlides = [
-  {
-    img: '/condo1_hero.png',
-    title: 'Spacious Living Areas',
-    desc: 'Expansive living spaces designed for relaxation and entertainment.',
-  },
-  {
-    img: '/condo1_living.png',
-    title: 'Modern Living Room',
-    desc: 'A bright, open living room with luxury finishes.',
-  },
-  {
-    img: '/condo1_bedroom.png',
-    title: 'Elegant Bedrooms',
-    desc: 'Rest easy in beautifully appointed bedrooms.',
-  },
-  {
-    img: '/condo1_balcony.png',
-    title: 'Private Balcony',
-    desc: 'Enjoy ocean views from your private balcony.',
-  },
-  {
-    img: '/condo1_banner.png',
-    title: 'Resort-Style Comfort',
-    desc: 'Experience the ultimate in luxury and comfort.',
-  },
-];
 
 const locations = [
   {

@@ -50,7 +50,7 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
   };
 
   // Gesture handling
-  const bind = useDrag(({ down, movement: [mx], direction: [xDir], distance, cancel, last }) => {
+  const bind = useDrag(({ down, movement: [mx], last }) => {
     setIsDragging(down);
     setDragX(down ? mx : 0);
     if (!down && last && Math.abs(mx) > (bounds.width || 0) * 0.15) {

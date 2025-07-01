@@ -10,7 +10,7 @@ import AboutPage from './pages/AboutPage';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Router>
+    <Router basename="/condos_arnold">
       <Layout>
         <Routes>
           <Route path="/" element={<HomePage />} />
