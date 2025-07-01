@@ -2,29 +2,6 @@ import React from 'react';
 import { Box, Typography, Container } from '@mui/material';
 import { motion } from 'framer-motion';
 
-const activities = [
-  {
-    title: 'Surf Lessons',
-    description: 'Catch the perfect wave with local instructors for all skill levels.',
-    image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=60',
-  },
-  {
-    title: 'Zip Line Adventure',
-    description: 'Fly through the rainforest canopy on an exhilarating zip-line tour.',
-    image: 'https://images.unsplash.com/photo-1506880135364-9b0b8d52917d?auto=format&fit=crop&w=600&q=60',
-  },
-  {
-    title: 'Rainforest Waterfall Hike',
-    description: 'Explore lush trails leading to stunning waterfalls and natural pools.',
-    image: 'https://images.unsplash.com/photo-1558980664-10d3b6a36da8?auto=format&fit=crop&w=600&q=60',
-  },
-  {
-    title: 'ATV Jungle Tour',
-    description: 'Ride off-road vehicles through rugged jungle terrain and scenic viewpoints.',
-    image: 'https://images.unsplash.com/photo-1602288637781-65396b8f7b8b?auto=format&fit=crop&w=600&q=60',
-  },
-];
-
 const JacoPage: React.FC = () => {
   return (
     <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
