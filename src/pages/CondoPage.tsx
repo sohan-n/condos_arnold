@@ -5,6 +5,9 @@ import ModernCarousel from '../components/ModernCarousel';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 
+// Controls the border radius for main call-to-action buttons (match homepage)
+const BUTTON_BORDER_RADIUS = 0.5;
+
 const quickFacts = [
   { label: 'Bedrooms', value: '4' },
   { label: 'Bathrooms', value: '4' },
@@ -80,7 +83,7 @@ const CondoPage: React.FC = () => {
           inset: 0,
           width: '100%',
           height: '100%',
-          bgcolor: 'rgba(0,0,0,0.35)',
+          bgcolor: 'rgba(0,0,0,0.25)',
           zIndex: 1,
         }} />
         <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
@@ -101,7 +104,7 @@ const CondoPage: React.FC = () => {
               zIndex: 0,
               width: 320,
               height: 90,
-              borderRadius: 99,
+              borderRadius: BUTTON_BORDER_RADIUS,
               background: 'rgba(255,255,255,0.18)',
               boxShadow: '0 0 48px 24px #ffffff55, 0 0 32px 8px #8882',
             }} />
@@ -110,13 +113,13 @@ const CondoPage: React.FC = () => {
               target="_blank"
               rel="noopener"
               sx={{
-                fontWeight: 500,
-                fontSize: 26,
-                px: 8,
-                py: 2.5,
-                borderRadius: 99,
+                fontWeight: 400,
+                fontSize: 30,
+                px: 9,
+                py: 4,
+                borderRadius: BUTTON_BORDER_RADIUS,
                 background: 'rgba(255,255,255,0.22)',
-                color: '#222',
+                color: '#fff',
                 boxShadow: '0 8px 32px 0 rgba(30,41,59,0.10)',
                 backdropFilter: 'blur(18px)',
                 border: '1.5px solid rgba(255,255,255,0.35)',
@@ -128,7 +131,7 @@ const CondoPage: React.FC = () => {
                 transition: 'background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s',
                 '&:hover': {
                   background: 'rgba(255,255,255,0.36)',
-                  color: '#111',
+                  color: '#fff',
                   boxShadow: '0 12px 36px 0 rgba(30,41,59,0.13)',
                   border: '1.5px solid rgba(255,255,255,0.55)',
                 },

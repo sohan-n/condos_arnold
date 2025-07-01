@@ -1,4 +1,6 @@
 import React from 'react';
+import { Box, Typography, Container } from '@mui/material';
+import { motion } from 'framer-motion';
 
 const activities = [
   {
@@ -23,25 +25,107 @@ const activities = [
   },
 ];
 
-const ExploreJacoPage: React.FC = () => {
+const JacoPage: React.FC = () => {
   return (
-    <main style={{ padding: '2rem 1rem', maxWidth: 1200, margin: '0 auto' }}>
-      <h1 style={{ fontSize: '2.4rem', fontWeight: 700, marginBottom: '2rem', textAlign: 'center' }}>
-        Discover Jaco Experiences
-      </h1>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.8rem' }}>
-        {activities.map((act) => (
-          <div key={act.title} style={{ background: '#fff', borderRadius: 12, overflow: 'hidden', boxShadow: '0 4px 20px rgba(0,0,0,0.08)' }}>
-            <img src={act.image} alt={act.title} style={{ width: '100%', height: 180, objectFit: 'cover' }} />
-            <div style={{ padding: '1rem' }}>
-              <h2 style={{ fontSize: '1.3rem', fontWeight: 700, marginBottom: 8 }}>{act.title}</h2>
-              <p style={{ fontSize: '1rem', lineHeight: 1.5 }}>{act.description}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </main>
+    <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
+      {/* Hero Section with Google Earth video background */}
+      <Box sx={{
+        position: 'relative',
+        minHeight: { xs: '60vh', md: '70vh' },
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        mb: { xs: 6, md: 10 },
+      }}>
+        {/* Video background with fade-in */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2 }}
+          style={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: 0,
+          }}
+        >
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="outsideshot.jpeg"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              display: 'block',
+              filter: 'brightness(0.7)',
+            }}
+          >
+            <source src="google_earth_1.webm" type="video/webm" />
+            <source src="google_earth_pressed.mp4" type="video/mp4" />
+          </video>
+          {/* Overlay for readability */}
+          <Box sx={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: '100%',
+            bgcolor: 'rgba(0,0,0,0.35)',
+            zIndex: 1,
+          }} />
+        </motion.div>
+        {/* Content */}
+        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 2, textAlign: 'center' }}>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1.1, delay: 0.5 }}
+          >
+            <Typography
+              variant="h2"
+              fontWeight={900}
+              color="#fff"
+              sx={{
+                textShadow: '0 4px 32px #000a, 0 1.5px 0 #222',
+                letterSpacing: 2,
+                mb: 2,
+                fontSize: { xs: 38, md: 64 },
+                lineHeight: 1.1,
+              }}
+            >
+              Jaco Beach
+            </Typography>
+            <Typography
+              variant="h5"
+              color="rgba(255,255,255,0.92)"
+              sx={{
+                textShadow: '0 2px 16px #0007',
+                fontWeight: 400,
+                mb: 4,
+                fontSize: { xs: 18, md: 28 },
+              }}
+            >
+              Discover the vibrant heart of Costa Rica's Pacific coast
+            </Typography>
+          </motion.div>
+        </Container>
+      </Box>
+      {/* Main content can go here */}
+      <Container maxWidth="md" sx={{ py: { xs: 6, md: 10 } }}>
+        <Typography variant="h4" fontWeight={700} mb={2}>
+          Welcome to Jaco
+        </Typography>
+        <Typography color="text.secondary">
+          Jaco is a lively beach town known for its beautiful coastline, surfing, nightlife, and easy access to Costa Rica's natural wonders. Explore the best of Jaco from your luxury condo.
+        </Typography>
+      </Container>
+    </Box>
   );
 };
 
-export default ExploreJacoPage; 
+export default JacoPage; 

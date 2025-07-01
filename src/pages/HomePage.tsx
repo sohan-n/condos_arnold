@@ -25,24 +25,27 @@ import { useInView } from 'react-intersection-observer';
 import { animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
 
+// Controls the border radius for main call-to-action buttons
+const BUTTON_BORDER_RADIUS = .5;
+
 const locations = [
   {
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 256 256"><path fill="#1993e5" d="M128 64a40 40 0 1 0 40 40A40 40 0 0 0 128 64Zm0 64a24 24 0 1 1 24-24A24 24 0 0 1 128 128Zm0-112a88.1 88.1 0 0 0-88 88c0 31.4 14.51 64.68 42 96.25a254.19 254.19 0 0 0 41.45 38.3 8 8 0 0 0 9.18 0A254.19 254.19 0 0 0 174 200.25c27.45-31.57 42-64.85 42-96.25A88.1 88.1 0 0 0 128 16Zm0 206c-16.53-13-72-60.75-72-118a72 72 0 0 1 144 0C200 161.23 144.53 209 128 222Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="none" viewBox="0 0 256 256"><path fill="#222" d="M128 64a40 40 0 1 0 40 40A40 40 0 0 0 128 64Zm0 64a24 24 0 1 1 24-24A24 24 0 0 1 128 128Zm0-112a88.1 88.1 0 0 0-88 88c0 31.4 14.51 64.68 42 96.25a254.19 254.19 0 0 0 41.45 38.3 8 8 0 0 0 9.18 0A254.19 254.19 0 0 0 174 200.25c27.45-31.57 42-64.85 42-96.25A88.1 88.1 0 0 0 128 16Zm0 206c-16.53-13-72-60.75-72-118a72 72 0 0 1 144 0C200 161.23 144.53 209 128 222Z"/></svg>
     ),
     title: 'Close to the Beach',
     desc: 'Just steps away from the beautiful beaches of Jaco.',
   },
   {
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 256 256"><path fill="#1993e5" d="M237.79 53.23a66.86 66.86 0 0 0-97.74 0 72.21 72.21 0 0 0-12.05 17 72.21 72.21 0 0 0-12-17 66.86 66.86 0 0 0-97.74 0 8 8 0 0 0 2.6 12.85L77 90.55a71.42 71.42 0 0 0-43.36 33.21 70.64 70.64 0 0 0-7.2 54.32A8 8 0 0 0 39 182.36l81-61.68V224a8 8 0 0 0 16 0V120.68l81 61.68a8 8 0 0 0 12.57-4.28 70.64 70.64 0 0 0-7.2-54.32A71.42 71.42 0 0 0 179 90.55l56.22-24.47a8 8 0 0 0 2.6-12.85ZM67.08 48a51.13 51.13 0 0 1 37.28 16.26 56.53 56.53 0 0 1 14.26 26.93L39 56.53A50.5 50.5 0 0 1 67.08 48ZM40 161.5a54.82 54.82 0 0 1 7.47-29.7 55.55 55.55 0 0 1 34-25.89A56.52 56.52 0 0 1 96.1 104a55.82 55.82 0 0 1 16.23 2.41ZM208.5 131.8A54.82 54.82 0 0 1 216 161.5l-72.3-55.1a56.3 56.3 0 0 1 64.83 25.4ZM137.38 91.19a56.53 56.53 0 0 1 14.26-26.93A51.13 51.13 0 0 1 188.92 48 50.5 50.5 0 0 1 217 56.53Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="none" viewBox="0 0 256 256"><path fill="#222" d="M237.79 53.23a66.86 66.86 0 0 0-97.74 0 72.21 72.21 0 0 0-12.05 17 72.21 72.21 0 0 0-12-17 66.86 66.86 0 0 0-97.74 0 8 8 0 0 0 2.6 12.85L77 90.55a71.42 71.42 0 0 0-43.36 33.21 70.64 70.64 0 0 0-7.2 54.32A8 8 0 0 0 39 182.36l81-61.68V224a8 8 0 0 0 16 0V120.68l81 61.68a8 8 0 0 0 12.57-4.28 70.64 70.64 0 0 0-7.2-54.32A71.42 71.42 0 0 0 179 90.55l56.22-24.47a8 8 0 0 0 2.6-12.85ZM67.08 48a51.13 51.13 0 0 1 37.28 16.26 56.53 56.53 0 0 1 14.26 26.93L39 56.53A50.5 50.5 0 0 1 67.08 48ZM40 161.5a54.82 54.82 0 0 1 7.47-29.7 55.55 55.55 0 0 1 34-25.89A56.52 56.52 0 0 1 96.1 104a55.82 55.82 0 0 1 16.23 2.41ZM208.5 131.8A54.82 54.82 0 0 1 216 161.5l-72.3-55.1a56.3 56.3 0 0 1 64.83 25.4ZM137.38 91.19a56.53 56.53 0 0 1 14.26-26.93A51.13 51.13 0 0 1 188.92 48 50.5 50.5 0 0 1 217 56.53Z"/></svg>
     ),
     title: 'Vibrant Nightlife',
     desc: 'Enjoy the lively nightlife and entertainment options nearby.',
   },
   {
     icon: (
-      <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 256 256"><path fill="#1993e5" d="M216 40H40A16 16 0 0 0 24 56V200a16 16 0 0 0 16 16H216a16 16 0 0 0 16-16V56A16 16 0 0 0 216 40Zm0 160H40V56H216V200ZM176 88a48 48 0 0 1-96 0 8 8 0 0 1 16 0 32 32 0 0 0 64 0 8 8 0 0 1 16 0Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="none" viewBox="0 0 256 256"><path fill="#222" d="M216 40H40A16 16 0 0 0 24 56V200a16 16 0 0 0 16 16H216a16 16 0 0 0 16-16V56A16 16 0 0 0 216 40Zm0 160H40V56H216V200ZM176 88a48 48 0 0 1-96 0 8 8 0 0 1 16 0 32 32 0 0 0 64 0 8 8 0 0 1 16 0Z"/></svg>
     ),
     title: 'Shopping and Dining',
     desc: 'Explore a variety of shops, restaurants, and cafes within walking distance.',
@@ -281,16 +284,25 @@ const HomePage: React.FC = () => {
           </Typography>
           <Button
             variant="contained"
-            color="primary"
             size="large"
             component={RouterLink}
-            to="/condos"
+            to="/condo"
             sx={{
-              fontWeight: 700,
-              fontSize: 14,
-              px: 4,
-              py: 1.5,
-              // The boxShadow is now handled by the theme, but can be overridden here if needed
+              borderRadius: BUTTON_BORDER_RADIUS,
+              background: 'rgba(255,255,255,0.85)',
+              color: '#222',
+              boxShadow: '0 2px 12px #0001',
+              letterSpacing: 1,
+              textTransform: 'uppercase',
+              fontSize: 18,
+              px: 6,
+              py: 2,
+              fontWeight: 500,
+              transition: 'background 0.2s, color 0.2s',
+              '&:hover': {
+                background: 'rgba(230,230,230,0.95)',
+                color: '#111',
+              },
             }}
           >
             Explore Condo
@@ -530,14 +542,13 @@ const HomePage: React.FC = () => {
           width: '100%',
           mt: { xs: 8, md: 12 },
           mb: 0,
-          clipPath: 'polygon(0 0, 100% 6vw, 100% 100%, 0% 100%)',
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'flex-end',
         }}
       >
-        {/* Video background */}
+        {/* Image background for Jaco section */}
         <Box sx={{
           position: 'absolute',
           top: '-100%',
@@ -548,23 +559,20 @@ const HomePage: React.FC = () => {
           transform: `translateY(${offsetY * 0.2}px)`, // Parallax effect - REDUCED FACTOR
           willChange: 'transform',
         }}>
-          <video
-            poster="outsideshot.jpeg"
-            autoPlay
-            loop
-            muted
-            playsInline
+          <motion.img
+            src="jaco_beach.jpg"
+            alt="Jaco Beach"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1.2 }}
             style={{
               width: '100%',
               height: '100%',
               objectFit: 'cover',
               display: 'block',
             }}
-          >
-            <source src="google_earth_1.webm" type="video/webm" />
-            <source src="google_earth_pressed.mp4" type="video/mp4" />
-          </video>
-           {/* Overlay for readability */}
+          />
+          {/* Overlay for readability */}
           <Box sx={{
             position: 'absolute',
             inset: 0,
@@ -579,10 +587,35 @@ const HomePage: React.FC = () => {
           <Typography variant="h4" fontWeight={700} color="#FFFFFF" align="center" mb={2}>
             Prime Location in Jaco
           </Typography>
-          <Typography color="#f6faff" align="center" mb={6}>
-            Experience the best of Jaco with our condo's convenient location.
-          </Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 4 }}>
+          <Box display="flex" justifyContent="center" mb={6}>
+            <Button
+              component={RouterLink}
+              to="/jaco"
+              variant="contained"
+              size="large"
+              sx={{
+                fontWeight: 500,
+                fontSize: 18,
+                px: 6,
+                py: 2,
+                borderRadius: BUTTON_BORDER_RADIUS,
+                background: 'rgba(255,255,255,0.85)',
+                color: '#222',
+                boxShadow: '0 2px 12px #0001',
+                letterSpacing: 1,
+                textTransform: 'uppercase',
+                transition: 'background 0.2s, color 0.2s',
+                transform: 'scale(0.9)',
+                '&:hover': {
+                  background: 'rgba(230,230,230,0.95)',
+                  color: '#111',
+                },
+              }}
+            >
+              Explore Jaco
+            </Button>
+          </Box>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 4, textAlign: { xs: 'center', sm: 'left' } }}>
             {locations.map((l, i) => (
               <motion.div
                 key={i}
@@ -594,11 +627,28 @@ const HomePage: React.FC = () => {
                 animate={controls}
                 style={{ flex: '1 1 300px', maxWidth: 370, minWidth: 260, margin: '0 12px', height: '100%' }}
               >
-                <Card elevation={0} sx={{ borderRadius: 4, boxShadow: 3, border: '1px solid #e3eaf1', transition: 'box-shadow 0.3s', '&:hover': { boxShadow: 8 }, bgcolor: 'rgba(255,255,255,0.92)', height: '100%' }}>
+                <Card
+                  elevation={0}
+                  sx={{
+                    borderRadius: 4,
+                    boxShadow: 3,
+                    border: '1px solid #e3eaf1',
+                    transition: 'box-shadow 0.3s',
+                    '&:hover': { boxShadow: 8 },
+                    bgcolor: 'rgba(255,255,255,0.75)',
+                    height: '100%',
+                    maxWidth: { xs: 260, sm: 370 },
+                    minWidth: { xs: 300, sm: 260 },
+                    maxHeight: { xs: 240, sm: 300 },
+                    px: { xs: 1, sm: 2 },
+                    py: { xs: 0, sm: 2 },
+                    mx: { xs: 'auto', sm: 0 },
+                  }}
+                >
                   <CardMedia
                     component="div"
                     sx={{
-                      height: 140,
+                      height: 90,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
