@@ -294,7 +294,7 @@ const HomePage: React.FC = () => {
           Enjoy a full suite of amenities for a comfortable, luxurious stay.
         </Typography>
         {/* Split amenities into two rows */}
-        <Box sx={{ display: { xs: 'block', md: 'flex' }, flexDirection: 'column', gap: 4 }}>
+        <Box sx={{ display: { xs: 'flex', md: 'flex' }, flexDirection: 'column', gap: 4 }}>
           {/* Top row: Splide carousel with autoplay swipes */}
           <Box sx={{ width: '100%', overflow: 'visible', mb: 3, py: 5, position: 'relative' }}>
             <Splide

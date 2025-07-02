@@ -341,4 +341,9 @@
     }
 
     /* --- OVERRIDE: Allow amenities cards to expand outside Splide carousel --- */
-    .splide__track { overflow: visible !important; } 
+    .splide__track { overflow: visible !important; }
+
+    /* Prevent horizontal scroll caused by expanding Splide slides */
+    html, body {
+      overflow-x: hidden;
+    } 
