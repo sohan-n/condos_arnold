@@ -143,9 +143,6 @@ const HomePage: React.FC = () => {
     },
   ];
 
-  // --- Robust Infinite Carousel for Amenities Rows ---
-  const cardWidth = 320 + 24; // card width + gap
-  const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
 
   return (
     <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
