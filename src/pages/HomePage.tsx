@@ -8,6 +8,7 @@ import AcUnitIcon from '@mui/icons-material/AcUnit';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import WifiIcon from '@mui/icons-material/Wifi';
 import KitchenIcon from '@mui/icons-material/Kitchen';
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import DeckIcon from '@mui/icons-material/Deck';
 import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
@@ -125,9 +126,15 @@ const HomePage: React.FC = () => {
       icon: <WifiIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Wifi', details: ['Free high-speed Internet', 'WiFi throughout the condo'],
     },
     {
-      icon: <KitchenIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Kitchen & Dining', collapsible: true, key: 'kitchen',
+      icon: <KitchenIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Kitchen', collapsible: true, key: 'kitchen',
       details: [
-        'Kitchen (space to cook your own meals)', 'Refrigerator, Freezer', 'Microwave', 'Cooking basics (pots, pans, oil, salt, pepper)', 'Dishes & silverware (bowls, chopsticks, plates, cups, etc.)', 'Dishwasher', 'Stainless steel electric stove & oven', 'Coffee maker, Toaster, Blender', 'Wine glasses', 'Dining table',
+        'Kitchen (space to cook your own meals)', 'Refrigerator, Freezer', 'Microwave', 'Cooking basics (pots, pans, oil, salt, pepper)', 'Dishwasher', 'Stainless steel electric stove & oven', 'Coffee maker, Toaster, Blender',
+      ],
+    },
+    {
+      icon: <RestaurantMenuIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Dining', collapsible: true, key: 'dining',
+      details: [
+        'Dining table', 'Wine glasses', 'Dishes & silverware (bowls, plates, cups, etc.)',
       ],
     },
     {
@@ -309,6 +316,7 @@ const HomePage: React.FC = () => {
                 autoplay: true,
                 interval: 2400,
                 speed: 600,
+                updateOnMove: true,
                 focus: 'center',
               }}
               style={{ width: '100%' }}
@@ -316,6 +324,7 @@ const HomePage: React.FC = () => {
               {amenitiesTop.map((item, i) => (
                 <SplideSlide key={item.title + i} style={{ overflow: 'visible' }}>
                   <Card
+                    className="amenity-card"
                     sx={{
                       borderRadius: 2,
                       boxShadow: item.details
@@ -378,6 +387,7 @@ const HomePage: React.FC = () => {
                 autoplay: true,
                 interval: 1800,
                 speed: 600,
+                updateOnMove: true,
                 focus: 'center',
               }}
               style={{ width: '100%' }}
@@ -385,6 +395,7 @@ const HomePage: React.FC = () => {
               {amenitiesBottom.map((item, i) => (
                 <SplideSlide key={item.title + i} style={{ overflow: 'visible' }}>
                   <Card
+                    className="amenity-card"
                     sx={{
                       borderRadius: 2,
                       boxShadow: item.details

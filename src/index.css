@@ -180,6 +180,12 @@
       .lux-gallery { height: 60px; min-height: 60px; border-radius: 16px 16px 0 0; padding: 0 1vw; }
       .lux-gallery.expanded { height: 120px; max-height: 180px; border-radius: 24px 24px 0 0; }
       .gallery-img { width: 120px; height: 100%; border-radius: 8px; }
+      .splide__slide.is-active .amenity-card {
+        transform: scale(1.04) rotateY(8deg);
+        max-height: 400px;
+        box-shadow: 0 0 0 2.5px #1993e5cc, 0 16px 48px 0 rgba(25, 147, 229, 0.18), 0 4px 24px 0 rgba(30, 41, 59, 0.13);
+        transition: box-shadow 0.3s, transform 0.3s, max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
     }
     @keyframes barGrow {
       from { width: 0; opacity: 0; }
