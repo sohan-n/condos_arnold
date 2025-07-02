@@ -18,7 +18,7 @@
       --lux-shadow: 0 8px 32px 0 #0002, 0 2px 24px #a67c5211;
       --gallery-proximity: 0;
     }
-    @font-face {
+    @font-face { 
       font-family: 'GT Super';
       src: url('https://fonts.cdnfonts.com/s/17309/GT-Super-Display-Regular.woff') format('woff');
       font-weight: 400;
