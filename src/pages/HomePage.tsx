@@ -17,8 +17,6 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ModernCarousel from '../components/ModernCarousel';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { animated } from '@react-spring/web';
-import { useDrag } from '@use-gesture/react';
 import { keyframes } from '@emotion/react';
 // @ts-ignore
 import { Splide, SplideSlide } from '@splidejs/react-splide';
@@ -68,14 +66,6 @@ const dropAnimation = keyframes`
     opacity: 0;
   }
 `;
-
-// Loop offsets (for seamless wrap)
-const loopOffset = (offset: number, rowWidth: number) => {
-  if (rowWidth === 0) return 0;
-  let x = offset % rowWidth;
-  if (x > 0) x -= rowWidth;
-  return x;
-};
 
 const HomePage: React.FC = () => {
   const [offsetY, setOffsetY] = useState(0);
@@ -157,92 +147,6 @@ const HomePage: React.FC = () => {
   const cardWidth = 320 + 24; // card width + gap
   const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
   const windowSize = Math.ceil(viewportWidth / cardWidth) + 6; // buffer of 3 on each side
-
-  // Top row state
-  const [topCards, setTopCards] = useState(() => {
-    let arr = [];
-    for (let i = 0; i < windowSize; i++) arr.push(amenitiesTop[i % amenitiesTop.length]);
-    return arr;
-  });
-  const [offsetTop, setOffsetTop] = useState(0);
-  const [isDraggingTop, setIsDraggingTop] = useState(false);
-  const [dragOffsetTop, setDragOffsetTop] = useState(0);
-
-  // Bottom row state
-  const [bottomCards, setBottomCards] = useState(() => {
-    let arr = [];
-    for (let i = 0; i < windowSize; i++) arr.push(amenitiesBottom[i % amenitiesBottom.length]);
-    return arr;
-  });
-  const [offsetBottom, setOffsetBottom] = useState(0);
-  const [isDraggingBottom, setIsDraggingBottom] = useState(false);
-  const [dragOffsetBottom, setDragOffsetBottom] = useState(0);
-
-  // Top row autoscroll
-  useEffect(() => {
-    if (isDraggingTop) return;
-    let raf: number;
-    const step = () => {
-      setOffsetTop(prev => {
-        let next = prev - 0.5;
-        if (next <= -cardWidth) {
-          setTopCards(cards => [...cards.slice(1), cards[0]]);
-          return next + cardWidth;
-        }
-        if (next >= cardWidth) {
-          setTopCards(cards => [cards[cards.length - 1], ...cards.slice(0, -1)]);
-          return next - cardWidth;
-        }
-        return next;
-      });
-      raf = requestAnimationFrame(step);
-    };
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, [isDraggingTop, cardWidth]);
-
-  // Bottom row autoscroll (slightly faster)
-  useEffect(() => {
-    if (isDraggingBottom) return;
-    let raf: number;
-    const step = () => {
-      setOffsetBottom(prev => {
-        let next = prev - 0.7;
-        if (next <= -cardWidth) {
-          setBottomCards(cards => [...cards.slice(1), cards[0]]);
-          return next + cardWidth;
-        }
-        if (next >= cardWidth) {
-          setBottomCards(cards => [cards[cards.length - 1], ...cards.slice(0, -1)]);
-          return next - cardWidth;
-        }
-        return next;
-      });
-      raf = requestAnimationFrame(step);
-    };
-    raf = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(raf);
-  }, [isDraggingBottom, cardWidth]);
-
-  // Top row drag
-  const bindTop = useDrag(({ down, movement: [mx] }) => {
-    setIsDraggingTop(down);
-    setDragOffsetTop(down ? mx : 0);
-    if (!down && isDraggingTop) {
-      setOffsetTop(prev => prev + mx);
-      setDragOffsetTop(0);
-    }
-  }, { axis: 'x', filterTaps: true, pointer: { touch: true } });
-
-  // Bottom row drag
-  const bindBottom = useDrag(({ down, movement: [mx] }) => {
-    setIsDraggingBottom(down);
-    setDragOffsetBottom(down ? mx : 0);
-    if (!down && isDraggingBottom) {
-      setOffsetBottom(prev => prev + mx);
-      setDragOffsetBottom(0);
-    }
-  }, { axis: 'x', filterTaps: true, pointer: { touch: true } });
 
   return (
     <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
