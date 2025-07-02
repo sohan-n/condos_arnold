@@ -338,4 +338,7 @@
         opacity: 1;
         transform: translateY(0);
       }
-    } 
+    }
+
+    /* --- OVERRIDE: Allow amenities cards to expand outside Splide carousel --- */
+    .splide__track { overflow: visible !important; } 

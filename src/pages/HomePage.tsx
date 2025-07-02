@@ -20,6 +20,9 @@ import { useInView } from 'react-intersection-observer';
 import { animated } from '@react-spring/web';
 import { useDrag } from '@use-gesture/react';
 import { keyframes } from '@emotion/react';
+// @ts-ignore
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/splide/dist/css/splide.min.css';
 
 // Controls the border radius for main call-to-action buttons
 const BUTTON_BORDER_RADIUS = .5;
@@ -97,155 +100,149 @@ const HomePage: React.FC = () => {
   // Split amenities into two groups for top and bottom row
   const amenitiesTop = [
     {
-      icon: <BeachAccessIcon sx={{ fontSize: 32, color: '#1993e5', mr: 1 }} />, title: 'Scenic Views', desc: 'Beach view',
+      icon: <BeachAccessIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Scenic Views', details: ['Panoramic ocean views from balcony and living room.'],
     },
     {
-      icon: <BathtubIcon sx={{ fontSize: 32, color: '#1993e5', mr: 1 }} />, title: 'Bathroom', collapsible: true, key: 'bathroom',
+      icon: <BathtubIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Bathroom', collapsible: true, key: 'bathroom',
       details: [
         'Hair dryer', 'Cleaning products', 'Shampoo', 'Conditioner', 'Body soap', 'Hot water',
       ],
     },
     {
-      icon: <KingBedIcon sx={{ fontSize: 32, color: '#1993e5', mr: 1 }} />, title: 'Bedroom', collapsible: true, key: 'bedroom',
+      icon: <KingBedIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Bedroom', collapsible: true, key: 'bedroom',
       details: [
         'Essentials (towels, bed sheets, soap, toilet paper)', 'Hangers', 'Bed linens', 'Room-darkening shades', 'Iron', 'Safe', 'Clothing storage: walk-in closet & wardrobe',
       ],
     },
     {
-      icon: <LocalLaundryServiceIcon sx={{ fontSize: 32, color: '#1993e5', mr: 1 }} />, title: 'Laundry', collapsible: true, key: 'laundry',
+      icon: <LocalLaundryServiceIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Laundry', collapsible: true, key: 'laundry',
       details: ['Free washer – In unit', 'Free dryer – In unit'],
     },
     {
-      icon: <TvIcon sx={{ fontSize: 32, color: '#1993e5', mr: 1 }} />, title: 'Entertainment', desc: 'HDTV with standard cable',
+      icon: <TvIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Entertainment', details: ['HDTV with standard cable', 'Streaming apps available'],
     },
     {
-      icon: <AcUnitIcon sx={{ fontSize: 32, color: '#1993e5', mr: 1 }} />, title: 'Heating & Cooling',
+      icon: <AcUnitIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Heating & Cooling',
       details: ['AC - split type ductless system', 'Ceiling fan'],
     },
   ];
   const amenitiesBottom = [
     {
-      icon: <VerifiedUserIcon sx={{ fontSize: 32, color: '#1993e5', mr: 1 }} />, title: 'Home Safety', collapsible: true, key: 'safety',
+      icon: <VerifiedUserIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Home Safety', collapsible: true, key: 'safety',
       details: ['Smoke alarm', 'Carbon monoxide alarm', 'Fire extinguisher', 'First aid kit'],
     },
     {
-      icon: <WifiIcon sx={{ fontSize: 32, color: '#1993e5', mr: 1 }} />, title: 'Wifi', desc: 'Free Internet',
+      icon: <WifiIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Wifi', details: ['Free high-speed Internet', 'WiFi throughout the condo'],
     },
     {
-      icon: <KitchenIcon sx={{ fontSize: 32, color: '#1993e5', mr: 1 }} />, title: 'Kitchen & Dining', collapsible: true, key: 'kitchen',
+      icon: <KitchenIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Kitchen & Dining', collapsible: true, key: 'kitchen',
       details: [
         'Kitchen (space to cook your own meals)', 'Refrigerator, Freezer', 'Microwave', 'Cooking basics (pots, pans, oil, salt, pepper)', 'Dishes & silverware (bowls, chopsticks, plates, cups, etc.)', 'Dishwasher', 'Stainless steel electric stove & oven', 'Coffee maker, Toaster, Blender', 'Wine glasses', 'Dining table',
       ],
     },
     {
-      icon: <DeckIcon sx={{ fontSize: 32, color: '#1993e5', mr: 1 }} />, title: 'Outdoor', collapsible: true, key: 'outdoor',
+      icon: <DeckIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Outdoor', collapsible: true, key: 'outdoor',
       details: ['Patio or balcony', 'Backyard (not fully fenced, open grassy area)', 'Outdoor furniture'],
     },
     {
-      icon: <LocalParkingIcon sx={{ fontSize: 32, color: '#1993e5', mr: 1 }} />, title: 'Parking & Facilities', collapsible: true, key: 'parking',
+      icon: <LocalParkingIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Parking & Facilities', collapsible: true, key: 'parking',
       details: ['Free residential garage on premises – 2 spaces', 'Shared pool', 'Elevator (at least 52" deep, 32" wide doorway)'],
     },
     {
-      icon: <VpnKeyIcon sx={{ fontSize: 32, color: '#1993e5', mr: 1 }} />, title: 'Services', details: ['Self check-in (keypad)'],
+      icon: <VpnKeyIcon sx={{ fontSize: 48, color: '#111' }} />, title: 'Services', details: ['Self check-in (keypad)'],
     },
   ];
 
-  // JS-based autoscroll + drag for amenities rows
-  const [baseOffsetTop, setBaseOffsetTop] = useState(0);
-  const [dragOffsetTop, setDragOffsetTop] = useState(0);
-  const [isDraggingTop, setIsDraggingTop] = useState(false);
-  const [baseOffsetBottom, setBaseOffsetBottom] = useState(0);
-  const [dragOffsetBottom, setDragOffsetBottom] = useState(0);
-  const [isDraggingBottom, setIsDraggingBottom] = useState(false);
+  // --- Robust Infinite Carousel for Amenities Rows ---
+  const cardWidth = 320 + 24; // card width + gap
+  const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
+  const windowSize = Math.ceil(viewportWidth / cardWidth) + 6; // buffer of 3 on each side
 
-  // Autoscroll for top row
+  // Top row state
+  const [topCards, setTopCards] = useState(() => {
+    let arr = [];
+    for (let i = 0; i < windowSize; i++) arr.push(amenitiesTop[i % amenitiesTop.length]);
+    return arr;
+  });
+  const [offsetTop, setOffsetTop] = useState(0);
+  const [isDraggingTop, setIsDraggingTop] = useState(false);
+  const [dragOffsetTop, setDragOffsetTop] = useState(0);
+
+  // Bottom row state
+  const [bottomCards, setBottomCards] = useState(() => {
+    let arr = [];
+    for (let i = 0; i < windowSize; i++) arr.push(amenitiesBottom[i % amenitiesBottom.length]);
+    return arr;
+  });
+  const [offsetBottom, setOffsetBottom] = useState(0);
+  const [isDraggingBottom, setIsDraggingBottom] = useState(false);
+  const [dragOffsetBottom, setDragOffsetBottom] = useState(0);
+
+  // Top row autoscroll
   useEffect(() => {
     if (isDraggingTop) return;
     let raf: number;
     const step = () => {
-      setBaseOffsetTop((prev) => prev - 0.5); // adjust speed as needed
+      setOffsetTop(prev => {
+        let next = prev - 0.5;
+        if (next <= -cardWidth) {
+          setTopCards(cards => [...cards.slice(1), cards[0]]);
+          return next + cardWidth;
+        }
+        if (next >= cardWidth) {
+          setTopCards(cards => [cards[cards.length - 1], ...cards.slice(0, -1)]);
+          return next - cardWidth;
+        }
+        return next;
+      });
       raf = requestAnimationFrame(step);
     };
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, [isDraggingTop]);
+  }, [isDraggingTop, cardWidth]);
 
-  // Autoscroll for bottom row (faster)
+  // Bottom row autoscroll (slightly faster)
   useEffect(() => {
     if (isDraggingBottom) return;
     let raf: number;
     const step = () => {
-      setBaseOffsetBottom((prev) => prev - 0.75); // 1.5x faster
+      setOffsetBottom(prev => {
+        let next = prev - 0.7;
+        if (next <= -cardWidth) {
+          setBottomCards(cards => [...cards.slice(1), cards[0]]);
+          return next + cardWidth;
+        }
+        if (next >= cardWidth) {
+          setBottomCards(cards => [cards[cards.length - 1], ...cards.slice(0, -1)]);
+          return next - cardWidth;
+        }
+        return next;
+      });
       raf = requestAnimationFrame(step);
     };
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
-  }, [isDraggingBottom]);
+  }, [isDraggingBottom, cardWidth]);
 
-  // Drag logic for top row
-  const dragStartTop = React.useRef(0);
+  // Top row drag
   const bindTop = useDrag(({ down, movement: [mx] }) => {
-    if (down && !isDraggingTop) {
-      dragStartTop.current = baseOffsetTop;
-    }
     setIsDraggingTop(down);
     setDragOffsetTop(down ? mx : 0);
     if (!down && isDraggingTop) {
-      setBaseOffsetTop((prev) => prev + mx);
+      setOffsetTop(prev => prev + mx);
       setDragOffsetTop(0);
     }
   }, { axis: 'x', filterTaps: true, pointer: { touch: true } });
 
-  // Drag logic for bottom row
-  const dragStartBottom = React.useRef(0);
+  // Bottom row drag
   const bindBottom = useDrag(({ down, movement: [mx] }) => {
-    if (down && !isDraggingBottom) {
-      dragStartBottom.current = baseOffsetBottom;
-    }
     setIsDraggingBottom(down);
     setDragOffsetBottom(down ? mx : 0);
     if (!down && isDraggingBottom) {
-      setBaseOffsetBottom((prev) => prev + mx);
+      setOffsetBottom(prev => prev + mx);
       setDragOffsetBottom(0);
     }
   }, { axis: 'x', filterTaps: true, pointer: { touch: true } });
-
-  // Calculate total width for seamless loop
-  const cardWidth = 320 + 24; // card width + gap
-  const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1200;
-  // Repeat enough cards to fill at least 10x the viewport width
-  const minCards = Math.ceil((viewportWidth * 10) / cardWidth);
-  const repeatTop = Math.ceil(minCards / amenitiesTop.length);
-  const repeatBottom = Math.ceil(minCards / amenitiesBottom.length);
-  const topCards = Array.from({ length: repeatTop }).flatMap(() => amenitiesTop);
-  const bottomCards = Array.from({ length: repeatBottom }).flatMap(() => amenitiesBottom).reverse();
-  const topRowWidth = topCards.length * cardWidth;
-  const bottomRowWidth = bottomCards.length * cardWidth;
-
-  // On mount, set initial offset to the middle of the repeated array
-  useEffect(() => {
-    setBaseOffsetTop(-Math.floor(topRowWidth / 2));
-  }, [topRowWidth]);
-  useEffect(() => {
-    setBaseOffsetBottom(-Math.floor(bottomRowWidth / 2));
-  }, [bottomRowWidth]);
-
-  // Recenter logic for seamless infinite scroll
-  const RECENTER_THRESHOLD = cardWidth * amenitiesTop.length * 2; // 2 full cycles from center
-  useEffect(() => {
-    if (topRowWidth === 0) return;
-    const center = -Math.floor(topRowWidth / 2);
-    if (baseOffsetTop < center - RECENTER_THRESHOLD || baseOffsetTop > center + RECENTER_THRESHOLD) {
-      setBaseOffsetTop((prev) => prev - (baseOffsetTop - center));
-    }
-  }, [baseOffsetTop, topRowWidth]);
-  useEffect(() => {
-    if (bottomRowWidth === 0) return;
-    const center = -Math.floor(bottomRowWidth / 2);
-    if (baseOffsetBottom < center - RECENTER_THRESHOLD || baseOffsetBottom > center + RECENTER_THRESHOLD) {
-      setBaseOffsetBottom((prev) => prev - (baseOffsetBottom - center));
-    }
-  }, [baseOffsetBottom, bottomRowWidth]);
 
   return (
     <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
@@ -398,36 +395,35 @@ const HomePage: React.FC = () => {
         </Typography>
         {/* Split amenities into two rows */}
         <Box sx={{ display: { xs: 'block', md: 'flex' }, flexDirection: 'column', gap: 4 }}>
-          {/* Top row: left-to-right infinite scroll, draggable */}
-          <Box
-            sx={{
-              width: '100%',
-              overflow: 'hidden',
-              mb: 3,
-              py: 5,
-              position: 'relative',
-              cursor: isDraggingTop ? 'grabbing' : 'grab',
-            }}
-            {...bindTop()}
-          >
-            <animated.div style={{ transform: `translateX(${loopOffset(baseOffsetTop + dragOffsetTop, topRowWidth)}px)` }}>
-              <div
-                style={{
-                  display: 'flex',
-                  gap: 24,
-                  width: 'max-content',
-                  overflowY: 'visible',
-                }}
-              >
-                {topCards.map((item, idx) => (
+          {/* Top row: Splide carousel with autoplay swipes */}
+          <Box sx={{ width: '100%', overflow: 'visible', mb: 3, py: 5, position: 'relative' }}>
+            <Splide
+              options={{
+                type: 'loop',
+                fixedWidth: 320,
+                perMove: 1,
+                gap: 24,
+                arrows: false,
+                pagination: false,
+                drag: true,
+                autoplay: true,
+                interval: 2400,
+                speed: 600,
+                focus: 'center',
+              }}
+              style={{ width: '100%' }}
+            >
+              {amenitiesTop.map((item, i) => (
+                <SplideSlide key={item.title + i} style={{ overflow: 'visible' }}>
                   <Card
-                    key={item.title + idx}
                     sx={{
                       borderRadius: 2,
-                      boxShadow: '0 8px 32px 0 rgba(25, 147, 229, 0.12), 0 1.5px 8px 0 rgba(30, 41, 59, 0.10)',
+                      boxShadow: item.details
+                        ? '0 0 0 2px #1993e533, 0 8px 32px 0 rgba(25, 147, 229, 0.10)'
+                        : '0 8px 32px 0 rgba(25, 147, 229, 0.12), 0 1.5px 8px 0 rgba(30, 41, 59, 0.10)',
                       p: 2,
                       minHeight: 120,
-                      maxHeight: item.details ? 180 : 180,
+                      maxHeight: item.details ? 130 : 130,
                       transition: 'box-shadow 0.3s, transform 0.3s, max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
                       overflow: 'hidden',
                       display: 'flex',
@@ -436,66 +432,67 @@ const HomePage: React.FC = () => {
                       background: 'linear-gradient(135deg, #fff 70%, #eaf2fb 100%)',
                       perspective: 800,
                       willChange: 'transform',
-                      '&:hover': {
-                        boxShadow: '0 16px 48px 0 rgba(25, 147, 229, 0.18), 0 4px 24px 0 rgba(30, 41, 59, 0.13)',
-                        transform: 'translateY(-8px) scale(1.04) rotateY(8deg)',
-                        maxHeight: item.details ? 400 : 180,
-                      },
+                      transformOrigin: 'bottom center',
+                      '&:hover': item.details
+                        ? {
+                            boxShadow: '0 0 0 2.5px #1993e5cc, 0 16px 48px 0 rgba(25, 147, 229, 0.18), 0 4px 24px 0 rgba(30, 41, 59, 0.13)',
+                            transform: 'scale(1.04) rotateY(8deg)',
+                            maxHeight: 400,
+                          }
+                        : {
+                            boxShadow: '0 16px 48px 0 rgba(25, 147, 229, 0.18), 0 4px 24px 0 rgba(30, 41, 59, 0.13)',
+                            transform: 'scale(1.04) rotateY(8deg)',
+                            maxHeight: 130,
+                          },
+                      maxWidth: 320,
+                      width: '100%',
                     }}
                   >
-                    <Box display="flex" alignItems="center" mb={1}>
-                      {item.icon}
+                    <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between" mb={1}>
                       <Typography variant="h6" fontWeight={700}>{item.title}</Typography>
-                    </Box>
-                    {item.details ? (
-                      <Box
-                        sx={{
-                          maxHeight: 400,
-                          overflow: 'hidden',
-                        }}
-                      >
-                        <ul style={{ paddingLeft: 20, margin: 0, color: '#637988', fontSize: 15 }}>
-                          {item.details.map((d: string, i: number) => <li key={i}>{d}</li>)}
-                        </ul>
+                      <Box display="flex" alignItems="center" justifyContent="center" height="100%" ml={2}>
+                        {item.icon}
                       </Box>
-                    ) : (
-                      <Typography color="text.secondary">{item.desc}</Typography>
-                    )}
+                    </Box>
+                    <Box sx={{ maxHeight: 400, overflow: 'hidden' }}>
+                      <ul style={{ paddingLeft: 20, margin: 0, color: '#637988', fontSize: 15 }}>
+                        {item.details.map((d: string, i: number) => <li key={i}>{d}</li>)}
+                      </ul>
+                    </Box>
                   </Card>
-                ))}
-              </div>
-            </animated.div>
+                </SplideSlide>
+              ))}
+            </Splide>
           </Box>
-          {/* Bottom row: right-to-left infinite scroll, draggable, faster */}
-          <Box
-            sx={{
-              width: '100%',
-              overflow: 'hidden',
-              py: 5,
-              position: 'relative',
-              cursor: isDraggingBottom ? 'grabbing' : 'grab',
-              mt: -11 ,
-            }}
-            {...bindBottom()}
-          >
-            <animated.div style={{ transform: `translateX(${loopOffset(baseOffsetBottom + dragOffsetBottom, bottomRowWidth)}px)` }}>
-              <div
-                style={{
-                  display: 'flex',
-                  gap: 24,
-                  width: 'max-content',
-                  overflowY: 'visible',
-                }}
-              >
-                {bottomCards.map((item, idx) => (
+          {/* Bottom row: Splide carousel with faster autoplay swipes */}
+          <Box sx={{ width: '100%', overflow: 'visible', py: 5, position: 'relative', mt: -11 }}>
+            <Splide
+              options={{
+                type: 'loop',
+                fixedWidth: 320,
+                perMove: 1,
+                gap: 24,
+                arrows: false,
+                pagination: false,
+                drag: true,
+                autoplay: true,
+                interval: 1800,
+                speed: 600,
+                focus: 'center',
+              }}
+              style={{ width: '100%' }}
+            >
+              {amenitiesBottom.map((item, i) => (
+                <SplideSlide key={item.title + i} style={{ overflow: 'visible' }}>
                   <Card
-                    key={item.title + idx}
                     sx={{
                       borderRadius: 2,
-                      boxShadow: '0 8px 32px 0 rgba(25, 147, 229, 0.12), 0 1.5px 8px 0 rgba(30, 41, 59, 0.10)',
+                      boxShadow: item.details
+                        ? '0 0 0 2px #1993e533, 0 8px 32px 0 rgba(25, 147, 229, 0.10)'
+                        : '0 8px 32px 0 rgba(25, 147, 229, 0.12), 0 1.5px 8px 0 rgba(30, 41, 59, 0.10)',
                       p: 2,
                       minHeight: 120,
-                      maxHeight: item.details ? 180 : 180,
+                      maxHeight: item.details ? 130 : 130,
                       transition: 'box-shadow 0.3s, transform 0.3s, max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
                       overflow: 'hidden',
                       display: 'flex',
@@ -504,35 +501,37 @@ const HomePage: React.FC = () => {
                       background: 'linear-gradient(135deg, #fff 70%, #eaf2fb 100%)',
                       perspective: 800,
                       willChange: 'transform',
-                      '&:hover': {
-                        boxShadow: '0 16px 48px 0 rgba(25, 147, 229, 0.18), 0 4px 24px 0 rgba(30, 41, 59, 0.13)',
-                        transform: 'translateY(-8px) scale(1.04) rotateY(-8deg)',
-                        maxHeight: item.details ? 400 : 180,
-                      },
+                      transformOrigin: 'bottom center',
+                      '&:hover': item.details
+                        ? {
+                            boxShadow: '0 0 0 2.5px #1993e5cc, 0 16px 48px 0 rgba(25, 147, 229, 0.18), 0 4px 24px 0 rgba(30, 41, 59, 0.13)',
+                            transform: 'scale(1.04) rotateY(8deg)',
+                            maxHeight: 400,
+                          }
+                        : {
+                            boxShadow: '0 16px 48px 0 rgba(25, 147, 229, 0.18), 0 4px 24px 0 rgba(30, 41, 59, 0.13)',
+                            transform: 'scale(1.04) rotateY(8deg)',
+                            maxHeight: 130,
+                          },
+                      maxWidth: 320,
+                      width: '100%',
                     }}
                   >
-                    <Box display="flex" alignItems="center" mb={1}>
-                      {item.icon}
+                    <Box display="flex" flexDirection="row" alignItems="center" justifyContent="space-between" mb={1}>
                       <Typography variant="h6" fontWeight={700}>{item.title}</Typography>
-                    </Box>
-                    {item.details ? (
-                      <Box
-                        sx={{
-                          maxHeight: 400,
-                          overflow: 'hidden',
-                        }}
-                      >
-                        <ul style={{ paddingLeft: 20, margin: 0, color: '#637988', fontSize: 15 }}>
-                          {item.details.map((d: string, i: number) => <li key={i}>{d}</li>)}
-                        </ul>
+                      <Box display="flex" alignItems="center" justifyContent="center" height="100%" ml={2}>
+                        {item.icon}
                       </Box>
-                    ) : (
-                      <Typography color="text.secondary">{item.desc}</Typography>
-                    )}
+                    </Box>
+                    <Box sx={{ maxHeight: 400, overflow: 'hidden' }}>
+                      <ul style={{ paddingLeft: 20, margin: 0, color: '#637988', fontSize: 15 }}>
+                        {item.details.map((d: string, i: number) => <li key={i}>{d}</li>)}
+                      </ul>
+                    </Box>
                   </Card>
-                ))}
-              </div>
-            </animated.div>
+                </SplideSlide>
+              ))}
+            </Splide>
           </Box>
         </Box>
       </Container>
