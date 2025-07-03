@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Box, Typography, Button, Card, CardContent, CardMedia, Container } from '@mui/material';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import BathtubIcon from '@mui/icons-material/Bathtub';
@@ -20,7 +20,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { keyframes } from '@emotion/react';
 // @ts-ignore
-import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { Splide, SplideSlide, Splide as SplideComponent } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/splide.min.css';
 
 // Controls the border radius for main call-to-action buttons
@@ -88,6 +88,10 @@ const HomePage: React.FC = () => {
     }
   }, [controls, inView]);
 
+  // Intersection observer for amenities carousels
+  const [topRef, topInView] = useInView({ threshold: 0.6 });
+  const [bottomRef, bottomInView] = useInView({ threshold: 0.6 });
+
   // Split amenities into two groups for top and bottom row
   const amenitiesTop = [
     {
@@ -150,6 +154,31 @@ const HomePage: React.FC = () => {
     },
   ];
 
+  const topSplideRef = useRef<any>(null);
+  const bottomSplideRef = useRef<any>(null);
+
+  // Pause/resume Splide autoplay based on inView
+  React.useEffect(() => {
+    const inst = topSplideRef.current?.splide;
+    if (inst && inst.Components?.Autoplay) {
+      if (topInView) {
+        inst.Components.Autoplay.play();
+      } else {
+        inst.Components.Autoplay.pause();
+      }
+    }
+  }, [topInView]);
+
+  React.useEffect(() => {
+    const inst = bottomSplideRef.current?.splide;
+    if (inst && inst.Components?.Autoplay) {
+      if (bottomInView) {
+        inst.Components.Autoplay.play();
+      } else {
+        inst.Components.Autoplay.pause();
+      }
+    }
+  }, [bottomInView]);
 
   return (
     <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
@@ -251,7 +280,7 @@ const HomePage: React.FC = () => {
       </Box>
 
       {/* Features Section - Modern Carousel */}
-      <Container maxWidth="lg" sx={{ py: { xs: 8, md: 12 } }}>
+      <Container maxWidth="lg" sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 4, md: 6 } }}>
         <Typography variant="h4" fontWeight={700} color="black" align="center" mb={2}>
           Experience Paradise
         </Typography>
@@ -289,11 +318,12 @@ const HomePage: React.FC = () => {
             'slideshow/slide_slide6.jpeg',
           ]}
           autoplayInterval={4000}
+          height={600}
         />
       </Container>
 
       {/* Amenities Section - 2 rows, auto-scrolling, cards from both sides */}
-      <Container maxWidth="lg" sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 2, md: 3 } }}>
+      <Container maxWidth="lg" sx={{ pt: { xs: 4, md: 6 }, pb: { xs: 2, md: 3 } }}>
         <Typography variant="h4" fontWeight={700} color="text.primary" align="center" mb={2}>
           Amenities
         </Typography>
@@ -303,8 +333,9 @@ const HomePage: React.FC = () => {
         {/* Split amenities into two rows */}
         <Box sx={{ display: { xs: 'flex', md: 'flex' }, flexDirection: 'column', gap: 4 }}>
           {/* Top row: Splide carousel with autoplay swipes */}
-          <Box sx={{ width: '100%', overflow: 'visible', mb: 3, py: 5, position: 'relative' }}>
+          <Box ref={topRef} sx={{ width: '100%', overflow: 'visible', mb: 3, py: 5, position: 'relative' }}>
             <Splide
+              ref={topSplideRef}
               options={{
                 type: 'loop',
                 fixedWidth: 320,
@@ -314,7 +345,7 @@ const HomePage: React.FC = () => {
                 pagination: false,
                 drag: true,
                 autoplay: true,
-                interval: 2400,
+                interval: 4200,
                 speed: 600,
                 updateOnMove: true,
                 focus: 'center',
@@ -374,8 +405,9 @@ const HomePage: React.FC = () => {
             </Splide>
           </Box>
           {/* Bottom row: Splide carousel with faster autoplay swipes */}
-          <Box sx={{ width: '100%', overflow: 'visible', py: 5, position: 'relative', mt: -11 }}>
+          <Box ref={bottomRef} sx={{ width: '100%', overflow: 'visible', py: 5, position: 'relative', mt: -11 }}>
             <Splide
+              ref={bottomSplideRef}
               options={{
                 type: 'loop',
                 fixedWidth: 320,
@@ -385,7 +417,7 @@ const HomePage: React.FC = () => {
                 pagination: false,
                 drag: true,
                 autoplay: true,
-                interval: 1800,
+                interval: 3400,
                 speed: 600,
                 updateOnMove: true,
                 focus: 'center',
@@ -445,20 +477,48 @@ const HomePage: React.FC = () => {
             </Splide>
           </Box>
         </Box>
+        {/* Learn more about amenities button */}
+        <Box display="flex" justifyContent="center" mt={4}>
+          <Button
+            component={RouterLink}
+            to="/condo#amenities"
+            variant="contained"
+            size="large"
+            sx={{
+              borderRadius: BUTTON_BORDER_RADIUS,
+              background: 'rgba(255,255,255,0.85)',
+              color: '#222',
+              boxShadow: '0 2px 12px #0001',
+              letterSpacing: 1,
+              textTransform: 'uppercase',
+              fontSize: 18,
+              px: 6,
+              py: 2,
+              fontWeight: 500,
+              transition: 'background 0.2s, color 0.2s',
+              '&:hover': {
+                background: 'rgba(230,230,230,0.95)',
+                color: '#111',
+              },
+            }}
+          >
+            View All Amenities
+          </Button>
+        </Box>
       </Container>
 
       {/* Location Section with Google Earth video background */}
       <Box
         sx={{
           position: 'relative',
-          minHeight: '60vh',
+          minHeight: { xs: '90vh', md: '75vh' },
           width: '100%',
           mt: { xs: 8, md: 12 },
           mb: 0,
           overflow: 'hidden',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'flex-end',
+          justifyContent: 'center',
         }}
       >
         {/* Image background for Jaco section */}
@@ -528,53 +588,12 @@ const HomePage: React.FC = () => {
               Explore Jaco
             </Button>
           </Box>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 4, textAlign: { xs: 'center', sm: 'left' } }}>
-            {locations.map((l, i) => (
-              <motion.div
-                key={i}
-                variants={{
-                  hidden: { opacity: 0, y: 60 },
-                  visible: { opacity: 1, y: 0, transition: { duration: 0.7, delay: i * 0.25 } },
-                }}
-                initial="hidden"
-                animate={controls}
-                style={{ flex: '1 1 300px', maxWidth: 370, minWidth: 260, margin: '0 12px', height: '100%' }}
-              >
-                <Card
-                  elevation={0}
-                  sx={{
-                    borderRadius: 4,
-                    boxShadow: 3,
-                    border: '1px solid #e3eaf1',
-                    transition: 'box-shadow 0.3s',
-                    '&:hover': { boxShadow: 8 },
-                    bgcolor: 'rgba(255,255,255,0.75)',
-                    height: '100%',
-                    maxWidth: { xs: 260, sm: 370 },
-                    minWidth: { xs: 300, sm: 260 },
-                    maxHeight: { xs: 240, sm: 300 },
-                    px: { xs: 1, sm: 2 },
-                    py: { xs: 0, sm: 2 },
-                    mx: { xs: 'auto', sm: 0 },
-                  }}
-                >
-                  <CardMedia
-                    component="div"
-                    sx={{
-                      height: 90,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}
-                  >
-                    {l.icon}
-                  </CardMedia>
-                  <CardContent>
-                    <Typography variant="h6" fontWeight={600} color="#111518" gutterBottom>{l.title}</Typography>
-                    <Typography color="#637988">{l.desc}</Typography>
-                  </CardContent>
-                </Card>
-              </motion.div>
+          {/* Icon row instead of cards */}
+          <Box sx={{ display: 'flex', justifyContent: 'center', gap: 6, mt: 2, '& svg path': { fill: '#fff' } }}>
+            {locations.slice(0, 3).map((l, i) => (
+              <Box key={i} sx={{ width: 72, height: 72 }}>
+                {React.cloneElement(l.icon, { width: '100%', height: '100%' })}
+              </Box>
             ))}
           </Box>
         </Container>

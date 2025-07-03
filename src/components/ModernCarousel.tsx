@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box, Card, CardMedia, IconButton, useTheme } from '@mui/material';
 import { useSpring, animated } from '@react-spring/web';
 import useMeasure from 'react-use-measure';
+import { useInView } from 'react-intersection-observer';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { useDrag } from '@use-gesture/react';
@@ -9,18 +10,27 @@ import { useDrag } from '@use-gesture/react';
 interface ModernCarouselProps {
   images: string[];
   autoplayInterval?: number;
+  height?: number; // height in px
 }
 
 const ModernCarousel: React.FC<ModernCarouselProps> = ({ 
   images, 
-  autoplayInterval = 3000 
+  autoplayInterval = 3000,
+  height = 500,
 }) => {
   const theme = useTheme();
-  const [ref, bounds] = useMeasure();
+  const [measureRef, bounds] = useMeasure();
+  const { ref: viewRef, inView } = useInView({ threshold: 0.1 });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const [dragX, setDragX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+
+  // Combine refs
+  const setRefs = React.useCallback((node: any) => {
+    measureRef(node);
+    viewRef(node);
+  }, [measureRef, viewRef]);
 
   // Calculate indices for visible slides
   const getPrevIndex = (current: number) => (current - 1 + images.length) % images.length;
@@ -33,13 +43,14 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
   });
 
   // Autoplay functionality
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 900;
   useEffect(() => {
-    if (isHovered || isDragging) return;
+    if (isHovered || isDragging || (isMobile && !inView)) return;
     const timer = setInterval(() => {
       setCurrentIndex(current => (current + 1) % images.length);
     }, autoplayInterval);
     return () => clearInterval(timer);
-  }, [images.length, autoplayInterval, isHovered, isDragging]);
+  }, [images.length, autoplayInterval, isHovered, isDragging, isMobile, inView]);
 
   const handlePrevClick = () => {
     setCurrentIndex(current => (current - 1 + images.length) % images.length);
@@ -68,11 +79,11 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
 
   return (
     <Box
-      ref={ref}
+      ref={setRefs}
       sx={{
         position: 'relative',
         width: '100%',
-        height: 500,
+        height,
         overflow: 'hidden',
         bgcolor: 'background.paper',
         borderRadius: 4,
@@ -134,72 +145,45 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
         })}
       </animated.div>
 
-      {/* Navigation Buttons */}
+      {/* Navigation Buttons - smaller & translucent */}
       <IconButton
         onClick={handlePrevClick}
         sx={{
           position: 'absolute',
-          left: 16,
+          left: 8,
           top: '50%',
           transform: 'translateY(-50%)',
-          bgcolor: 'rgba(255, 255, 255, 0.9)',
+          width: 32,
+          height: 32,
+          bgcolor: 'rgba(255, 255, 255, 0.6)',
           '&:hover': {
-            bgcolor: 'white',
+            bgcolor: 'rgba(255,255,255,0.8)',
           },
           zIndex: 2,
         }}
         aria-label="Previous slide"
       >
-        <ChevronLeftIcon />
+        <ChevronLeftIcon sx={{ fontSize: 18 }} />
       </IconButton>
       <IconButton
         onClick={handleNextClick}
         sx={{
           position: 'absolute',
-          right: 16,
+          right: 8,
           top: '50%',
           transform: 'translateY(-50%)',
-          bgcolor: 'rgba(255, 255, 255, 0.9)',
+          width: 32,
+          height: 32,
+          bgcolor: 'rgba(255, 255, 255, 0.6)',
           '&:hover': {
-            bgcolor: 'white',
+            bgcolor: 'rgba(255,255,255,0.8)',
           },
           zIndex: 2,
         }}
         aria-label="Next slide"
       >
-        <ChevronRightIcon />
+        <ChevronRightIcon sx={{ fontSize: 18 }} />
       </IconButton>
-
-      {/* Progress Indicators */}
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: 16,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          display: 'flex',
-          gap: 1,
-          zIndex: 2,
-        }}
-      >
-        {images.map((_, index) => (
-          <Box
-            key={index}
-            onClick={() => setCurrentIndex(index)}
-            sx={{
-              width: 8,
-              height: 8,
-              borderRadius: '50%',
-              bgcolor: index === currentIndex ? 'primary.main' : 'rgba(255, 255, 255, 0.5)',
-              cursor: 'pointer',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                transform: 'scale(1.2)',
-              },
-            }}
-          />
-        ))}
-      </Box>
     </Box>
   );
 };
