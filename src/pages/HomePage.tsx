@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Box, Typography, Button, Card, CardContent, CardMedia, Container } from '@mui/material';
+import { Box, Typography, Button, Card, Container } from '@mui/material';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import KingBedIcon from '@mui/icons-material/KingBed';
