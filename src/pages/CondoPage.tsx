@@ -4,6 +4,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ModernCarousel from '../components/ModernCarousel';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { Link as RouterLink } from 'react-router-dom';
 
 // Controls the border radius for main call-to-action buttons (match homepage)
 const BUTTON_BORDER_RADIUS = 0.5;
@@ -109,9 +110,8 @@ const CondoPage: React.FC = () => {
               boxShadow: '0 0 48px 24px #ffffff55, 0 0 32px 8px #8882',
             }} />
             <Button
-              href="https://www.airbnb.com/rooms/648803575821899223"
-              target="_blank"
-              rel="noopener"
+              component={RouterLink}
+              to="/contact"
               sx={{
                 fontWeight: 400,
                 fontSize: 30,
@@ -247,7 +247,7 @@ const CondoPage: React.FC = () => {
       </Container>
 
       {/* Footer */}
-      <Box sx={{ bgcolor: '#1993e5', color: '#fff', py: 4, textAlign: 'center', fontWeight: 500, fontSize: 18, letterSpacing: 0.5, mt: 6 }}>
+      <Box sx={{ bgcolor: '#1993e5', color: '#fff', py: 4, textAlign: 'center', fontWeight: 500, fontSize: 13, letterSpacing: 0.5, mt: 6 }}>
         © 2024 Jaco Luxury Condos. All rights reserved.
       </Box>
     </Box>

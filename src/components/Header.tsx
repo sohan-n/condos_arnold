@@ -16,7 +16,7 @@ const navItems = [
   { path: '/', label: 'Home' },
   { path: '/condo', label: 'Condo' },
   { path: '/jaco', label: 'Jaco' },
-  { path: '/about', label: 'About' },
+  { path: '/contact', label: 'Contact' },
 ];
 
 const Header: React.FC = () => {
@@ -26,7 +26,7 @@ const Header: React.FC = () => {
     <AppBar position="fixed" color="inherit" elevation={2} sx={{ borderBottom: '1px solid #e3eaf1', bgcolor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)' }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', minHeight: 72 }}>
         <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 800, fontFamily: '"Cinzel", serif' }}>
-          <Link component={RouterLink} to="/" sx={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link component={RouterLink} to="/" sx={{ textDecoration: 'none', color: 'inherit', fontSize: { xs: 20, sm: 24 } }}>
             <span style={{
               background: 'linear-gradient(45deg, #222 30%, #bbb 90%)',
               WebkitBackgroundClip: 'text',

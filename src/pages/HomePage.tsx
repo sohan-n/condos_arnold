@@ -71,10 +71,19 @@ const dropAnimation = keyframes`
 const HomePage: React.FC = () => {
   const [offsetY, setOffsetY] = useState(0);
 
+  // Super smooth parallax effect for all devices
   useEffect(() => {
-    const handleScroll = () => setOffsetY(window.pageYOffset);
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setOffsetY(window.pageYOffset);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
     window.addEventListener('scroll', handleScroll);
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -185,7 +194,7 @@ const HomePage: React.FC = () => {
       {/* Hero Section with outside shot image background */}
       <Box sx={{
         position: 'relative',
-        minHeight: '85vh',
+        minHeight: { xs: '75vh', md: '85vh' },
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -197,14 +206,23 @@ const HomePage: React.FC = () => {
         clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0% 100%)', // Slanted bottom
       }}>
         {/* Image background with Parallax */}
-        <Box sx={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '115%', // Make taller to avoid blank space on parallax
-          zIndex: 0,
-          transform: `translateY(${offsetY * 0.5}px)`, // Parallax effect
-        }}>
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            width: '100%',
+            height: { xs: '100%', md: '115%' },
+            zIndex: 0,
+            // Super smooth parallax for all devices, smaller factor on mobile
+            transform: {
+              xs: `translateY(${offsetY * 0.18}px)`,
+              md: `translateY(${offsetY * 0.5}px)`
+            },
+            filter: { xs: 'brightness(1.08)', md: 'none' },
+            transition: 'transform 0.08s cubic-bezier(0.22, 1, 0.36, 1)',
+            willChange: 'transform',
+          }}
+        >
           <img
             src="condo1_banner.png"
             alt="Beachfront condo view"
@@ -221,15 +239,46 @@ const HomePage: React.FC = () => {
           inset: 0,
           width: '100%',
           height: '100%',
-          bgcolor: 'rgba(0,0,0,0.35)',
+          bgcolor: { xs: 'rgba(0,0,0,0.18)', md: 'rgba(0,0,0,0.35)' },
           zIndex: 1,
         }} />
         {/* Content */}
-        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 2 }}>
-          <Typography variant="h3" fontWeight={800} color="white" gutterBottom>
+        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 2,
+          display: { xs: 'flex', md: 'block' },
+          flexDirection: { xs: 'column', md: 'column' },
+          alignItems: { xs: 'stretch', md: 'unset' },
+          justifyContent: { xs: 'space-between', md: 'flex-start' },
+          height: { xs: '100%', md: 'auto' },
+        }}>
+          <Typography
+            variant="h3"
+            fontWeight={800}
+            color="white"
+            gutterBottom
+            sx={{
+              textShadow: {
+                xs: '0 4px 24px rgba(0,0,0,0.65), 0 2px 8px rgba(0,0,0,0.28)',
+                md: '0 10px 48px rgba(0,0,0,0.38), 0 2px 8px rgba(0,0,0,0.18)'
+              },
+            }}
+          >
             Spacious Ocean View Condo for Groups
           </Typography>
-          <Typography variant="h6" color="rgba(255,255,255,0.9)" mb={4}>
+          <Typography
+            variant="h6"
+            color="rgba(255,255,255,0.9)"
+            mb={{ xs: 0, md: 4 }}
+            sx={{
+              mt: { xs: 0, md: 0 },
+              alignSelf: { xs: 'center', md: 'unset' },
+              textShadow: {
+                xs: '0 2px 12px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.22)',
+                md: 'none',
+              },
+              fontSize: { xs: 17, md: 22 },
+              my: { xs: 'auto', md: 0 },
+            }}
+          >
             Your exclusive beachfront oasis in Jaco awaits.
           </Typography>
           <Button
@@ -249,6 +298,7 @@ const HomePage: React.FC = () => {
               py: 2,
               fontWeight: 500,
               transition: 'background 0.2s, color 0.2s',
+              mt: { xs: 5, md: 7 },
               '&:hover': {
                 background: 'rgba(230,230,230,0.95)',
                 color: '#111',
@@ -330,6 +380,34 @@ const HomePage: React.FC = () => {
         <Typography color="text.secondary" align="center" mb={0}>
           Enjoy a full suite of amenities for a comfortable, luxurious stay.
         </Typography>
+        {/* Move View All Amenities button here */}
+        <Box display="flex" justifyContent="center" mt={4} mb={2}>
+          <Button
+            component={RouterLink}
+            to="/condo#amenities"
+            variant="contained"
+            size="large"
+            sx={{
+              borderRadius: BUTTON_BORDER_RADIUS,
+              background: 'rgba(255,255,255,0.85)',
+              color: '#222',
+              boxShadow: '0 2px 12px #0001',
+              letterSpacing: 1,
+              textTransform: 'uppercase',
+              fontSize: 18,
+              px: 6,
+              py: 2,
+              fontWeight: 500,
+              transition: 'background 0.2s, color 0.2s',
+              '&:hover': {
+                background: 'rgba(230,230,230,0.95)',
+                color: '#111',
+              },
+            }}
+          >
+            View All Amenities
+          </Button>
+        </Box>
         {/* Split amenities into two rows */}
         <Box sx={{ display: { xs: 'flex', md: 'flex' }, flexDirection: 'column', gap: 4 }}>
           {/* Top row: Splide carousel with autoplay swipes */}
@@ -477,34 +555,6 @@ const HomePage: React.FC = () => {
             </Splide>
           </Box>
         </Box>
-        {/* Learn more about amenities button */}
-        <Box display="flex" justifyContent="center" mt={4}>
-          <Button
-            component={RouterLink}
-            to="/condo#amenities"
-            variant="contained"
-            size="large"
-            sx={{
-              borderRadius: BUTTON_BORDER_RADIUS,
-              background: 'rgba(255,255,255,0.85)',
-              color: '#222',
-              boxShadow: '0 2px 12px #0001',
-              letterSpacing: 1,
-              textTransform: 'uppercase',
-              fontSize: 18,
-              px: 6,
-              py: 2,
-              fontWeight: 500,
-              transition: 'background 0.2s, color 0.2s',
-              '&:hover': {
-                background: 'rgba(230,230,230,0.95)',
-                color: '#111',
-              },
-            }}
-          >
-            View All Amenities
-          </Button>
-        </Box>
       </Container>
 
       {/* Location Section with Google Earth video background */}
@@ -557,10 +607,10 @@ const HomePage: React.FC = () => {
         </Box>
         {/* Content */}
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, py: { xs: 8, md: 12 } }} ref={ref}>
-          <Typography variant="h4" fontWeight={700} color="#FFFFFF" align="center" mb={2}>
+          <Typography variant="h4" fontWeight={800} color="#FFFFFF" align="center" mb={5} sx={{ fontSize: { xs: 36, md: 54 } }}>
             Prime Location in Jaco
           </Typography>
-          <Box display="flex" justifyContent="center" mb={6}>
+          <Box display="flex" justifyContent="center" mb={5}>
             <Button
               component={RouterLink}
               to="/jaco"
@@ -608,7 +658,7 @@ const HomePage: React.FC = () => {
             py: 4,
             textAlign: 'center',
             color: '#fff',
-            fontSize: 18,
+            fontSize: 13,
             fontWeight: 500,
             textShadow: '0 2px 12px rgba(0,0,0,0.45)',
             letterSpacing: 0.5,

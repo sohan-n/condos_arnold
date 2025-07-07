@@ -34,7 +34,24 @@ const JacoPage: React.FC = () => {
             loop
             muted
             playsInline
-            poster="outsideshot.jpeg"
+            preload="metadata"
+            webkit-playsinline="true"
+            poster="jaco_beach.jpg"
+            onError={(e) => {
+              // Fallback to poster image on video error
+              const video = e.currentTarget;
+              const parent = video.parentElement;
+              if (parent) {
+                video.style.display = 'none';
+                const img = document.createElement('img');
+                img.src = 'outsideshot.jpeg';
+                img.style.width = '100%';
+                img.style.height = '100%';
+                img.style.objectFit = 'cover';
+                img.style.filter = 'brightness(0.7)';
+                parent.insertBefore(img, video);
+              }
+            }}
             style={{
               width: '100%',
               height: '100%',
@@ -43,8 +60,20 @@ const JacoPage: React.FC = () => {
               filter: 'brightness(0.7)',
             }}
           >
-            <source src="google_earth_1.webm" type="video/webm" />
+            {/* MP4 first for better iOS Safari support */}
             <source src="google_earth_pressed.mp4" type="video/mp4" />
+            <source src="google_earth_1.webm" type="video/webm" />
+            {/* Fallback for browsers that don't support video */}
+            <img 
+              src="outsideshot.jpeg" 
+              alt="Jaco Beach aerial view"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                filter: 'brightness(0.7)',
+              }}
+            />
           </video>
           {/* Overlay for readability */}
           <Box sx={{

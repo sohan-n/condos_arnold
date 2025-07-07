@@ -6,7 +6,7 @@ import Layout from './components/Layout';
 import HomePage from './pages/HomePage';
 import CondoPage from './pages/CondoPage';
 import JacoPage from './pages/ExploreJacoPage';
-import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           <Route path="/" element={<HomePage />} />
           <Route path="/condo" element={<CondoPage />} />
           <Route path="/jaco" element={<JacoPage />} />
-          <Route path="/about" element={<AboutPage />} />
+          <Route path="/contact" element={<ContactPage />} />
           {/* Add other routes here for about, etc. */}
         </Routes>
       </Layout>
