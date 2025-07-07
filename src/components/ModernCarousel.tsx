@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Card, CardMedia, IconButton, useTheme } from '@mui/material';
+import { Box, Card, CardMedia, IconButton } from '@mui/material';
 import { useSpring, animated } from '@react-spring/web';
 import useMeasure from 'react-use-measure';
 import { useInView } from 'react-intersection-observer';
@@ -18,7 +18,6 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
   autoplayInterval = 3000,
   height = 500,
 }) => {
-  const theme = useTheme();
   const [measureRef, bounds] = useMeasure();
   const { ref: viewRef, inView } = useInView({ threshold: 0.1 });
   const [currentIndex, setCurrentIndex] = useState(0);
