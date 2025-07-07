@@ -194,7 +194,7 @@ const HomePage: React.FC = () => {
       {/* Hero Section with outside shot image background */}
       <Box sx={{
         position: 'relative',
-        minHeight: { xs: '75vh', md: '85vh' },
+        minHeight: { xs: '83vh', md: '85vh' },
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -322,7 +322,7 @@ const HomePage: React.FC = () => {
       >
         <KeyboardArrowDownIcon
           sx={{
-            fontSize: '3.5rem',
+            fontSize: { xs: '2.5rem', md: '3.5rem' },
             color: 'text.secondary', // Color for light background
             animation: `${dropAnimation} 2.5s ease-in-out infinite`,
           }}
