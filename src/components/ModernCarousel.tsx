@@ -86,7 +86,7 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
         height,
         overflow: 'hidden',
         bgcolor: 'background.paper',
-        borderRadius: 4,
+        borderRadius: 1,
         boxShadow: theme.shadows[4],
         touchAction: 'pan-y',
       }}
