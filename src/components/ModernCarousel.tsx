@@ -78,112 +78,132 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
   });
 
   return (
-    <Box
-      ref={setRefs}
-      sx={{
-        position: 'relative',
-        width: '100%',
-        height,
-        overflow: 'hidden',
-        bgcolor: 'background.paper',
-        borderRadius: 1,
-        boxShadow: theme.shadows[4],
-        touchAction: 'pan-y',
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      {...bind()}
-    >
-      <animated.div
-        style={{
-          display: 'flex',
-          width: `${images.length * 100}%`,
-          height: '100%',
-          ...slideProps,
-          cursor: isDragging ? 'grabbing' : 'grab',
+    <Box>
+      <Box
+        ref={setRefs}
+        sx={{
+          position: 'relative',
+          width: '100%',
+          height,
+          overflow: 'hidden',
+          bgcolor: 'transparent',
+          borderRadius: 1,
+          boxShadow: 'none',
+          touchAction: 'pan-y',
         }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        {...bind()}
       >
-        {images.map((image, index) => {
-          const isActive = index === currentIndex;
-          const isPrev = index === getPrevIndex(currentIndex);
-          const isNext = index === getNextIndex(currentIndex);
-          return (
-            <Card
-              key={image}
-              sx={{
-                position: 'relative',
-                width: `${100 / images.length}%`,
-                height: '100%',
-                transition: 'all 0.3s ease-in-out',
-                transform: isActive 
-                  ? 'scale(1) translateZ(0)' 
-                  : (isPrev || isNext) 
-                    ? 'scale(0.85) translateZ(-100px)' 
-                    : 'scale(0.7) translateZ(-200px)',
-                opacity: isActive ? 1 : isPrev || isNext ? 0.7 : 0.4,
-                filter: isActive ? 'none' : 'blur(2px)',
-                transformStyle: 'preserve-3d',
-                perspective: '1000px',
-                pointerEvents: isDragging ? 'none' : 'auto',
-              }}
-            >
-              <CardMedia
-                component="img"
-                image={image}
-                alt={`Slide ${index + 1}`}
+        <animated.div
+          style={{
+            display: 'flex',
+            width: `${images.length * 100}%`,
+            height: '100%',
+            ...slideProps,
+            cursor: isDragging ? 'grabbing' : 'grab',
+          }}
+        >
+          {images.map((image, index) => {
+            const isActive = index === currentIndex;
+            const isPrev = index === getPrevIndex(currentIndex);
+            const isNext = index === getNextIndex(currentIndex);
+            return (
+              <Card
+                key={image}
                 sx={{
-                  width: '100%',
+                  position: 'relative',
+                  width: `${100 / images.length}%`,
                   height: '100%',
-                  objectFit: 'cover',
-                  userSelect: 'none',
-                  pointerEvents: 'none',
+                  transition: 'all 0.3s ease-in-out',
+                  transform: isActive 
+                    ? 'scale(1) translateZ(0)' 
+                    : (isPrev || isNext) 
+                      ? 'scale(0.85) translateZ(-100px)' 
+                      : 'scale(0.7) translateZ(-200px)',
+                  opacity: isActive ? 1 : isPrev || isNext ? 0.7 : 0.4,
+                  filter: isActive ? 'none' : 'blur(2px)',
+                  transformStyle: 'preserve-3d',
+                  perspective: '1000px',
+                  pointerEvents: isDragging ? 'none' : 'auto',
+                  bgcolor: 'transparent',
+                  boxShadow: 'none',
                 }}
-                draggable={false}
-              />
-            </Card>
-          );
-        })}
-      </animated.div>
+              >
+                <CardMedia
+                  component="img"
+                  image={image}
+                  alt={`Slide ${index + 1}`}
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    userSelect: 'none',
+                    pointerEvents: 'none',
+                  }}
+                  draggable={false}
+                />
+              </Card>
+            );
+          })}
+        </animated.div>
 
-      {/* Navigation Buttons - smaller & translucent */}
-      <IconButton
-        onClick={handlePrevClick}
-        sx={{
-          position: 'absolute',
-          left: 8,
-          top: '50%',
-          transform: 'translateY(-50%)',
-          width: 32,
-          height: 32,
-          bgcolor: 'rgba(255, 255, 255, 0.6)',
-          '&:hover': {
-            bgcolor: 'rgba(255,255,255,0.8)',
-          },
-          zIndex: 2,
-        }}
-        aria-label="Previous slide"
-      >
-        <ChevronLeftIcon sx={{ fontSize: 18 }} />
-      </IconButton>
-      <IconButton
-        onClick={handleNextClick}
-        sx={{
-          position: 'absolute',
-          right: 8,
-          top: '50%',
-          transform: 'translateY(-50%)',
-          width: 32,
-          height: 32,
-          bgcolor: 'rgba(255, 255, 255, 0.6)',
-          '&:hover': {
-            bgcolor: 'rgba(255,255,255,0.8)',
-          },
-          zIndex: 2,
-        }}
-        aria-label="Next slide"
-      >
-        <ChevronRightIcon sx={{ fontSize: 18 }} />
-      </IconButton>
+        {/* Navigation Buttons - smaller & translucent */}
+        <IconButton
+          onClick={handlePrevClick}
+          sx={{
+            position: 'absolute',
+            left: 8,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: 32,
+            height: 32,
+            bgcolor: 'rgba(255, 255, 255, 0.6)',
+            '&:hover': {
+              bgcolor: 'rgba(255,255,255,0.8)',
+            },
+            zIndex: 2,
+          }}
+          aria-label="Previous slide"
+        >
+          <ChevronLeftIcon sx={{ fontSize: 18 }} />
+        </IconButton>
+        <IconButton
+          onClick={handleNextClick}
+          sx={{
+            position: 'absolute',
+            right: 8,
+            top: '50%',
+            transform: 'translateY(-50%)',
+            width: 32,
+            height: 32,
+            bgcolor: 'rgba(255, 255, 255, 0.6)',
+            '&:hover': {
+              bgcolor: 'rgba(255,255,255,0.8)',
+            },
+            zIndex: 2,
+          }}
+          aria-label="Next slide"
+        >
+          <ChevronRightIcon sx={{ fontSize: 18 }} />
+        </IconButton>
+      </Box>
+      {/* Slide Indicator */}
+      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 2 }}>
+        {images.map((_, index) => (
+          <Box
+            key={index}
+            sx={{
+              width: index === currentIndex ? 24 : 8,
+              height: 3,
+              bgcolor: index === currentIndex ? 'white' : 'grey.300',
+              borderRadius: 1.5,
+              transition: 'all 0.3s ease-in-out',
+              boxShadow: index === currentIndex ? '0 2px 8px rgba(95, 95, 95, 0.4)' : 'none',
+            }}
+          />
+        ))}
+      </Box>
     </Box>
   );
 };
