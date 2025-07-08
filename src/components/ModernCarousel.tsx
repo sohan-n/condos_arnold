@@ -18,6 +18,10 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
   autoplayInterval = 3000,
   height = 500,
 }) => {
+  // Responsive height calculation
+  const responsiveHeight = typeof window !== 'undefined' && window.innerWidth <= 768 
+    ? Math.min(height * 0.7, 400) // Shorter on mobile, max 400px
+    : height;
   const [measureRef, bounds] = useMeasure();
   const { ref: viewRef, inView } = useInView({ threshold: 0.1 });
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -83,7 +87,7 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
         sx={{
           position: 'relative',
           width: '100%',
-          height,
+          height: responsiveHeight,
           overflow: 'hidden',
           bgcolor: 'transparent',
           borderRadius: 1,

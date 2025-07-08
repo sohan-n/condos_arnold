@@ -7,10 +7,10 @@ import Box from '@mui/material/Box';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import IconButton from '@mui/material/IconButton';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import CloseIcon from '@mui/icons-material/Close';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const navItems = [
   { path: '/', label: 'Home' },
@@ -72,8 +72,8 @@ const Header: React.FC = () => {
           </Box>
           {/* Mobile nav: hamburger and fullscreen modal */}
           <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
-            <IconButton edge="end" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
-              <BeachAccessIcon sx={{ fontSize: 27 }} />
+            <IconButton edge="end" color="inherit" aria-label="menu" onClick={toggleDrawer(true)} sx={{ ml: -6 }}>
+              <MenuIcon sx={{ fontSize: 27 }} />
             </IconButton>
             <Modal open={drawerOpen} onClose={toggleDrawer(false)} closeAfterTransition>
               <Fade in={drawerOpen} timeout={350}>
