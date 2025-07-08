@@ -8,6 +8,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import CloseIcon from '@mui/icons-material/Close';
@@ -25,17 +26,28 @@ const Header: React.FC = () => {
   return (
     <AppBar position="fixed" color="inherit" elevation={2} sx={{ borderBottom: '1px solid #e3eaf1', bgcolor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(8px)' }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', minHeight: 72 }}>
-        <Typography variant="h5" component="div" sx={{ flexGrow: 1, fontWeight: 800, fontFamily: '"Cinzel", serif' }}>
-          <Link component={RouterLink} to="/" sx={{ textDecoration: 'none', color: 'inherit', fontSize: { xs: 20, sm: 24 } }}>
-            <span style={{
-              background: 'linear-gradient(45deg, #222 30%, #bbb 90%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}>
-              Jaco Beach Penthouse Rental
-            </span>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flexGrow: 1 }}>
+          <Link component={RouterLink} to="/" sx={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
+            <img 
+              src="/JBC_BLACK_ART_ICON.png" 
+              alt="JBC Logo" 
+              style={{ 
+                height: '40px', 
+                width: 'auto',
+                marginRight: '12px'
+              }} 
+            />
+            <Typography variant="h5" component="div" sx={{ fontWeight: 800, fontFamily: '"Cinzel", serif', fontSize: { xs: 24, sm: 24 } }}>
+              <span style={{
+                background: 'linear-gradient(45deg, #222 20%, #bbb 70%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}>
+                Jaco Bay Condos
+              </span>
+            </Typography>
           </Link>
-        </Typography>
+        </Box>
         <Box sx={{ display: 'flex', gap: 2 }}>
           {/* Desktop nav */}
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
@@ -61,8 +73,8 @@ const Header: React.FC = () => {
           </Box>
           {/* Mobile nav: hamburger and fullscreen modal */}
           <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
-            <IconButton edge="end" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
-              <MenuIcon />
+            <IconButton edge="end" color="inherit" aria-label="home" component={RouterLink} to="/" sx={{ mr: 0 }}>
+              <BeachAccessIcon sx={{ fontSize: 27 }} />
             </IconButton>
             <Modal open={drawerOpen} onClose={toggleDrawer(false)} closeAfterTransition>
               <Fade in={drawerOpen} timeout={350}>

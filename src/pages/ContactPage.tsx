@@ -1,10 +1,11 @@
 import React from 'react';
 import { Box, Typography, Button, Container } from '@mui/material';
 import PhoneIcon from '@mui/icons-material/Phone';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import EmailIcon from '@mui/icons-material/Email';
 
-const PHONE = '+506 8888 9999';
-const EMAIL = 'info@jacobeachcondos.com';
+const PHONE = '+1 (716) 481-9370';
+const EMAIL = 'earnold@tciallc.com';
 
 const ContactPage: React.FC = () => {
   return (
@@ -42,35 +43,64 @@ const ContactPage: React.FC = () => {
         </Typography>
         {/* Phone */}
         <Box mb={4}>
-          <Typography variant="h5" fontWeight={700} color="#111" mb={2} sx={{ fontSize: { xs: 26, md: 36 } }}>
+          <Typography variant="h5" fontWeight={700} color="#111" mb={2} sx={{ fontSize: { xs: 30, md: 40 } }}>
             {PHONE}
           </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            startIcon={<PhoneIcon sx={{ fontSize: 28 }} />}
-            href={`tel:${PHONE.replace(/\s+/g, '')}`}
-            sx={{
-              borderRadius: 0.5,
-              background: 'linear-gradient(135deg, #eaeaea 0%, #f5f5f5 100%)',
-              color: '#222',
-              boxShadow: '0 2px 12px #0002',
-              letterSpacing: 1,
-              textTransform: 'uppercase',
-              fontSize: 18,
-              px: 6,
-              py: 2,
-              fontWeight: 500,
-              transition: 'background 0.2s, color 0.2s',
-              mb: 1,
-              '&:hover': {
-                background: 'linear-gradient(135deg, #e0e0e0 0%, #fafafa 100%)',
-                color: '#111',
-              },
-            }}
-          >
-            Call Now
-          </Button>
+          <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
+            <Button
+              variant="contained"
+              size="large"
+              startIcon={<PhoneIcon sx={{ fontSize: 28 }} />}
+              href={`tel:${PHONE.replace(/\s+/g, '')}`}
+              sx={{
+                borderRadius: 0.5,
+                background: 'linear-gradient(135deg, #eaeaea 0%, #f5f5f5 100%)',
+                color: '#222',
+                boxShadow: '0 2px 12px #0002',
+                letterSpacing: 1,
+                textTransform: 'uppercase',
+                fontSize: 18,
+                px: 6,
+                py: 2,
+                fontWeight: 500,
+                transition: 'background 0.2s, color 0.2s',
+                mb: 1,
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #e0e0e0 0%, #fafafa 100%)',
+                  color: '#111',
+                },
+              }}
+            >
+              Call Now
+            </Button>
+            <Button
+              variant="contained"
+              size="large"
+              startIcon={<WhatsAppIcon sx={{ fontSize: 28 }} />}
+              href={`https://wa.me/${PHONE.replace(/\D/g, '')}`}
+              target="_blank"
+              sx={{
+                borderRadius: 0.5,
+                background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+                color: '#fff',
+                boxShadow: '0 2px 12px #0002',
+                letterSpacing: 1,
+                textTransform: 'uppercase',
+                fontSize: 18,
+                px: 6,
+                py: 2,
+                fontWeight: 500,
+                transition: 'background 0.2s, color 0.2s',
+                mb: 1,
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #128C7E 0%, #075E54 100%)',
+                  color: '#fff',
+                },
+              }}
+            >
+              WhatsApp
+            </Button>
+          </Box>
         </Box>
         {/* Email */}
         <Box mb={2}>
