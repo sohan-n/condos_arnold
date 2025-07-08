@@ -36,7 +36,7 @@ const JacoPage: React.FC = () => {
             playsInline
             preload="metadata"
             webkit-playsinline="true"
-            poster="jaco_beach.jpg"
+            poster="google_earth_pic_before.png"
             onError={(e) => {
               // Fallback to poster image on video error
               const video = e.currentTarget;
@@ -65,7 +65,7 @@ const JacoPage: React.FC = () => {
             <source src="google_earth_pressed_a_lot.webm" type="video/webm" />
             {/* Fallback for browsers that don't support video */}
             <img 
-              src="outsideshot.jpeg" 
+              src="google_earth_pic_before.png" 
               alt="Jaco Beach aerial view"
               style={{
                 width: '100%',
