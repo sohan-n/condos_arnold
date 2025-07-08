@@ -36,6 +36,8 @@ const JacoPage: React.FC = () => {
             playsInline
             preload="metadata"
             webkit-playsinline="true"
+            disablePictureInPicture
+            controlsList="nodownload nofullscreen noremoteplayback"
             poster="google_earth_pic_before.png"
             onError={(e) => {
               // Fallback to poster image on video error

@@ -26,6 +26,8 @@ const EarthCTASection: React.FC = () => {
         loop
         muted
         playsInline
+        disablePictureInPicture
+        controlsList="nodownload nofullscreen noremoteplayback"
         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
       >
         <source src="/google_earth_1.webm" type="video/webm" />
