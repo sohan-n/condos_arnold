@@ -1,13 +1,25 @@
 import React from 'react';
-import { Box, Typography, Button, Card, CardContent, Container, Collapse, IconButton, Paper } from '@mui/material';
+import { Box, Typography, Card, CardContent, Container, Collapse, IconButton, Paper, Accordion, AccordionSummary, AccordionDetails, Chip } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import BeachAccessIcon from '@mui/icons-material/BeachAccess';
+import BathtubIcon from '@mui/icons-material/Bathtub';
+import KingBedIcon from '@mui/icons-material/KingBed';
+import TvIcon from '@mui/icons-material/Tv';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
+import WifiIcon from '@mui/icons-material/Wifi';
+import KitchenIcon from '@mui/icons-material/Kitchen';
+import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
+import DeckIcon from '@mui/icons-material/Deck';
+import LocalParkingIcon from '@mui/icons-material/LocalParking';
+import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
 import ModernCarousel from '../components/ModernCarousel';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
-import { Link as RouterLink } from 'react-router-dom';
 
-// Controls the border radius for main call-to-action buttons (match homepage)
-const BUTTON_BORDER_RADIUS = 0.5;
+
+
 
 const quickFacts = [
   { label: 'Bedrooms', value: '4' },
@@ -23,22 +35,212 @@ const galleryImages = [
   'condo1_balcony.png',
 ];
 
-const amenities = [
-  'Beach view',
-  'Kitchen',
-  'Wifi',
-  'Free residential garage on premises – 2 spaces',
-  'Shared pool',
-  'HDTV with standard cable',
-  'Elevator',
-  'Free washer – In unit',
-  'Free dryer – In unit',
-  'AC - split type ductless system',
+const detailedAmenities = [
+  {
+    category: 'Scenic Views',
+    icon: <BeachAccessIcon sx={{ fontSize: 32, color: '#1993e5' }} />,
+    description: 'Breathtaking panoramic views of the Pacific Ocean from multiple vantage points throughout the condo.',
+    details: [
+      'Panoramic ocean views from balcony and living room',
+      'Floor-to-ceiling windows in main living area',
+      'Private balcony with unobstructed beach views',
+      'Sunrise and sunset viewing opportunities',
+      'Coastal breeze and natural ventilation'
+    ]
+  },
+  {
+    category: 'Bathroom & Hygiene',
+    icon: <BathtubIcon sx={{ fontSize: 32, color: '#1993e5' }} />,
+    description: 'Four fully equipped bathrooms with premium amenities for your comfort and convenience.',
+    details: [
+      'Hair dryer in each bathroom',
+      'Premium cleaning products provided',
+      'Shampoo, conditioner, and body soap',
+      'Hot water available 24/7',
+      'Fresh towels and linens',
+      'Toilet paper and essentials restocked',
+      'Modern fixtures and lighting',
+      'Ventilation systems for air circulation'
+    ]
+  },
+  {
+    category: 'Bedroom & Sleeping',
+    icon: <KingBedIcon sx={{ fontSize: 32, color: '#1993e5' }} />,
+    description: 'Four spacious bedrooms designed for ultimate comfort and relaxation with premium bedding.',
+    details: [
+      'Essentials: towels, bed sheets, soap, toilet paper',
+      'Quality hangers for all clothing',
+      'Premium bed linens and pillows',
+      'Room-darkening shades for restful sleep',
+      'Iron and ironing board available',
+      'In-room safe for valuables',
+      'Clothing storage: walk-in closet & wardrobe',
+      'Extra blankets and pillows',
+      'Blackout curtains for complete darkness',
+      'Temperature control in each room'
+    ]
+  },
+  {
+    category: 'Laundry & Housekeeping',
+    icon: <LocalLaundryServiceIcon sx={{ fontSize: 32, color: '#1993e5' }} />,
+    description: 'Convenient in-unit laundry facilities for your complete comfort during extended stays.',
+    details: [
+      'Free washer – In unit',
+      'Free dryer – In unit',
+      'Laundry detergent provided',
+      'Drying rack available',
+      'Iron and ironing board',
+      'Steam cleaning capabilities',
+      '24/7 laundry access'
+    ]
+  },
+  {
+    category: 'Entertainment & Technology',
+    icon: <TvIcon sx={{ fontSize: 32, color: '#1993e5' }} />,
+    description: 'Modern entertainment system with streaming capabilities and high-speed internet throughout.',
+    details: [
+      'HDTV with standard cable',
+      'Streaming apps available (Netflix, Hulu, etc.)',
+      'High-speed WiFi throughout the condo',
+      'Smart TV with casting capabilities',
+      'Bluetooth speaker compatibility',
+      'USB charging ports in all rooms',
+      'International power adapters available'
+    ]
+  },
+  {
+    category: 'Climate Control',
+    icon: <AcUnitIcon sx={{ fontSize: 32, color: '#1993e5' }} />,
+    description: 'Advanced climate control systems ensuring perfect temperature year-round.',
+    details: [
+      'AC - split type ductless system',
+      'Ceiling fan in main living area',
+      'Individual room temperature control',
+      'Energy-efficient cooling',
+      'Air purification systems',
+      'Humidity control',
+      'Quiet operation for peaceful sleep'
+    ]
+  },
+  {
+    category: 'Safety & Security',
+    icon: <VerifiedUserIcon sx={{ fontSize: 32, color: '#1993e5' }} />,
+    description: 'Comprehensive safety features and security systems for your peace of mind.',
+    details: [
+      'Smoke alarm in all rooms',
+      'Carbon monoxide alarm',
+      'Fire extinguisher on each floor',
+      'First aid kit available',
+      'Emergency contact information',
+      '24/7 building security',
+      'Secure building access',
+      'Video surveillance in common areas'
+    ]
+  },
+  {
+    category: 'Internet & Connectivity',
+    icon: <WifiIcon sx={{ fontSize: 32, color: '#1993e5' }} />,
+    description: 'High-speed internet and connectivity solutions for work and entertainment.',
+    details: [
+      'Free high-speed Internet',
+      'WiFi throughout the condo',
+      'Fiber optic connection',
+      'Multiple WiFi access points',
+      'Work-friendly internet speeds',
+      'VPN compatibility',
+      'Mobile hotspot backup'
+    ]
+  },
+  {
+    category: 'Kitchen & Cooking',
+    icon: <KitchenIcon sx={{ fontSize: 32, color: '#1993e5' }} />,
+    description: 'Fully equipped gourmet kitchen perfect for preparing meals and entertaining guests.',
+    details: [
+      'Kitchen space to cook your own meals',
+      'Full-size refrigerator with freezer',
+      'Microwave oven',
+      'Cooking basics: pots, pans, oil, salt, pepper',
+      'Professional dishwasher',
+      'Stainless steel electric stove & oven',
+      'Coffee maker with premium coffee',
+      'Toaster for breakfast convenience',
+      'Blender for smoothies and cocktails',
+      'Wine refrigerator',
+      'Spice rack with essential spices',
+      'Baking supplies and equipment'
+    ]
+  },
+  {
+    category: 'Dining & Entertainment',
+    icon: <RestaurantMenuIcon sx={{ fontSize: 32, color: '#1993e5' }} />,
+    description: 'Elegant dining areas perfect for meals with family and friends.',
+    details: [
+      'Formal dining table seating 8-10',
+      'Wine glasses and stemware',
+      'Complete dishes & silverware set',
+      'Bowls, plates, cups for all occasions',
+      'Serving dishes and platters',
+      'Table linens and placemats',
+      'Outdoor dining on balcony',
+      'Bar area with cocktail supplies'
+    ]
+  },
+  {
+    category: 'Outdoor & Balcony',
+    icon: <DeckIcon sx={{ fontSize: 32, color: '#1993e5' }} />,
+    description: 'Private outdoor spaces with stunning ocean views and comfortable seating.',
+    details: [
+      'Private patio or balcony',
+      'Backyard with open grassy area',
+      'Premium outdoor furniture',
+      'Ocean view seating areas',
+      'BBQ grill available',
+      'Outdoor lighting for evening use',
+      'Tropical landscaping',
+      'Beach access just steps away'
+    ]
+  },
+  {
+    category: 'Parking & Building Facilities',
+    icon: <LocalParkingIcon sx={{ fontSize: 32, color: '#1993e5' }} />,
+    description: 'Convenient parking and access to premium building amenities.',
+    details: [
+      'Free residential garage on premises – 2 spaces',
+      'Shared pool with ocean views',
+      'Elevator access (52" deep, 32" wide doorway)',
+      'Fitness center access',
+      'Rooftop terrace',
+      'Concierge services',
+      'Package delivery acceptance',
+      'Bicycle storage available'
+    ]
+  },
+  {
+    category: 'Services & Convenience',
+    icon: <VpnKeyIcon sx={{ fontSize: 32, color: '#1993e5' }} />,
+    description: 'Seamless check-in and additional services for your convenience.',
+    details: [
+      'Self check-in with keypad access',
+      '24/7 guest support',
+      'Housekeeping available',
+      'Concierge services',
+      'Local recommendations provided',
+      'Transportation arrangements',
+      'Activity booking assistance',
+      'Restaurant reservations'
+    ]
+  }
 ];
 
 const aboutShort = `This impeccably and recently remodeled 4-bedroom, 4-bathroom condo offers a masterful design and comes fully furnished, ideal for comfortably accommodating groups of up to 10 people. It's the perfect choice for families and groups looking to enjoy a vacation together without compromising on personal space or luxury.`;
 
-const aboutLong = `\nMain Areas:\n- The main living room features comfortable and elegant seating, a flat-screen TV, floor-to-ceiling windows, and sliding door access to a private balcony. Here, you and your guests can relax or dine outdoors while enjoying breathtaking views of the ocean and beach.\n- The spacious and updated kitchen is fully equipped to meet all your luxury dining and entertaining needs. It includes granite countertops, full-size stainless steel appliances, a large dining table, and a breakfast bar. Other appliances include a refrigerator, freezer, dishwasher, oven, toaster, blender, coffee maker, and microwave.\n\nBedrooms:\n- Master Bedroom: King-size bed, Private bathroom, Walk-in closet, TV, Sofa, Sliding door access to the balcony\n- Bedroom 2: Queen-size bed, Private bathroom, TV, Sliding door access to the balcony\n- Bedroom 3: Twin beds, TV, Sliding door access to the balcony\n- Bedroom 4: Bunk bed, TV, Located just steps away from a full shared bathroom\n\nAdditional Amenities:\n- High-quality bedding\n- Plush pillows\n- Modern décor\n- In-unit laundry room\n- Full-size washer and dryer\n\nBook Your Stay!\nThis unit has everything you need to make your dream vacation a reality. Don't wait—book your stay today and enjoy an unforgettable experience!\n\nGuest Access:\nGuests will have exclusive access to the entire condo, ensuring privacy and comfort throughout their stay. The property is just steps away from the beach, making it easy to enjoy the sun and surf. Additionally, guests can relax and unwind in the incredible pool, perfect for soaking up the tropical vibes.\n\nOther Things to Note:\n- OCCUPANCY AND ACCESS: Unless otherwise specified, rates are based on occupancy of 10 people per condominium bedroom. All guests must be identified on the reservation before check-in. Access to the condo community is restricted to guests listed on the reservation.`;
+const aboutLong = `Our luxury condo is thoughtfully designed with premium finishes and modern amenities throughout. The open-concept living area features floor-to-ceiling windows that showcase breathtaking ocean views, while the gourmet kitchen is equipped with everything needed to prepare memorable meals.
+
+Each of the four bedrooms is designed for comfort and privacy, with premium bedding and individual climate control. The master suite includes a private balcony with panoramic ocean views, while the additional bedrooms offer flexible sleeping arrangements perfect for families or groups.
+
+The condo's location on the main strip of Jaco provides easy access to the beach, restaurants, shopping, and nightlife, while the building's amenities including the pool and fitness center offer additional recreation options.
+
+Whether you're planning a family vacation, a friends' getaway, or a business retreat, our condo provides the perfect blend of luxury, comfort, and convenience in one of Costa Rica's most vibrant beach communities.`;
 
 const CondoPage: React.FC = () => {
   // For quick facts animation
@@ -88,71 +290,20 @@ const CondoPage: React.FC = () => {
           zIndex: 1,
         }} />
         <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-          <Box sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: '100%',
-            height: '100%',
-            position: 'relative',
-          }}>
-            <Box sx={{
-              position: 'absolute',
-              left: '50%',
-              top: '50%',
-              transform: 'translate(-50%, -50%)',
-              filter: 'blur(0.5rem)',
-              zIndex: 0,
-              width: 320,
-              height: 90,
-              borderRadius: BUTTON_BORDER_RADIUS,
-              background: 'rgba(255,255,255,0.18)',
-              boxShadow: '0 0 48px 24px #ffffff55, 0 0 32px 8px #8882',
-            }} />
-            <Button
-              component={RouterLink}
-              to="/contact"
-              sx={{
-                fontWeight: 400,
-                fontSize: 30,
-                px: 9,
-                py: 4,
-                borderRadius: BUTTON_BORDER_RADIUS,
-                background: 'rgba(255,255,255,0.22)',
-                color: '#fff',
-                boxShadow: '0 8px 32px 0 rgba(30,41,59,0.10)',
-                backdropFilter: 'blur(18px)',
-                border: '1.5px solid rgba(255,255,255,0.35)',
-                position: 'relative',
-                zIndex: 1,
-                letterSpacing: 6,
-                textTransform: 'uppercase',
-                fontFamily: 'inherit',
-                transition: 'background 0.2s, color 0.2s, border 0.2s, box-shadow 0.2s',
-                '&:hover': {
-                  background: 'rgba(255,255,255,0.36)',
-                  color: '#fff',
-                  boxShadow: '0 12px 36px 0 rgba(30,41,59,0.13)',
-                  border: '1.5px solid rgba(255,255,255,0.55)',
-                },
-              }}
-            >
-              BOOK NOW
-            </Button>
-          </Box>
+          {/* Content area - button is now handled by FloatingBookButton component */}
         </Container>
       </Box>
 
       {/* Availability Calendar */}
       <Container maxWidth="md" sx={{ pt: { xs: 6, md: 10 }, pb: 4 }}>
-        <Paper elevation={4} sx={{ borderRadius: 4, p: { xs: 2, md: 4 }, mb: 4 }}>
+        <Paper elevation={4} sx={{ borderRadius: 1, p: { xs: 2, md: 4 }, mb: 4 }}>
           <Typography variant="h5" fontWeight={700} mb={2} align="center">
             Availability
           </Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center' }}>
             <iframe
               src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=America%2FNew_York&showPrint=0&title=asdas&showTitle=0&showTabs=0&showCalendars=0&src=dGlvcXNpM2lsYmtiaGs5c2pmb3JxMGNyM3NtdHI1bnFAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%233f51b5"
-              style={{ borderWidth: 0, borderRadius: 12 }}
+              style={{ borderWidth: 0, borderRadius: 4 }}
               width="100%"
               height="600"
               frameBorder="0"
@@ -218,20 +369,78 @@ const CondoPage: React.FC = () => {
         </Card>
       </Container>
 
-      {/* Amenities */}
-      <Container maxWidth="md" sx={{ pb: { xs: 6, md: 10 } }}>
-        <Card elevation={2} sx={{ borderRadius: 3, p: 3, bgcolor: 'rgba(255,255,255,0.98)' }}>
-          <Typography variant="h5" fontWeight={700} mb={2}>
-            Amenities
-          </Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, justifyContent: 'center' }}>
-            {amenities.map((a) => (
-              <Paper key={a} elevation={1} sx={{ px: 2, py: 1, borderRadius: 2, bgcolor: '#eaf2fb', color: '#1993e5', fontWeight: 600, fontSize: 15, boxShadow: '0 2px 8px #1993e51a', minWidth: 120, textAlign: 'center' }}>
-                {a}
-              </Paper>
-            ))}
-          </Box>
-        </Card>
+      {/* Comprehensive Amenities */}
+      <Container maxWidth="lg" sx={{ pb: { xs: 6, md: 10 } }}>
+        <Typography variant="h4" fontWeight={700} mb={4} align="center">
+          Complete Amenities
+        </Typography>
+        <Typography color="text.secondary" mb={6} align="center">
+          Everything you need for a luxurious and comfortable stay
+        </Typography>
+        
+        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, gap: 3 }}>
+          {detailedAmenities.map((amenity) => (
+            <Card 
+              key={amenity.category}
+              elevation={2} 
+              sx={{ 
+                borderRadius: 2, 
+                bgcolor: 'rgba(255,255,255,0.98)',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: '0 8px 32px rgba(25, 147, 229, 0.15)',
+                }
+              }}
+            >
+              <Accordion sx={{ bgcolor: 'transparent', boxShadow: 'none' }}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  sx={{
+                    '& .MuiAccordionSummary-content': {
+                      alignItems: 'center',
+                      gap: 2,
+                    },
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, flex: 1 }}>
+                    {amenity.icon}
+                    <Box>
+                      <Typography variant="h6" fontWeight={600} color="text.primary">
+                        {amenity.category}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                        {amenity.description}
+                      </Typography>
+                    </Box>
+                  </Box>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Box sx={{ pl: 6 }}>
+                    <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 1 }}>
+                      {amenity.details.map((detail, detailIndex) => (
+                        <Chip
+                          key={detailIndex}
+                          label={detail}
+                          size="small"
+                          sx={{
+                            bgcolor: '#eaf2fb',
+                            color: '#1993e5',
+                            fontWeight: 500,
+                            mb: 1,
+                            '&:hover': {
+                              bgcolor: '#d4e7f7',
+                            }
+                          }}
+                        />
+                      ))}
+                    </Box>
+                  </Box>
+                </AccordionDetails>
+              </Accordion>
+            </Card>
+          ))}
+        </Box>
       </Container>
 
       {/* Location */}

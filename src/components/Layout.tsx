@@ -1,6 +1,8 @@
 import React from 'react';
 import Header from './Header';
+import FloatingBookButton from './FloatingBookButton';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
+import { useLocation } from 'react-router-dom';
 
 const lightTheme = createTheme({
   palette: {
@@ -58,11 +60,34 @@ const lightTheme = createTheme({
 });
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+
+  // Determine button configuration based on current page
+  const getButtonConfig = () => {
+    if (currentPath === '/condo') {
+      return {
+        showPlacedButton: true,
+        placedButtonText: 'BOOK NOW',
+        placedButtonPosition: 'top' as const,
+        disableOnPages: ['/contact']
+      };
+    }
+    
+    return {
+      showPlacedButton: false,
+      disableOnPages: ['/contact']
+    };
+  };
+
+  const buttonConfig = getButtonConfig();
+
   return (
     <ThemeProvider theme={lightTheme}>
       <CssBaseline />
       <Header />
       <main>{children}</main>
+      <FloatingBookButton {...buttonConfig} />
     </ThemeProvider>
   );
 };

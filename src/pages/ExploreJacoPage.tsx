@@ -44,7 +44,7 @@ const JacoPage: React.FC = () => {
               if (parent) {
                 video.style.display = 'none';
                 const img = document.createElement('img');
-                img.src = 'outsideshot.jpeg';
+                img.src = 'google_earth_pic_before.png';
                 img.style.width = '100%';
                 img.style.height = '100%';
                 img.style.objectFit = 'cover';
@@ -61,8 +61,8 @@ const JacoPage: React.FC = () => {
             }}
           >
             {/* MP4 first for better iOS Safari support */}
-            <source src="google_earth_pressed.mp4" type="video/mp4" />
-            <source src="google_earth_1.webm" type="video/webm" />
+            <source src="google_earth_pressed_a_lot.mp4" type="video/mp4" />
+            <source src="google_earth_pressed_a_lot.webm" type="video/webm" />
             {/* Fallback for browsers that don't support video */}
             <img 
               src="outsideshot.jpeg" 
