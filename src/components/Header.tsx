@@ -7,7 +7,6 @@ import Box from '@mui/material/Box';
 import { Link as RouterLink } from 'react-router-dom';
 import Link from '@mui/material/Link';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
