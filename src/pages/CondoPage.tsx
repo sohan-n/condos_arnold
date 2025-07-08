@@ -1,13 +1,11 @@
 import React from 'react';
 import { Box, Typography, Card, CardContent, Container, Paper, Button } from '@mui/material';
 import BookNowButton from '../components/BookNowButton';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import KingBedIcon from '@mui/icons-material/KingBed';
 import TvIcon from '@mui/icons-material/Tv';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import WifiIcon from '@mui/icons-material/Wifi';
 import KitchenIcon from '@mui/icons-material/Kitchen';
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import DeckIcon from '@mui/icons-material/Deck';
