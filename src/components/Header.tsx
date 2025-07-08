@@ -72,7 +72,7 @@ const Header: React.FC = () => {
           </Box>
           {/* Mobile nav: hamburger and fullscreen modal */}
           <Box sx={{ display: { xs: 'block', sm: 'none' } }}>
-            <IconButton edge="end" color="inherit" aria-label="home" component={RouterLink} to="/" sx={{ mr: 0 }}>
+            <IconButton edge="end" color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
               <BeachAccessIcon sx={{ fontSize: 27 }} />
             </IconButton>
             <Modal open={drawerOpen} onClose={toggleDrawer(false)} closeAfterTransition>

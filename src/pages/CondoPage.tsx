@@ -449,9 +449,21 @@ const CondoPage: React.FC = () => {
           <Typography variant="h5" fontWeight={700} mb={2}>
             Location
           </Typography>
-          <Typography color="text.secondary">
+          <Typography color="text.secondary" mb={3}>
             Located right on the main strip of Jaco, steps from the beach, restaurants, and nightlife. Enjoy the best of Costa Rica from your luxury penthouse.
           </Typography>
+          <Box sx={{ borderRadius: 2, overflow: 'hidden', boxShadow: 2 }}>
+            <iframe
+              src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Jaco+Beach+Costa+Rica"
+              width="100%"
+              height="400"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Jaco Bay Condos Location"
+            />
+          </Box>
         </Card>
       </Container>
 
