@@ -34,6 +34,7 @@ const FloatingBookButton: React.FC<FloatingBookButtonProps> = ({
           left: '50%',
           transform: 'translate(-50%, calc(-50% - 200px))',
           zIndex: 1000,
+          display: { xs: 'none', sm: 'block' },
         }}
       >
         {/* Enhanced glow effect background with refraction */}
@@ -174,6 +175,7 @@ const FloatingBookButton: React.FC<FloatingBookButtonProps> = ({
         top: 90,
         right: 24,
         zIndex: 1000,
+        display: { xs: 'none', sm: 'block' },
       }}
     >
       {/* Enhanced glow effect background with refraction */}
