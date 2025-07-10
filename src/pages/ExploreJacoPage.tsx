@@ -1,20 +1,88 @@
-import React from 'react';
-import { Box, Typography, Container } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Typography, Container, Tabs, Tab, IconButton, Button, Menu, MenuItem } from '@mui/material';
 import { motion } from 'framer-motion';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+
+interface TabPanelProps {
+  children?: React.ReactNode;
+  index: number;
+  value: number;
+}
+
+function TabPanel(props: TabPanelProps) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`jaco-tabpanel-${index}`}
+      aria-labelledby={`jaco-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box sx={{ py: 0 }}>
+          {children}
+        </Box>
+      )}
+    </div>
+  );
+}
+
+function a11yProps(index: number) {
+  return {
+    id: `jaco-tab-${index}`,
+    'aria-controls': `jaco-tabpanel-${index}`,
+  };
+}
+
+const tabLabels = [
+  'Beaches',
+  'Surfing',
+  'Restaurants',
+  'Nightlife',
+  'Activities',
+  'Shopping',
+  'Transportation',
+  'Tour Guide',
+];
 
 const JacoPage: React.FC = () => {
+  const [tabValue, setTabValue] = useState(0);
+  const [mobileMenuAnchor, setMobileMenuAnchor] = useState<null | HTMLElement>(null);
+
+  const handleTabChange = (_: unknown, newValue: number) => {
+    setTabValue(newValue);
+  };
+
+  const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+    setMobileMenuAnchor(event.currentTarget);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMenuAnchor(null);
+  };
+
+  const handleMobileTabSelect = (index: number) => {
+    setTabValue(index);
+    setMobileMenuAnchor(null);
+  };
+
   return (
     <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
       {/* Hero Section with Google Earth video background */}
       <Box sx={{
         position: 'relative',
-        minHeight: { xs: '60vh', md: '70vh' },
+        minHeight: { xs: '40vh', md: '50vh' },
         width: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        mb: { xs: 6, md: 10 },
+        mb: { xs: 0.5, md: 1 },
       }}>
         {/* Video background with fade-in */}
         <motion.div
@@ -83,7 +151,7 @@ const JacoPage: React.FC = () => {
             inset: 0,
             width: '100%',
             height: '100%',
-            bgcolor: 'rgba(0,0,0,0.35)',
+            bgcolor: 'rgba(0,0,0,0.22)',
             zIndex: 1,
           }} />
         </motion.div>
@@ -93,46 +161,615 @@ const JacoPage: React.FC = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.1, delay: 0.5 }}
-            style={{ marginTop: '10%' }}
+            style={{ marginLeft: '10px' }}
           >
             <Typography
-              variant="h2"
+              variant="h1"
               fontWeight={900}
               color="#fff"
               sx={{
-                textShadow: '0 4px 32px #000a, 0 1.5px 0 #222',
-                letterSpacing: 2,
-                mb: 2,
-                fontSize: { xs: 38, md: 64 },
-                lineHeight: 1.1,
+                textShadow: '0 8px 48px #000b, 0 2px 0 #222',
+                letterSpacing: 15,
+                mb: { xs: 0, md: 5 },
+                fontSize: { xs: 100, md: 85, lg: 145 },
+                lineHeight: 1.05,
+                textTransform: 'uppercase',
+                mt: { xs: 5, md: 0 },
               }}
             >
-              Jaco Beach
+              Jaco
             </Typography>
             <Typography
               variant="h5"
               color="rgba(255,255,255,0.92)"
               sx={{
                 textShadow: '0 2px 16px #0007',
-                fontWeight: 400,
-                mb: 4,
-                fontSize: { xs: 18, md: 28 },
+                fontWeight: 25,
+                letterSpacing: 2,
+                mb: -1,
+                fontSize: { xs: 15, md: 22 },
+                display: { xs: 'none', md: 'block' },
               }}
             >
               Discover the vibrant heart of Costa Rica's Pacific coast
             </Typography>
           </motion.div>
         </Container>
+        {/* Tabs overlayed on hero image */}
+        <Box sx={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: { xs: 20, md: 20 },
+          zIndex: 3,
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          pointerEvents: 'none', // let only tabs/buttons be interactive
+        }}>
+          {/* Mobile: Navigation with Arrows and Menu */}
+          <Box sx={{
+            display: { xs: 'flex', md: 'none' },
+            flexDirection: 'row',
+            alignItems: 'center',
+            gap: 1,
+            pointerEvents: 'auto',
+          }}>
+            {/* Left Arrow Button */}
+            <IconButton
+              onClick={() => setTabValue((prev) => Math.max(0, prev - 1))}
+              disabled={tabValue === 0}
+              sx={{
+                borderRadius: '50%',
+                backdropFilter: 'blur(16px)',
+                background: tabValue === 0 ? 'rgba(255,255,255,0.32)' : 'rgba(255,255,255,0.18)',
+                border: '1.5px solid rgba(255,255,255,0.25)',
+                boxShadow: '0 2px 12px #0003',
+                color: '#fff',
+                width: 44,
+                height: 44,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'background 0.2s',
+                '&:hover': {
+                  background: 'rgba(255,255,255,0.28)',
+                },
+                opacity: 1,
+              }}
+            >
+              <ArrowBackIosNewIcon fontSize="medium" sx={{ ml: '-3px', color: '#fff' }} />
+            </IconButton>
+
+            {/* Selected Tab Display */}
+            <Button
+              variant="contained"
+              sx={{
+                py: 1.5,
+                px: 3,
+                fontSize: 16,
+                fontWeight: 600,
+                borderRadius: 2,
+                textTransform: 'none',
+                backdropFilter: 'blur(16px)',
+                background: 'rgba(255,255,255,0.25)',
+                border: '1.5px solid rgba(255,255,255,0.3)',
+                color: '#fff',
+                boxShadow: '0 2px 12px #0003',
+                minWidth: 200,
+                '&:hover': {
+                  background: 'rgba(255,255,255,0.3)',
+                  border: '1.5px solid rgba(255,255,255,0.4)',
+                },
+              }}
+            >
+              {tabLabels[tabValue]}
+            </Button>
+
+            {/* Right Arrow Button */}
+            <IconButton
+              onClick={() => setTabValue((prev) => Math.min(tabLabels.length - 1, prev + 1))}
+              disabled={tabValue === tabLabels.length - 1}
+              sx={{
+                borderRadius: '50%',
+                backdropFilter: 'blur(16px)',
+                background: tabValue === tabLabels.length - 1 ? 'rgba(255,255,255,0.32)' : 'rgba(255,255,255,0.18)',
+                border: '1.5px solid rgba(255,255,255,0.25)',
+                boxShadow: '0 2px 12px #0003',
+                color: '#fff',
+                width: 44,
+                height: 44,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'background 0.2s',
+                '&:hover': {
+                  background: 'rgba(255,255,255,0.28)',
+                },
+                opacity: 1,
+              }}
+            >
+              <ArrowForwardIosIcon fontSize="medium" sx={{ mr: '-3px', color: '#fff' }} />
+            </IconButton>
+            
+            {/* Hamburger Menu Button */}
+            <IconButton
+              onClick={handleMobileMenuOpen}
+              sx={{
+                borderRadius: '50%',
+                backdropFilter: 'blur(16px)',
+                background: 'rgba(255,255,255,0.18)',
+                border: '1.5px solid rgba(255,255,255,0.25)',
+                boxShadow: '0 2px 12px #0003',
+                color: '#fff',
+                width: 44,
+                height: 44,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'background 0.2s',
+                '&:hover': {
+                  background: 'rgba(255,255,255,0.28)',
+                },
+              }}
+            >
+              <MenuIcon fontSize="medium" />
+            </IconButton>
+            
+            {/* Full Screen Mobile Menu */}
+            {Boolean(mobileMenuAnchor) && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.0, ease: 'easeInOut' }}
+                style={{
+                  position: 'fixed',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  width: '100vw',
+                  height: '100vh',
+                  backdropFilter: 'blur(20px)',
+                  background: 'rgba(0,0,0,0.4)',
+                  zIndex: 9999,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+                onClick={handleMobileMenuClose}
+              >
+                {/* Close Button */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.2, delay: 0.1 }}
+                  style={{
+                    position: 'absolute',
+                    top: 100,
+                    right: 20,
+                    zIndex: 10000,
+                  }}
+                >
+                  <IconButton
+                    onClick={handleMobileMenuClose}
+                    sx={{
+                      borderRadius: '8px',
+                      backdropFilter: 'blur(16px)',
+                      background: 'rgba(255,255,255,0.18)',
+                      border: '1.5px solid rgba(255,255,255,0.25)',
+                      boxShadow: '0 2px 12px #0003',
+                      color: '#fff',
+                      width: 44,
+                      height: 44,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'background 0.2s',
+                      '&:hover': {
+                        background: 'rgba(255,255,255,0.28)',
+                      },
+                    }}
+                  >
+                    <CloseIcon fontSize="medium" />
+                  </IconButton>
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.0, delay: 0.0, ease: 'easeOut' }}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '100%',
+                    maxWidth: 400,
+                    gap: 16,
+                    padding: '0 24px',
+                    marginTop: 60,
+                  }}
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  {tabLabels.map((label, idx) => (
+                    <motion.div
+                      key={label}
+                      initial={{ opacity: 0, y: 40 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ 
+                        duration: 0.2, 
+                        delay: 0.1 + ((tabLabels.length - 1 - idx) * 0.01), 
+                        ease: 'easeOut' 
+                      }}
+                    >
+                      <Button
+                        onClick={() => handleMobileTabSelect(idx)}
+                        variant={tabValue === idx ? "contained" : "outlined"}
+                        sx={{
+                          py: 2.5,
+                          px: 3,
+                          fontSize: 18,
+                          fontWeight: tabValue === idx ? 700 : 500,
+                          borderRadius: 2,
+                          textTransform: 'none',
+                          backdropFilter: 'blur(16px)',
+                          background: tabValue === idx 
+                            ? 'rgba(255,255,255,0.25)' 
+                            : 'rgba(255,255,255,0.15)',
+                          border: '1.5px solid rgba(255,255,255,0.3)',
+                          color: '#fff',
+                          boxShadow: '0 2px 12px #0003',
+                          width: '100%',
+                          transition: 'all 0.2s ease',
+                          '&:hover': {
+                            background: 'rgba(255,255,255,0.3)',
+                            border: '1.5px solid rgba(255,255,255,0.4)',
+                            transform: 'translateY(-2px)',
+                          },
+                          '&.MuiButton-contained': {
+                            background: 'rgba(255,255,255,0.35)',
+                            border: '2px solid rgba(255,255,255,0.5)',
+                            boxShadow: '0 4px 16px #0004',
+                          },
+                        }}
+                      >
+                        {label}
+                      </Button>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </motion.div>
+            )}
+          </Box>
+
+          {/* Desktop: Original Tab Design */}
+          <Box sx={{
+            display: { xs: 'none', md: 'flex' },
+            alignItems: 'center',
+          }}>
+            {/* Left Arrow Button */}
+            <Box sx={{
+              pointerEvents: 'auto',
+              mr: 1,
+              display: 'flex',
+              alignItems: 'center',
+            }}>
+              <IconButton
+                onClick={() => setTabValue((prev) => Math.max(0, prev - 1))}
+                disabled={tabValue === 0}
+                sx={{
+                  borderRadius: '50%',
+                  backdropFilter: 'blur(16px)',
+                  background: tabValue === 0 ? 'rgba(255,255,255,0.32)' : 'rgba(255,255,255,0.18)',
+                  border: '1.5px solid rgba(255,255,255,0.25)',
+                  boxShadow: '0 2px 12px #0003',
+                  color: '#fff',
+                  width: 44,
+                  height: 44,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'background 0.2s',
+                  m: 0,
+                  '&:hover': {
+                    background: 'rgba(255,255,255,0.28)',
+                  },
+                  opacity: 1,
+                }}
+              >
+                <ArrowBackIosNewIcon fontSize="medium" sx={{ ml: '-3px', color: '#fff' }} />
+              </IconButton>
+            </Box>
+            {/* Tab Bar */}
+            <Box sx={{
+              pointerEvents: 'auto',
+              borderRadius: 3,
+              overflow: 'hidden',
+              boxShadow: '0 4px 32px #0004',
+              backdropFilter: 'blur(16px)',
+              background: 'rgba(255,255,255,0.18)',
+              border: '1.5px solid rgba(255,255,255,0.25)',
+              px: { xs: 0.3, md: 1 },
+              py: { xs: 0.2, md: 0.6 },
+              minWidth: { xs: '60vw', md: 'auto' },
+              maxWidth: { xs: '90vw', md: '70vw' },
+              display: 'flex',
+              alignItems: 'center',
+            }}>
+              <Tabs
+                value={tabValue}
+                onChange={handleTabChange}
+                aria-label="Jaco exploration tabs"
+                variant="scrollable"
+                scrollButtons="auto"
+                sx={{
+                  minHeight: 40,
+                  '& .MuiTab-root': {
+                    fontSize: { xs: 13, md: 16 },
+                    fontWeight: 700,
+                    textTransform: 'none',
+                    minWidth: { xs: 80, md: 95 },
+                    px: { xs: 1, md: 2 },
+                    py: { xs: 0.8, md: 1.2 },
+                    color: '#fff',
+                    opacity: 0.95,
+                    borderRadius: '10px',
+                    border: 'none',
+                    background: 'transparent',
+                    marginRight: 0,
+                    textShadow: '0 2px 8px #000b',
+                    transition: 'background 0.2s, color 0.2s',
+                    '&.Mui-selected': {
+                      color: '#fff',
+                      background: 'rgba(191, 191, 191, 0.22)',
+                      textShadow: '0 4px 16px #000c',
+                      opacity: 1,
+                    },
+                    '&:hover': {
+                      background: 'rgba(255,255,255,0.10)',
+                      color: '#fff',
+                      opacity: 1,
+                    },
+                  },
+                  '& .MuiTabs-indicator': {
+                    backgroundColor: '#fff',
+                    height: 3,
+                    borderRadius: 2,
+                    boxShadow: '0 2px 8px #0007',
+                  },
+                }}
+              >
+                {tabLabels.map((label, idx) => (
+                  <Tab key={label} label={label} {...a11yProps(idx)} />
+                ))}
+              </Tabs>
+            </Box>
+            {/* Right Arrow Button */}
+            <Box sx={{
+              pointerEvents: 'auto',
+              ml: 1,
+              display: 'flex',
+              alignItems: 'center',
+            }}>
+              <IconButton
+                onClick={() => setTabValue((prev) => Math.min(tabLabels.length - 1, prev + 1))}
+                disabled={tabValue === tabLabels.length - 1}
+                sx={{
+                  borderRadius: '50%',
+                  backdropFilter: 'blur(16px)',
+                  background: tabValue === tabLabels.length - 1 ? 'rgba(255,255,255,0.32)' : 'rgba(255,255,255,0.18)',
+                  border: '1.5px solid rgba(255,255,255,0.25)',
+                  boxShadow: '0 2px 12px #0003',
+                  color: '#fff',
+                  width: 44,
+                  height: 44,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'background 0.2s',
+                  m: 0,
+                  '&:hover': {
+                    background: 'rgba(255,255,255,0.28)',
+                  },
+                  opacity: 1,
+                }}
+              >
+                <ArrowForwardIosIcon fontSize="medium" sx={{ mr: '-3px', color: '#fff' }} />
+              </IconButton>
+            </Box>
+          </Box>
+        </Box>
       </Box>
-      {/* Main content can go here */}
-      <Container maxWidth="md" sx={{ py: { xs: 6, md: 10 } }}>
-        <Typography variant="h4" fontWeight={700} mb={2}>
-          Welcome to Jaco
-        </Typography>
-        <Typography color="text.secondary">
-          Jaco is a lively beach town known for its beautiful coastline, surfing, nightlife, and easy access to Costa Rica's natural wonders. Explore the best of Jaco from your luxury condo.
-        </Typography>
+
+      {/* Tabbed Content Section */}
+      <Container maxWidth="lg" sx={{ py: { xs: 1, md: 2 } }}>
+        {/* Beaches Tab */}
+        <TabPanel value={tabValue} index={0}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Typography variant="h6" fontWeight={700} mb={1} color="grey.900">
+              Beautiful Beaches of Jaco
+            </Typography>
+            <Box sx={{ 
+              bgcolor: 'grey.100', 
+              p: 1.5, 
+              borderRadius: 2, 
+              textAlign: 'center'
+            }}>
+              <Typography variant="body2" color="text.secondary">
+                Beach Information Coming Soon
+              </Typography>
+            </Box>
+          </motion.div>
+        </TabPanel>
+
+        {/* Surfing Tab */}
+        <TabPanel value={tabValue} index={1}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Typography variant="h6" fontWeight={700} mb={1} color="grey.900">
+              Surfing in Jaco
+            </Typography>
+            <Box sx={{ 
+              bgcolor: 'grey.100', 
+              p: 1.5, 
+              borderRadius: 2, 
+              textAlign: 'center'
+            }}>
+              <Typography variant="body2" color="text.secondary">
+                Surfing Information Coming Soon
+              </Typography>
+            </Box>
+          </motion.div>
+        </TabPanel>
+
+        {/* Restaurants Tab */}
+        <TabPanel value={tabValue} index={2}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Typography variant="h6" fontWeight={700} mb={1} color="grey.900">
+              Dining in Jaco
+            </Typography>
+            <Box sx={{ 
+              bgcolor: 'grey.100', 
+              p: 1.5, 
+              borderRadius: 2, 
+              textAlign: 'center'
+            }}>
+              <Typography variant="body2" color="text.secondary">
+                Restaurant Guide Coming Soon
+              </Typography>
+            </Box>
+          </motion.div>
+        </TabPanel>
+
+        {/* Nightlife Tab */}
+        <TabPanel value={tabValue} index={3}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Typography variant="h6" fontWeight={700} mb={1} color="grey.900">
+              Jaco Nightlife
+            </Typography>
+            <Box sx={{ 
+              bgcolor: 'grey.100', 
+              p: 1.5, 
+              borderRadius: 2, 
+              textAlign: 'center'
+            }}>
+              <Typography variant="body2" color="text.secondary">
+                Nightlife Guide Coming Soon
+              </Typography>
+            </Box>
+          </motion.div>
+        </TabPanel>
+
+        {/* Activities Tab */}
+        <TabPanel value={tabValue} index={4}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Typography variant="h6" fontWeight={700} mb={1} color="grey.900">
+              Activities & Adventures
+            </Typography>
+            <Box sx={{ 
+              bgcolor: 'grey.100', 
+              p: 1.5, 
+              borderRadius: 2, 
+              textAlign: 'center'
+            }}>
+              <Typography variant="body2" color="text.secondary">
+                Activity Guide Coming Soon
+              </Typography>
+            </Box>
+          </motion.div>
+        </TabPanel>
+
+        {/* Shopping Tab */}
+        <TabPanel value={tabValue} index={5}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Typography variant="h6" fontWeight={700} mb={1} color="grey.900">
+              Shopping in Jaco
+            </Typography>
+            <Box sx={{ 
+              bgcolor: 'grey.100', 
+              p: 1.5, 
+              borderRadius: 2, 
+              textAlign: 'center'
+            }}>
+              <Typography variant="body2" color="text.secondary">
+                Shopping Guide Coming Soon
+              </Typography>
+            </Box>
+          </motion.div>
+        </TabPanel>
+
+        {/* Transportation Tab */}
+        <TabPanel value={tabValue} index={6}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Typography variant="h6" fontWeight={700} mb={1} color="grey.900">
+              Transportation in Jaco
+            </Typography>
+            <Box sx={{ 
+              bgcolor: 'grey.100', 
+              p: 1.5, 
+              borderRadius: 2, 
+              textAlign: 'center'
+            }}>
+              <Typography variant="body2" color="text.secondary">
+                Transportation Guide Coming Soon
+              </Typography>
+            </Box>
+          </motion.div>
+        </TabPanel>
+
+        {/* Tour Guide Tab */}
+        <TabPanel value={tabValue} index={7}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Typography variant="h6" fontWeight={700} mb={1} color="grey.900">
+              Tour Guide Services
+            </Typography>
+            <Box sx={{ 
+              bgcolor: 'grey.100', 
+              p: 1.5, 
+              borderRadius: 2, 
+              textAlign: 'center'
+            }}>
+              <Typography variant="body2" color="text.secondary">
+                Tour Guide Information Coming Soon
+              </Typography>
+            </Box>
+          </motion.div>
+        </TabPanel>
       </Container>
+      <Box className="site-copyright" sx={{ width: '100%', textAlign: 'center', color: '#fff', fontSize: '0.85rem', fontWeight: 400, letterSpacing: '0.01em', p: '0.7rem 0 0.5rem 0', background: 'transparent', position: 'fixed', left: 0, bottom: 0, zIndex: 200 }}>
+        © 2025 Jaco Bay Condos. All rights reserved.
+      </Box>
     </Box>
   );
 };

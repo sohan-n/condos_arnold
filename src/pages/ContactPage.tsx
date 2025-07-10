@@ -24,24 +24,62 @@ const ContactPage: React.FC = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [emailError, setEmailError] = useState<string>('');
 
   const handleInputChange = (field: keyof FormData) => (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    const value = event.target.value;
     setFormData(prev => ({
       ...prev,
-      [field]: event.target.value
+      [field]: value
     }));
+    
+    // Real-time email validation
+    if (field === 'email') {
+      if (!value.trim()) {
+        setEmailError('');
+      } else if (!validateEmail(value)) {
+        setEmailError('Please enter a valid email address');
+      } else {
+        setEmailError('');
+      }
+    }
+  };
+
+  const validateEmail = (email: string): boolean => {
+    // More comprehensive email validation
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    
+    // Client-side validation
+    if (!formData.name.trim()) {
+      setSubmitStatus('error');
+      return;
+    }
+    
+    if (!formData.email.trim() || !validateEmail(formData.email)) {
+      setSubmitStatus('error');
+      return;
+    }
+    
+    if (!formData.message.trim()) {
+      setSubmitStatus('error');
+      return;
+    }
+    
     setIsSubmitting(true);
     setSubmitStatus('idle');
 
     try {
-      // Using Formspree - you'll need to replace this with your Formspree endpoint
-      const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
+      console.log('Submitting form data:', formData);
+      
+      // Using Cloudflare Workers function
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -51,9 +89,12 @@ const ContactPage: React.FC = () => {
           email: formData.email,
           phone: formData.phone,
           message: formData.message,
-          subject: 'New Contact Form Submission - Jaco Bay Condos'
         }),
       });
+      
+      console.log('Response status:', response.status);
+      const responseData = await response.json();
+      console.log('Response data:', responseData);
 
       if (response.ok) {
         setSubmitStatus('success');
@@ -76,6 +117,7 @@ const ContactPage: React.FC = () => {
       alignItems: 'center',
       justifyContent: 'center',
       py: 8,
+      pt: { xs: 12, md: 20 },
       bgcolor: '#f5f5f5',
     }}>
       <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
@@ -149,6 +191,8 @@ const ContactPage: React.FC = () => {
                 type="email"
                 value={formData.email}
                 onChange={handleInputChange('email')}
+                error={!!emailError}
+                helperText={emailError}
                 fullWidth
                 sx={{
                   '& .MuiOutlinedInput-root': {
@@ -182,7 +226,7 @@ const ContactPage: React.FC = () => {
                 type="submit"
                 variant="contained"
                 size="large"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !!emailError || !formData.name.trim() || !formData.email.trim() || !formData.message.trim()}
                 startIcon={isSubmitting ? <CircularProgress size={20} /> : <SendIcon />}
                 sx={{
                   borderRadius: 1,
@@ -322,7 +366,7 @@ const ContactPage: React.FC = () => {
             letterSpacing: 0.01,
           }}
         >
-          © 2024 Jaco Luxury Condos. All rights reserved.
+          © 2025 Jaco Bay Condos. All rights reserved.
         </Box>
       </Container>
     </Box>

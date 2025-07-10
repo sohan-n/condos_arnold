@@ -295,7 +295,7 @@ const CondoPage: React.FC = () => {
       </Container>
 
       {/* Elegant Amenities Section */}
-      <Container maxWidth="xl" sx={{ pb: { xs: 6, md: 10 } }}>
+      <Container id="amenities" maxWidth="xl" sx={{ pb: { xs: 6, md: 10 } }}>
         <Typography variant="h4" fontWeight={700} mb={4} align="center">
           Complete Amenities
         </Typography>
@@ -399,7 +399,7 @@ const CondoPage: React.FC = () => {
 
       {/* Footer */}
       <Box sx={{ py: 4, textAlign: 'center', fontWeight: 500, fontSize: 13, letterSpacing: 0.5, mt: 6, color: '#637988' }}>
-        © 2024 Jaco Luxury Condos. All rights reserved.
+        © 2025 Jaco Bay Condos. All rights reserved.
       </Box>
     </Box>
   );

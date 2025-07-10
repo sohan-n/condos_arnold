@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Box, Typography, Button, Card, Container } from '@mui/material';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import BathtubIcon from '@mui/icons-material/Bathtub';
@@ -19,6 +19,7 @@ import ModernCarousel from '../components/ModernCarousel';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { keyframes } from '@emotion/react';
+import { ParallaxProvider, Parallax } from 'react-scroll-parallax';
 // @ts-ignore
 import { Splide, SplideSlide, Splide as SplideComponent } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/splide.min.css';
@@ -69,23 +70,24 @@ const dropAnimation = keyframes`
 `;
 
 const HomePage: React.FC = () => {
-  const [offsetY, setOffsetY] = useState(0);
+  // Remove the custom scroll handling
+  // const [offsetY, setOffsetY] = useState(0);
 
-  // Super smooth parallax effect for all devices
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          setOffsetY(window.pageYOffset);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  // Remove the custom scroll effect
+  // useEffect(() => {
+  //   let ticking = false;
+  //   const handleScroll = () => {
+  //     if (!ticking) {
+  //       window.requestAnimationFrame(() => {
+  //         setOffsetY(window.pageYOffset);
+  //         ticking = false;
+  //       });
+  //       ticking = true;
+  //     }
+  //   };
+  //   window.addEventListener('scroll', handleScroll);
+  //   return () => window.removeEventListener('scroll', handleScroll);
+  // }, []);
 
   // For location cards animation
   const controls = useAnimation();
@@ -190,49 +192,45 @@ const HomePage: React.FC = () => {
   }, [bottomInView]);
 
   return (
-    <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
-      {/* Hero Section with outside shot image background */}
-      <Box sx={{
-        position: 'relative',
-        minHeight: { xs: '83vh', md: '85vh' },
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        pt: { xs: 8, md: 12 },
-        pb: { xs: 6, md: 10 },
-        overflow: 'hidden',
-        bgcolor: 'transparent',
-        clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0% 100%)', // Slanted bottom
-      }}>
-        {/* Image background with Parallax */}
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            width: '100%',
-            height: { xs: '100%', md: '115%' },
-            zIndex: 0,
-            // Super smooth parallax for all devices, smaller factor on mobile
-            transform: {
-              xs: `translateY(${offsetY * 0.18}px)`,
-              md: `translateY(${offsetY * 0.5}px)`
-            },
-            filter: { xs: 'brightness(1.08)', md: 'none' },
-            transition: 'transform 0.08s cubic-bezier(0.22, 1, 0.36, 1)',
-            willChange: 'transform',
-          }}
-        >
-          <img
-            src="condo1_banner.png"
-            alt="Beachfront condo view"
+    <ParallaxProvider>
+      <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
+        {/* Hero Section with outside shot image background */}
+        <Box sx={{
+          position: 'relative',
+          minHeight: { xs: '83vh', md: '85vh' },
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          textAlign: 'center',
+          pt: { xs: 8, md: 12 },
+          pb: { xs: 6, md: 10 },
+          overflow: 'hidden',
+          bgcolor: 'transparent',
+          clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0% 100%)', // Slanted bottom
+        }}>
+          {/* Image background with Parallax */}
+          <Parallax
+            speed={-20}
             style={{
+              position: 'absolute',
+              inset: 0,
               width: '100%',
               height: '100%',
-              objectFit: 'cover',
+              zIndex: 0,
+              willChange: 'transform',
             }}
-          />
-        </Box>
+          >
+            <img
+              src="condo1_banner.png"
+              alt="Beachfront condo view"
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                filter: 'brightness(1.08)',
+              }}
+            />
+          </Parallax>
         {/* Overlay for readability */}
         <Box sx={{
           position: 'absolute',
@@ -252,13 +250,14 @@ const HomePage: React.FC = () => {
         }}>
           <Typography
             variant="h3"
-            fontWeight={800}
+            fontWeight={900}
             color="white"
             gutterBottom
+            fontSize={{ xs: 50, md: 65 }}
             sx={{
               textShadow: {
-                xs: '0 4px 24px rgba(0,0,0,0.65), 0 2px 8px rgba(0,0,0,0.28)',
-                md: '0 10px 48px rgba(0,0,0,0.38), 0 2px 8px rgba(0,0,0,0.18)'
+                xs: '0 4px 24px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.9)',
+                md: '0 10px 48px rgba(0, 0, 0, 0.9), 0 2px 8px rgba(0, 0, 0, 0.9)'
               },
             }}
           >
@@ -272,8 +271,8 @@ const HomePage: React.FC = () => {
               mt: { xs: 0, md: 0 },
               alignSelf: { xs: 'center', md: 'unset' },
               textShadow: {
-                xs: '0 2px 12px rgba(0,0,0,0.55), 0 1px 2px rgba(0,0,0,0.22)',
-                md: 'none',
+                xs: '0 4px 24px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.9)',
+                md: '0 10px 48px rgba(0, 0, 0, 0.9), 0 2px 8px rgba(0, 0, 0, 0.9)'
               },
               fontSize: { xs: 17, md: 22 },
               my: { xs: 'auto', md: 0 },
@@ -561,7 +560,7 @@ const HomePage: React.FC = () => {
       <Box
         sx={{
           position: 'relative',
-          minHeight: { xs: '90vh', md: '75vh' },
+          minHeight: { xs: '100vh', md: '90vh' },
           width: '100%',
           mt: { xs: 8, md: 12 },
           mb: 0,
@@ -574,13 +573,11 @@ const HomePage: React.FC = () => {
         {/* Image background for Jaco section */}
         <Box sx={{
           position: 'absolute',
-          top: '-100%',
+          top: 0,
           left: 0,
           width: '100%',
-          height: '200%',
+          height: '100%',
           zIndex: 0,
-          transform: `translateY(${offsetY * 0.2}px)`, // Parallax effect - REDUCED FACTOR
-          willChange: 'transform',
         }}>
           <motion.img
             src="jaco_beach.jpg"
@@ -665,10 +662,11 @@ const HomePage: React.FC = () => {
             background: 'linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.25) 100%)',
           }}
         >
-          © 2024 Jaco Luxury Condos. All rights reserved.
+          © 2025 Jaco Bay Condos. All rights reserved.
         </Box>
       </Box>
     </Box>
+    </ParallaxProvider>
   );
 };
 
