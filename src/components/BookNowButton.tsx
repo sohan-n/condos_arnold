@@ -20,7 +20,7 @@ const BookNowButton: React.FC<BookNowButtonProps> = ({
       variant={variant}
       size={size}
       sx={{
-        fontWeight: 400,
+        fontWeight: 500,
         fontSize: 30,
         px: 9,
         py: 4,

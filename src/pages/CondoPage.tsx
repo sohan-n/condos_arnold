@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, Card, CardContent, Container, Paper, Button } from '@mui/material';
-import BookNowButton from '../components/BookNowButton';
+import ParallaxHero from '../components/CondoPageHero';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import KingBedIcon from '@mui/icons-material/KingBed';
 import TvIcon from '@mui/icons-material/Tv';
@@ -13,8 +13,7 @@ import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
 import ModernCarousel from '../components/ModernCarousel';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
+
 
 
 
@@ -168,66 +167,50 @@ The condo's location on the main strip of Jaco provides easy access to the beach
 Whether you're planning a family vacation, a friends' getaway, or a business retreat, our condo provides the perfect blend of luxury, comfort, and convenience in one of Costa Rica's most vibrant beach communities.`;
 
 const CondoPage: React.FC = () => {
-  // For quick facts animation
-  const controls = useAnimation();
-  const [ref, inView] = useInView({ threshold: 0.2, triggerOnce: true });
-
-  React.useEffect(() => {
-    if (inView) controls.start('visible');
-  }, [controls, inView]);
 
   return (
     <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
       {/* Hero Section */}
-      <Box sx={{
-        position: 'relative',
-        minHeight: '55vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        pt: { xs: 6, md: 10 },
-        pb: { xs: 4, md: 8 },
-        overflow: 'hidden',
-        bgcolor: 'transparent',
-        clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0% 100%)',
-      }}>
-        <Box sx={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '115%',
-          zIndex: 0,
-        }}>
-          <img
-            src="condo1_hero.png"
-            alt="Condo hero view"
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        </Box>
-        <Box sx={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          bgcolor: 'rgba(0,0,0,0.25)',
-          zIndex: 1,
-        }} />
-        <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-          {/* Desktop Book Now Button */}
-          <Box sx={{ display: { xs: 'none', sm: 'block' }, textAlign: 'center' }}>
-            <BookNowButton />
-          </Box>
-          
-          {/* Mobile Book Now Button */}
-          <Box sx={{ display: { xs: 'block', sm: 'none' }, textAlign: 'center', mt: 4 }}>
-            <BookNowButton />
-          </Box>
-        </Container>
-      </Box>
+      <ParallaxHero
+        backgroundImage="condo1_hero.png"
+        title="The Spacious Ocean View Condo for Groups"
+        subtitle="Available now for booking"
+        minHeight="70vh"
+        titleFontSize={{ xs: 50, md: 56 }}
+        overlayOpacity={0.25}
+      />
 
+
+
+      {/* Gallery Carousel */}
+      <Container maxWidth="xl" sx={{ py: { xs: 3, md: 4 } }}>
+        <ModernCarousel images={galleryImages} autoplayInterval={4000} />
+      </Container>
+      {/* Quick Facts / Highlights */}
+      <Container maxWidth="md" sx={{ pb: { xs: 4, md: 0  } }}>
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: { xs: 1, md: 1.4 }}}>
+          {quickFacts.map((fact) => (
+            <Box
+              key={fact.label}
+              sx={{
+                flex: { xs: '1 1 80px', sm: '1 1 100px', md: '1 1 140px', lg: '1 1 160px' },
+                minWidth: { xs: 80, sm: 100, md: 140, lg: 160 }
+              }}
+            >
+              <Card elevation={3} sx={{ borderRadius: 1, boxShadow: 3, border: '1px solid #e3eaf1', bgcolor: 'rgba(255,255,255,0.96)' }}>
+                <CardContent>
+                  <Typography variant="h5" fontWeight={700} color="black" align="center" gutterBottom>
+                    {fact.value}
+                  </Typography>
+                  <Typography color="#637988" align="center" fontSize={16 }>{fact.label}</Typography>
+                </CardContent>
+              </Card>
+            </Box>
+          ))}
+        </Box>
+      </Container>
       {/* Availability Calendar */}
-      <Container maxWidth="xl" sx={{ pt: { xs: 6, md: 8 }, pb: 4 }}>
+      <Container maxWidth="xl" sx={{ pt: { xs: 3, md: 7 }, pb: 4 }}>
         <Paper elevation={4} sx={{ borderRadius: 1, p: { xs: 2, md: 4 }, mb: 4 }}>
           <Typography variant="h5" fontWeight={700} mb={2} align="center">
             Availability
@@ -245,38 +228,6 @@ const CondoPage: React.FC = () => {
             />
           </Box>
         </Paper>
-      </Container>
-
-      {/* Gallery Carousel */}
-      <Container maxWidth="xl" sx={{ py: { xs: 8, md: 12 } }}>
-        <ModernCarousel images={galleryImages} autoplayInterval={4000} />
-      </Container>
-
-      {/* Quick Facts / Highlights */}
-      <Container maxWidth="md" sx={{ pb: { xs: 6, md: 10 } }}>
-        <Box ref={ref} sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 4 }}>
-          {quickFacts.map((fact, i) => (
-            <motion.div
-              key={fact.label}
-              variants={{
-                hidden: { opacity: 0, y: 60 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.7, delay: i * 0.2 } },
-              }}
-              initial="hidden"
-              animate={controls}
-              style={{ flex: '1 1 180px', maxWidth: 220, minWidth: 140 }}
-            >
-              <Card elevation={3} sx={{ borderRadius: 1, boxShadow: 3, border: '1px solid #e3eaf1', bgcolor: 'rgba(255,255,255,0.96)' }}>
-                <CardContent>
-                  <Typography variant="h6" fontWeight={700} color="#1993e5" align="center" gutterBottom>
-                    {fact.value}
-                  </Typography>
-                  <Typography color="#637988" align="center">{fact.label}</Typography>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
-        </Box>
       </Container>
 
       {/* About the Space */}
