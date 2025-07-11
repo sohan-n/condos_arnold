@@ -26,7 +26,7 @@ const HeroSlider: React.FC = () => {
       >
         {slides.map((src) => (
           <SwiperSlide key={src}>
-            <img src={src} alt="Jaco Beach Condo" style={{ width: '100%', objectFit: 'cover' }} />
+            <img src={src} alt="Jacó Beach Condo" style={{ width: '100%', objectFit: 'cover' }} />
           </SwiperSlide>
         ))}
       </Swiper>

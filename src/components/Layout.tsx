@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from './Header';
 import FloatingBookButton from './FloatingBookButton';
-import { useLocation } from 'react-router-dom';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 
 const lightTheme = createTheme({
@@ -60,11 +59,8 @@ const lightTheme = createTheme({
 });
 
 const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const location = useLocation();
-  const currentPath = location.pathname;
-
   // Show floating button on all pages except condo and contact
-  const shouldShowFloating = currentPath !== '/condo' && currentPath !== '/contact';
+  const shouldShowFloating = false; // Temporarily hidden
 
   return (
     <ThemeProvider theme={lightTheme}>

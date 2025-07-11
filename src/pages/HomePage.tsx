@@ -16,10 +16,12 @@ import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
 import { Link as RouterLink } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ModernCarousel from '../components/ModernCarousel';
+import HeroButton from '../components/HeroButton';
+import UnifiedHero from '../components/UnifiedHero';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { keyframes } from '@emotion/react';
-import { ParallaxProvider, Parallax } from 'react-scroll-parallax';
+import { ParallaxProvider } from 'react-scroll-parallax';
 // @ts-ignore
 import { Splide, SplideSlide, Splide as SplideComponent } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/splide.min.css';
@@ -229,147 +231,16 @@ const HomePage: React.FC = () => {
   return (
     <ParallaxProvider>
       <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
-        {/* Hero Section with outside shot image background */}
-        <Box sx={{
-          position: 'relative',
-          minHeight: { xs: '83vh', md: '85vh' },
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          textAlign: 'center',
-          pt: { xs: 15, md: 20 },
-          pb: { xs: 6, md: 10 },
-          overflow: 'hidden',
-          bgcolor: 'transparent',
-          clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0% 100%)', // Slanted bottom
-        }}>
-          {/* Image background with Parallax */}
-          <Parallax
-            speed={-20}
-            style={{
-              position: 'absolute',
-              inset: 0,
-              width: '100%',
-              height: '100%',
-              zIndex: 0,
-              willChange: 'transform',
-            }}
-          >
-            <img
-              src="condo1_banner.png"
-              alt="Beachfront condo view"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                filter: 'brightness(1.08)',
-              }}
-            />
-          </Parallax>
-        {/* Overlay for readability */}
-        <Box sx={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          bgcolor: { xs: 'rgba(0,0,0,0.18)', md: 'rgba(0,0,0,0.35)' },
-          zIndex: 1,
-        }} />
-        {/* Content */}
-        <Container maxWidth="md" sx={{ position: 'relative', zIndex: 2,
-          display: { xs: 'flex', md: 'block' },
-          flexDirection: { xs: 'column', md: 'column' },
-          alignItems: { xs: 'stretch', md: 'unset' },
-          justifyContent: { xs: 'space-between', md: 'flex-start' },
-          height: { xs: '100%', md: 'auto' },
-        }}>
-          <Typography
-            variant="h3"
-            fontWeight={900}
-            color="white"
-            gutterBottom
-            fontSize={{ xs: 55, md: 70 }}
-            sx={{
-              textShadow: {
-                xs: '0 4px 24px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.9)',
-                md: '0 10px 48px rgba(0, 0, 0, 0.9), 0 2px 8px rgba(0, 0, 0, 0.9)'
-              },
-            }}
-          >
-            Ultra-Luxury Condos, in Jaco
-          </Typography>
-          <Typography
-            variant="h6"
-            color="rgba(255,255,255,0.9)"
-            mb={{ xs: 0, md: 4 }}
-            sx={{
-              mt: { xs: 0, md: 0 },
-              alignSelf: { xs: 'center', md: 'unset' },
-              textShadow: {
-                xs: '0 4px 24px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.9)',
-                md: '0 10px 48px rgba(0, 0, 0, 0.9), 0 2px 8px rgba(0, 0, 0, 0.9)'
-              },
-              fontSize: 24,
-              letterSpacing: 1.2  ,
-              my: { xs: 'auto', md: 0 },
-              display: { xs: 'none', md: 'block' },
-            }}
-          >
-            Experience Jaco's best.
-          </Typography>
-          <Button
-            variant="contained"
-            size="large"
-            component={RouterLink}
-            to="/condo"
-            sx={{
-              borderRadius: '7px',
-              background: 'rgba(255, 255, 255, 0.15)',
-              backdropFilter: 'blur(20px)',
-              border: '1px solid rgba(255, 255, 255, 0.2)',
-              color: 'white',
-              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-              letterSpacing: 1.2,
-              textTransform: 'uppercase',
-                  fontSize: { xs: 20, md: 19   },
-                  px: { xs: 8, md: 10  },
-                  py: { xs: 2.5, md: 3.5 },
-                  fontWeight: 600,
-                                    maxWidth: { xs: '350px'},
-                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                  mt: { xs: 8, md: 10 },
-                  mx: 'auto',
-              position: 'relative',
-              overflow: 'hidden',
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: '-100%',
-                width: '100%',
-                height: '100%',
-                background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
-                transition: 'left 0.5s',
-              },
-              '&:hover': {
-                background: 'rgba(255, 255, 255, 0.25)',
-                border: '1px solid rgba(255, 255, 255, 0.3)',
-                boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                transform: 'translateY(-2px)',
-                '&::before': {
-                  left: '100%',
-                },
-              },
-              '&:active': {
-                transform: 'translateY(0px)',
-                boxShadow: '0 6px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-              },
-            }}
-          >
-            Explore Condo
-          </Button>
-        </Container>
-      </Box>
+        <UnifiedHero
+          backgroundImage="condo1_banner.png"
+          title="Ultra-Luxury Condos, in Jacó"
+          subtitle="Experience the best."
+          buttonText="Explore Condo"
+          buttonTo="/condo"
+          heightPreset="mainpage"
+          shadowType="dark"
+          overlayOpacity={0.25}
+        />
 
       {/* Scroll Down Arrow - Positioned underneath the hero section */}
       <Box
@@ -400,33 +271,34 @@ const HomePage: React.FC = () => {
         </Typography>
         <ModernCarousel
           images={[
-            'slideshow/slide_3ad59832-3b10-4e8e-942b-54f6090441b6.jpeg',
-            'slideshow/slide_b7c18217-04cf-46a3-86b9-f1ed72182bb2.avif',
-            'slideshow/slide_9f9cf9e8-1082-4f4c-9ef6-0485af4e71b5.avif',
-            'slideshow/slide_5b2f2e0e-85e2-45ab-a142-bd6fddd23c51.avif',
-            'slideshow/slide_bcc6b5c4-eb0c-436a-a04e-cf32e79d67d7.avif',
-            'slideshow/slide_d636ab14-de68-41a2-bb59-356aa55e9fb4.avif',
-            'slideshow/slide_d5da1151-a7b9-4169-89d4-d29395f9032c.avif',
-            'slideshow/slide_eca1b684-f785-482b-be91-0b48862701ff.avif',
-            'slideshow/slide_b2e8a954-3400-4c63-82ac-66000c4c5012.avif',
-            'slideshow/slide_42fb3f45-9831-4bf4-b339-f3389c2699f8.avif',
-            'slideshow/slide_9fd8e9cf-d51b-4070-b6e5-fda1301ea64d.avif',
-            'slideshow/slide_f9d66cf2-ecf2-4913-929e-c4651926560e.avif',
-            'slideshow/slide_dc82f325-76c6-4176-b694-034e60828880.jpeg',
-            'slideshow/slide_11ca710a-bcb2-4ebe-817f-b8243ea79bc9.avif',
-            'slideshow/slide_ad0ceb99-f2df-4495-a928-8df8e011b8d5.avif',
-            'slideshow/slide_447cbbc2-e550-4636-9b2e-b2e7cc3c4d86.avif',
-            'slideshow/slide_8a448b19-2e47-40d1-8e64-050bb233a148.avif',
-            'slideshow/slide_3ef416d8-b475-4086-b885-122a9de440dd.avif',
-            'slideshow/slide_97b93768-476c-464f-bab6-f74140220ea7.avif',
-            'slideshow/slide_2bb3967a-1d44-45d8-a3f6-6f4375e7abd3.avif',
-            'slideshow/slide_d84243cd-bfad-455b-b04a-9098b1ecd4ae.avif',
-            'slideshow/slide_slide1.png',
-            'slideshow/slide_slide2.png',
-            'slideshow/slide_slide3.png',
-            'slideshow/slide_slide4.png',
-            'slideshow/slide_slide5.png',
-            'slideshow/slide_slide6.jpeg',
+            'slideshow/slide_1.jpg',
+            'slideshow/slide_2.jpg',
+            'slideshow/slide_3.jpg',
+            'slideshow/slide_4.jpg',
+            'slideshow/slide_5.jpg',
+            'slideshow/slide_6.jpg',
+            'slideshow/slide_7.jpg',
+            'slideshow/slide_8.jpg',
+            'slideshow/slide_9.jpg',
+            'slideshow/slide_10.jpg',
+            'slideshow/slide_11.jpg',
+            'slideshow/slide_12.jpg',
+            'slideshow/slide_13.jpg',
+            'slideshow/slide_14.jpg',
+            'slideshow/slide_15.jpg',
+            'slideshow/slide_16.jpg',
+            'slideshow/slide_17.jpg',
+            'slideshow/slide_18.jpg',
+            'slideshow/slide_19.jpg',
+            'slideshow/slide_20.jpg',
+            'slideshow/slide_21.jpg',
+            'slideshow/slide_22.jpg',
+            'slideshow/slide_23.jpg',
+            'slideshow/slide_24.jpg',
+            'slideshow/slide_25.jpg',
+            'slideshow/slide_26.jpg',
+            'slideshow/slide_27.jpg',
+            'slideshow/slide_28.jpg',
           ]}
           autoplayInterval={4000}
           height={600}
@@ -643,7 +515,7 @@ const HomePage: React.FC = () => {
         }}>
           <motion.img
             src="jaco_beach.jpg"
-            alt="Jaco Beach"
+            alt="Jacó Beach"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1.2 }}
@@ -667,57 +539,15 @@ const HomePage: React.FC = () => {
         {/* Content */}
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, py: { xs: 8, md: 12 } }} ref={ref}>
           <Typography variant="h4" fontWeight={800} color="#FFFFFF" align="center" mb={5} sx={{ fontSize: { xs: 40, md: 54 } }}>
-            Prime Location in Jaco
+            Prime Location in Jacó
           </Typography>
           <Box display="flex" justifyContent="center" mb={5}>
-            <Button
-              component={RouterLink}
+            <HeroButton
               to="/jaco"
-              variant="contained"
-              size="large"
-              sx={{
-                fontWeight: 600,
-                fontSize: { xs: 18, md: 22 },
-                px: { xs: 6, md: 9 },
-                py: { xs: 2.5, md: 3 },
-                borderRadius: '7px',
-                background: 'rgba(255, 255, 255, 0.15)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                color: 'white',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-                letterSpacing: 1.2,
-                textTransform: 'uppercase',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                position: 'relative',
-                overflow: 'hidden',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: '-100%',
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
-                  transition: 'left 0.5s',
-                },
-                '&:hover': {
-                  background: 'rgba(255, 255, 255, 0.25)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
-                  boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                  transform: 'translateY(-2px)',
-                  '&::before': {
-                    left: '100%',
-                  },
-                },
-                '&:active': {
-                  transform: 'translateY(0px)',
-                  boxShadow: '0 6px 20px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)',
-                },
-              }}
+              buttonVariant="glass"
             >
-              Explore Jaco
-            </Button>
+              Explore Jacó
+            </HeroButton>
           </Box>
           {/* Icon grid - 2 rows on mobile, single row on desktop */}
           <Box sx={{ 
@@ -798,7 +628,7 @@ const HomePage: React.FC = () => {
             background: 'linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.25) 100%)',
           }}
         >
-          © 2025 Jaco Bay Condos. All rights reserved.
+          © 2025 Jacó Bay Condos. All rights reserved.
         </Box>
       </Box>
     </Box>

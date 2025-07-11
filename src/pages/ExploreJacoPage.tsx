@@ -158,7 +158,7 @@ const JacoPage: React.FC = () => {
             {/* Fallback for browsers that don't support video */}
             <img 
               src="google_earth_pic_before.png" 
-              alt="Jaco Beach aerial view"
+              alt="Jacó Beach aerial view"
               style={{
                 width: '100%',
                 height: '100%',
@@ -199,7 +199,7 @@ const JacoPage: React.FC = () => {
                 mt: { xs: 5, md: 0 },
               }}
             >
-              Jaco
+              Jacó
             </Typography>
             <Typography
               variant="h5"
@@ -399,7 +399,7 @@ const JacoPage: React.FC = () => {
               <Tabs
                 value={tabValue}
                 onChange={handleTabChange}
-                aria-label="Jaco exploration tabs"
+                aria-label="Jacó exploration tabs"
                 variant="scrollable"
                 scrollButtons="auto"
                 sx={{
@@ -780,7 +780,7 @@ const JacoPage: React.FC = () => {
       )}
       
       <Box className="site-copyright" sx={{ width: '100%', textAlign: 'center', color: '#fff', fontSize: '0.85rem', fontWeight: 400, letterSpacing: '0.01em', p: '0.7rem 0 0.5rem 0', background: 'transparent', position: 'fixed', left: 0, bottom: 0, zIndex: 200 }}>
-        © 2025 Jaco Bay Condos. All rights reserved.
+        © 2025 Jacó Bay Condos. All rights reserved.
       </Box>
     </Box>
   );

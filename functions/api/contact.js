@@ -71,7 +71,7 @@ export async function onRequestPost(context) {
       body: JSON.stringify({
         from: FROM_EMAIL,
         to: EMAIL_RECIPIENTS,
-        subject: 'New Contact Form Submission - Jaco Bay Condos',
+        subject: 'New Contact Form Submission - Jacó Bay Condos',
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <h2 style="color: #1993e5; border-bottom: 2px solid #1993e5; padding-bottom: 10px;">
@@ -91,7 +91,7 @@ export async function onRequestPost(context) {
             </div>
             
             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e9ecef; font-size: 12px; color: #6c757d;">
-              <p>This message was sent from the Jaco Bay Condos contact form.</p>
+              <p>This message was sent from the Jacó Bay Condos contact form.</p>
               <p>Time: ${new Date().toLocaleString()}</p>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Typography, Card, CardContent, Container, Paper, Button } from '@mui/material';
-import ParallaxHero from '../components/CondoPageHero';
+import UnifiedHero from '../components/UnifiedHero';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import KingBedIcon from '@mui/icons-material/KingBed';
 import TvIcon from '@mui/icons-material/Tv';
@@ -25,10 +25,34 @@ const quickFacts = [
 ];
 
 const galleryImages = [
-  'condo1_banner.png',
-  'condo1_living.png',
-  'condo1_bedroom.png',
-  'condo1_balcony.png',
+  'slideshow/slide_1.jpg',
+  'slideshow/slide_2.jpg',
+  'slideshow/slide_3.jpg',
+  'slideshow/slide_4.jpg',
+  'slideshow/slide_5.jpg',
+  'slideshow/slide_6.jpg',
+  'slideshow/slide_7.jpg',
+  'slideshow/slide_8.jpg',
+  'slideshow/slide_9.jpg',
+  'slideshow/slide_10.jpg',
+  'slideshow/slide_11.jpg',
+  'slideshow/slide_12.jpg',
+  'slideshow/slide_13.jpg',
+  'slideshow/slide_14.jpg',
+  'slideshow/slide_15.jpg',
+  'slideshow/slide_16.jpg',
+  'slideshow/slide_17.jpg',
+  'slideshow/slide_18.jpg',
+  'slideshow/slide_19.jpg',
+  'slideshow/slide_20.jpg',
+  'slideshow/slide_21.jpg',
+  'slideshow/slide_22.jpg',
+  'slideshow/slide_23.jpg',
+  'slideshow/slide_24.jpg',
+  'slideshow/slide_25.jpg',
+  'slideshow/slide_26.jpg',
+  'slideshow/slide_27.jpg',
+  'slideshow/slide_28.jpg',
 ];
 
 const detailedAmenities = [
@@ -81,7 +105,7 @@ const detailedAmenities = [
     description: 'Convenient parking and access to premium building amenities.',
     details: [
       '2 Residential parking spaces',
-      'Access to the largest pool in Jaco right outside your door',
+      'Access to the largest pool in Jacó right outside your door',
       'Elevator access',
       'Concierge services',
       'Bicycle racks available'
@@ -162,7 +186,7 @@ const aboutLong = `Our luxury condo is thoughtfully designed with premium finish
 
 Each of the four bedrooms is designed for comfort and privacy, with premium bedding and individual climate control. The master suite includes a private balcony with panoramic ocean views, while the additional bedrooms offer flexible sleeping arrangements perfect for families or groups.
 
-The condo's location on the main strip of Jaco provides easy access to the beach, restaurants, shopping, and nightlife, while the building's amenities including the pool and fitness center offer additional recreation options.
+The condo's location on the main strip of Jacó provides easy access to the beach, restaurants, shopping, and nightlife, while the building's amenities including the pool and fitness center offer additional recreation options.
 
 Whether you're planning a family vacation, a friends' getaway, or a business retreat, our condo provides the perfect blend of luxury, comfort, and convenience in one of Costa Rica's most vibrant beach communities.`;
 
@@ -171,12 +195,14 @@ const CondoPage: React.FC = () => {
   return (
     <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
       {/* Hero Section */}
-      <ParallaxHero
+      <UnifiedHero
         backgroundImage="condo1_hero.png"
         title="The Spacious Ocean View Condo for Groups"
         subtitle="Available now for booking"
-        minHeight="70vh"
-        titleFontSize={{ xs: 50, md: 56 }}
+        buttonText="Book Now"
+        buttonTo="/contact"
+        heightPreset="listingpage"
+        shadowType="light"
         overlayOpacity={0.25}
       />
 
@@ -310,7 +336,7 @@ const CondoPage: React.FC = () => {
             Location
           </Typography>
           <Typography color="text.secondary" mb={3}>
-            Located right on the main strip of Jaco, steps from the beach, restaurants, and nightlife. Enjoy the best of Costa Rica from your luxury penthouse.
+            Located right on the main strip of Jacó, steps from the beach, restaurants, and nightlife. Enjoy the best of Costa Rica from your luxury penthouse.
           </Typography>
           <Box sx={{ borderRadius: 2, overflow: 'hidden', boxShadow: 2, mb: 2 }}>
             <iframe
@@ -321,7 +347,7 @@ const CondoPage: React.FC = () => {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Jaco Bay Condos Location"
+              title="Jacó Bay Condos Location"
             />
           </Box>
           <Box sx={{ textAlign: 'center' }}>
@@ -350,7 +376,7 @@ const CondoPage: React.FC = () => {
 
       {/* Footer */}
       <Box sx={{ py: 4, textAlign: 'center', fontWeight: 500, fontSize: 13, letterSpacing: 0.5, mt: 6, color: '#637988' }}>
-        © 2025 Jaco Bay Condos. All rights reserved.
+        © 2025 Jacó Bay Condos. All rights reserved.
       </Box>
     </Box>
   );

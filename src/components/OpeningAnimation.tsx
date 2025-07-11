@@ -61,7 +61,7 @@ const OpeningAnimation: React.FC = () => {
       style={{ opacity, pointerEvents: opacity < 0.1 ? 'none' : 'auto' }}
     >
       <div className="opening-content">
-        <h1>Welcome to Jaco</h1>
+        <h1>Welcome to Jacó</h1>
         <ModernButton onClick={() => navigate('/condos')}>View Condo</ModernButton>
       </div>
     </div>

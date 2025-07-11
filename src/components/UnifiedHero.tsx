@@ -2,29 +2,77 @@ import React from 'react';
 import { Box, Container, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
 import { ParallaxProvider, Parallax } from 'react-scroll-parallax';
-import BookNowButton from './BookNowButton';
+import HeroButton from './HeroButton';
 
-interface ParallaxHeroProps {
+interface UnifiedHeroProps {
   backgroundImage: string;
   title: string;
   subtitle?: string;
-  minHeight?: string;
-  titleFontSize?: { xs: number; md: number };
+  buttonText?: string;
+  buttonTo?: string;
+  heightPreset?: 'mainpage' | 'listingpage' | 'custom';
+  customHeight?: string;
+  shadowType?: 'dark' | 'light';
   overlayOpacity?: number;
 }
 
-const ParallaxHero: React.FC<ParallaxHeroProps> = ({
+const UnifiedHero: React.FC<UnifiedHeroProps> = ({
   backgroundImage,
   title,
   subtitle,
-  minHeight = '100vh',
+  buttonText,
+  buttonTo,
+  heightPreset = 'mainpage',
+  customHeight,
+  shadowType = 'dark',
   overlayOpacity = 0.25
 }) => {
+  // Height presets
+  const getHeight = () => {
+    if (customHeight) return customHeight;
+    switch (heightPreset) {
+      case 'listingpage':
+        return '70vh';
+      case 'mainpage':
+      default:
+        return { xs: '83vh', md: '85vh' };
+    }
+  };
+
+  // Shadow configurations
+  const getTitleShadow = () => {
+    if (shadowType === 'light') {
+      return {
+        xs: '0 4px 24px rgba(226, 226, 226, 0.9), 0 2px 8px rgba(255, 255, 255, 0.9)',
+        md: '0 10px 48px rgba(255, 255, 255, 0.5), 0 2px 8px rgba(255, 255, 255, 0.5)'
+      };
+    } else {
+      return {
+        xs: '0 4px 24px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.9)',
+        md: '0 10px 48px rgba(0, 0, 0, 0.9), 0 2px 8px rgba(0, 0, 0, 0.9)'
+      };
+    }
+  };
+
+  const getSubtitleShadow = () => {
+    if (shadowType === 'light') {
+      return {
+        xs: '0 4px 24px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 255, 255, 0.9)',
+        md: '0 10px 48px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 255, 255, 0.9)'
+      };
+    } else {
+      return {
+        xs: '0 4px 24px rgba(0,0,0,0.9), 0 2px 8px rgba(0,0,0,0.9)',
+        md: '0 10px 48px rgba(0, 0, 0, 0.9), 0 2px 8px rgba(0, 0, 0, 0.9)'
+      };
+    }
+  };
+
   return (
     <ParallaxProvider>
       <Box sx={{ 
         position: 'relative', 
-        minHeight, 
+        minHeight: getHeight(), 
         overflow: 'hidden',
         clipPath: 'polygon(0 0, 100% 0, 100% 90%, 0% 100%)',
       }}>
@@ -80,10 +128,7 @@ const ParallaxHero: React.FC<ParallaxHeroProps> = ({
               gutterBottom
               fontSize={{ xs: 50, md: 70 }}
               sx={{
-                textShadow: {
-                  xs: '0 4px 24px rgba(226, 226, 226, 0.9), 0 2px 8px rgba(255, 255, 255, 0.9)',
-                  md: '0 10px 48px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 255, 255, 0.9)'
-                },
+                textShadow: getTitleShadow(),
                 textAlign: 'center',
                 fontWeight: 700,
                 lineHeight: 1.1,
@@ -108,10 +153,7 @@ const ParallaxHero: React.FC<ParallaxHeroProps> = ({
                 sx={{
                   mt: { xs: 0, md: 1 },
                   alignSelf: { xs: 'center', md: 'unset' },
-                  textShadow: {
-                    xs: '0 4px 24px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 255, 255, 0.9)',
-                    md: '0 10px 48px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 255, 255, 0.9)'
-                  },
+                  textShadow: getSubtitleShadow(),
                   fontSize: { xs: 17, md: 22 },
                   my: { xs: 'auto', md: 0 },
                   display: { xs: 'none', md: 'block' },
@@ -124,31 +166,21 @@ const ParallaxHero: React.FC<ParallaxHeroProps> = ({
             </motion.div>
           )}
 
-          {/* Desktop Book Now Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-          >
-            <Box sx={{ display: { xs: 'none', sm: 'block' }, textAlign: 'center', mt: 3 }}>
-              <BookNowButton />
+          {/* Hero Button */}
+          {buttonText && buttonTo && (
+            <Box sx={{ display: 'block', textAlign: 'center', mt: 3 }}>
+              <HeroButton
+                to={buttonTo}
+                buttonVariant="glass"
+              >
+                {buttonText}
+              </HeroButton>
             </Box>
-          </motion.div>
-          
-          {/* Mobile Book Now Button */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: 'easeOut' }}
-          >
-            <Box sx={{ display: { xs: 'block', sm: 'none' }, textAlign: 'center', mt: 6 }}>
-              <BookNowButton />
-            </Box>
-          </motion.div>
+          )}
         </Container>
       </Box>
     </ParallaxProvider>
   );
 };
 
-export default ParallaxHero; 
+export default UnifiedHero; 

@@ -15,7 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 const navItems = [
   { path: '/', label: 'Home' },
   { path: '/condo', label: 'Condo' },
-  { path: '/jaco', label: 'Jaco' },
+  { path: '/jaco', label: 'Jacó' },
   { path: '/contact', label: 'Contact' },
 ];
 
@@ -42,7 +42,7 @@ const Header: React.FC = () => {
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}>
-                Jaco Bay Condos
+                Jacó Bay Condos
               </span>
             </Typography>
           </Link>

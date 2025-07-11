@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { Box, Card, CardMedia, IconButton } from '@mui/material';
+import React, { useState, useEffect, useRef } from 'react';
+import { Box, Card, CardMedia, IconButton, Modal, Backdrop, Fade } from '@mui/material';
 import { useSpring, animated } from '@react-spring/web';
 import useMeasure from 'react-use-measure';
 import { useInView } from 'react-intersection-observer';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import CloseIcon from '@mui/icons-material/Close';
 import { useDrag } from '@use-gesture/react';
+// @ts-ignore
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+import '@splidejs/splide/dist/css/splide.min.css';
 
 interface ModernCarouselProps {
   images: string[];
@@ -28,6 +32,9 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const [dragX, setDragX] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [expandedIndex, setExpandedIndex] = useState(0);
+  const splideRef = useRef<any>(null);
 
   // Combine refs
   const setRefs = React.useCallback((node: any) => {
@@ -48,12 +55,12 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
   // Autoplay functionality
   const isMobile = typeof window !== 'undefined' && window.innerWidth <= 900;
   useEffect(() => {
-    if (isHovered || isDragging || (isMobile && !inView)) return;
+    if (isHovered || isDragging || (isMobile && !inView) || isExpanded) return;
     const timer = setInterval(() => {
       setCurrentIndex(current => (current + 1) % images.length);
     }, autoplayInterval);
     return () => clearInterval(timer);
-  }, [images.length, autoplayInterval, isHovered, isDragging, isMobile, inView]);
+  }, [images.length, autoplayInterval, isHovered, isDragging, isMobile, inView, isExpanded]);
 
   const handlePrevClick = () => {
     setCurrentIndex(current => (current - 1 + images.length) % images.length);
@@ -61,6 +68,19 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
 
   const handleNextClick = () => {
     setCurrentIndex(current => (current + 1) % images.length);
+  };
+
+  const handleImageClick = (index: number) => {
+    setExpandedIndex(index);
+    setIsExpanded(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsExpanded(false);
+  };
+
+  const handleExpandedSlideChange = (splide: any) => {
+    setExpandedIndex(splide.index);
   };
 
   // Gesture handling
@@ -114,6 +134,7 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
             return (
               <Card
                 key={image}
+                onClick={() => handleImageClick(index)}
                 sx={{
                   position: 'relative',
                   width: `${100 / images.length}%`,
@@ -131,6 +152,14 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
                   pointerEvents: isDragging ? 'none' : 'auto',
                   bgcolor: 'transparent',
                   boxShadow: 'none',
+                  cursor: isActive ? 'pointer' : 'default',
+                  '&:hover': {
+                    transform: isActive 
+                      ? 'scale(1.02) translateZ(0)' 
+                      : (isPrev || isNext) 
+                        ? 'scale(0.87) translateZ(-100px)' 
+                        : 'scale(0.72) translateZ(-200px)',
+                  },
                 }}
               >
                 <CardMedia
@@ -191,6 +220,7 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
           <ChevronRightIcon sx={{ fontSize: 18 }} />
         </IconButton>
       </Box>
+      
       {/* Slide Indicator */}
       <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 2 }}>
         {images.map((_, index) => (
@@ -207,6 +237,109 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
           />
         ))}
       </Box>
+
+      {/* Expanded Modal */}
+      <Modal
+        open={isExpanded}
+        onClose={handleCloseModal}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          p: 0,
+        }}
+      >
+        <Fade in={isExpanded}>
+          <Box
+            sx={{
+              position: 'relative',
+              width: '100vw',
+              height: '100vh',
+              bgcolor: 'black',
+              overflow: 'hidden',
+              outline: 'none',
+            }}
+          >
+            {/* Close Button */}
+            <IconButton
+              onClick={handleCloseModal}
+              sx={{
+                position: 'absolute',
+                top: 20,
+                right: 20,
+                zIndex: 10,
+                width: 48,
+                height: 48,
+                bgcolor: 'white',
+                color: 'black',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+                '&:hover': {
+                  bgcolor: '#f5f5f5',
+                  transform: 'scale(1.05)',
+                },
+                transition: 'all 0.2s ease-in-out',
+              }}
+            >
+              <CloseIcon sx={{ fontSize: 24 }} />
+            </IconButton>
+
+            {/* Splide Carousel for Expanded View */}
+            <Splide
+              ref={splideRef}
+              options={{
+                type: 'loop',
+                perPage: 1,
+                arrows: true,
+                pagination: {
+                  type: 'bullets',
+                  clickable: true,
+                },
+                autoplay: false,
+                start: expandedIndex,
+                gap: 0,
+                padding: 0,
+                height: '100vh',
+                width: '100vw',
+                focus: 'center',
+                updateOnMove: true,
+              }}
+              onMoved={handleExpandedSlideChange}
+            >
+              {images.map((image, index) => (
+                <SplideSlide key={index}>
+                  <Box
+                    sx={{
+                      width: '100%',
+                      height: '100vh',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      bgcolor: 'black',
+                    }}
+                  >
+                    <img
+                      src={image}
+                      alt={`Slide ${index + 1}`}
+                      style={{
+                        maxWidth: '100%',
+                        maxHeight: '100%',
+                        objectFit: 'contain',
+                        userSelect: 'none',
+                      }}
+                      draggable={false}
+                    />
+                  </Box>
+                </SplideSlide>
+              ))}
+            </Splide>
+          </Box>
+        </Fade>
+      </Modal>
     </Box>
   );
 };

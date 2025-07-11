@@ -40,7 +40,7 @@ const EarthCTASection: React.FC = () => {
         style={{ position: 'absolute', bottom: '12%', left: '0', right: '0', textAlign: 'center' }}
       >
         <Link to="/explore" className="cta-btn">
-          Find Things to Do in Jaco
+          Find Things to Do in Jacó
         </Link>
       </motion.div>
     </section>

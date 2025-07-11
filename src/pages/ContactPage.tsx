@@ -366,7 +366,7 @@ const ContactPage: React.FC = () => {
             letterSpacing: 0.01,
           }}
         >
-          © 2025 Jaco Bay Condos. All rights reserved.
+          © 2025 Jacó Bay Condos. All rights reserved.
         </Box>
       </Container>
     </Box>
