@@ -12,6 +12,7 @@ import DeckIcon from '@mui/icons-material/Deck';
 import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
+import GoogleIcon from '@mui/icons-material/Google';
 import ModernCarousel from '../components/ModernCarousel';
 
 
@@ -355,6 +356,7 @@ const CondoPage: React.FC = () => {
               variant="contained"
               href="https://maps.app.goo.gl/ScSEm3LAvfkaSWEV8?g_st=i&utm_campaign=ac-im"
               target="_blank"
+              startIcon={<GoogleIcon />}
               sx={{
                 borderRadius: 2,
                 background: '#000',

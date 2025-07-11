@@ -1,47 +1,90 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion } from 'framer-motion';
+import SwipableTitleSection from './SwipableTitleSection';
 
 interface TabContentSectionProps {
   title: string;
+  icon?: React.ReactNode;
   cards: {
     title: string;
     description: string;
   }[];
+  currentTab?: number;
+  onTabChange?: (newTab: number) => void;
+  allTitles?: {
+    title: string;
+    icon: React.ReactNode;
+  }[];
 }
 
-const TabContentSection: React.FC<TabContentSectionProps> = ({ title, cards }) => {
+const TabContentSection: React.FC<TabContentSectionProps> = ({ 
+  title, 
+  icon, 
+  cards, 
+  currentTab, 
+  onTabChange, 
+  allTitles 
+}) => {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
+      transition={{ duration: 0.2 }}
     >
-      <Typography 
-        variant="h4" 
-        fontWeight={800} 
-        mb={4} 
-        sx={{
-          fontSize: { xs: '3rem', md: '2.5rem', lg: '3rem' },
-          textAlign: 'center',
-          letterSpacing: '-0.01em',
-          lineHeight: 1.2,
-          color: 'transparent',
-          background: 'linear-gradient(90deg, #000000, #333333,rgb(162, 162, 162),rgb(204, 204, 204))',
-          backgroundSize: '300% 300%',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-          backgroundClip: 'text',
-          animation: 'gradientShift 4s ease-in-out infinite',
-          '@keyframes gradientShift': {
-            '0%': { backgroundPosition: '0% 50%' },
-            '50%': { backgroundPosition: '100% 50%' },
-            '100%': { backgroundPosition: '0% 50%' },
-          },
-        }}
-      >
-        {title}
-      </Typography>
+      {allTitles && currentTab !== undefined && onTabChange ? (
+        <SwipableTitleSection
+          currentTab={currentTab}
+          onTabChange={onTabChange}
+          titles={allTitles}
+        />
+      ) : (
+        <Box sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center', 
+          gap: 2, 
+          mb: 4 
+        }}>
+          {icon && (
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              width: { xs: 48, md: 56, lg: 64 },
+              height: { xs: 48, md: 56, lg: 64 },
+              color: '#1993e5',
+              flexShrink: 0
+            }}>
+              {icon}
+            </Box>
+          )}
+          <Typography 
+            variant="h4" 
+            fontWeight={800} 
+            sx={{
+              fontSize: { xs: '3rem', md: '2.5rem', lg: '3rem' },
+              textAlign: 'center',
+              letterSpacing: '-0.01em',
+              lineHeight: 1.2,
+              color: 'transparent',
+              background: 'linear-gradient(90deg, #000000, #333333,rgb(162, 162, 162),rgb(204, 204, 204))',
+              backgroundSize: '300% 300%',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              animation: 'gradientShift 4s ease-in-out infinite',
+              '@keyframes gradientShift': {
+                '0%': { backgroundPosition: '0% 50%' },
+                '50%': { backgroundPosition: '100% 50%' },
+                '100%': { backgroundPosition: '0% 50%' },
+              },
+            }}
+          >
+            {title}
+          </Typography>
+        </Box>
+      )}
       
       <Box sx={{ 
         display: 'grid',

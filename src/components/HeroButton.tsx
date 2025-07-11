@@ -79,7 +79,7 @@ const HeroButton: React.FC<HeroButtonProps> = ({
   const glassStyles = {
     ...baseStyles,
     background: 'rgba(255, 255, 255, 0.15)',
-    backdropFilter: 'blur(20px)',
+    backdropFilter: 'blur(8px)',
     WebkitBackdropFilter: 'blur(20px)',
     border: '1px solid rgba(255, 255, 255, 0.2)',
     color: 'white',

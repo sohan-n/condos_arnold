@@ -43,7 +43,7 @@ export async function onRequestPost(context) {
     const FROM_EMAIL = 'noreply@jacobaycondos.com';
     
     const EMAIL_RECIPIENTS = [
-      'sp.pattanaik4@gmail.com'
+      'aarnold@tcialla.com'
     ];
 
     

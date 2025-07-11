@@ -270,7 +270,7 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
               onClick={handleCloseModal}
               sx={{
                 position: 'absolute',
-                top: 20,
+                top: 65,
                 right: 20,
                 zIndex: 10,
                 width: 48,

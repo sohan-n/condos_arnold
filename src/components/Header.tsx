@@ -38,7 +38,7 @@ const Header: React.FC = () => {
             />
             <Typography variant="h5" component="div" sx={{ fontWeight: 800, fontFamily: '"Cinzel", serif', fontSize: { xs: 24, sm: 24 } }}>
               <span style={{
-                background: 'linear-gradient(45deg, #222 20%, #bbb 70%)',
+                background: 'black',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
               }}>

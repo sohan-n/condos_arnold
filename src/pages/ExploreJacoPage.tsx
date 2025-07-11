@@ -6,6 +6,17 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import TabContentSection from '../components/TabContentSection';
+import TabTransitionWrapper from '../components/TabTransitionWrapper';
+import {
+  BeachIcon,
+  SurfingIcon,
+  RestaurantIcon,
+  NightlifeIcon,
+  ActivitiesIcon,
+  ShoppingIcon,
+  TransportationIcon,
+  TourGuideIcon
+} from '../components/icons';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -51,8 +62,44 @@ const tabLabels = [
   'Tour Guide',
 ];
 
+const tabTitles = [
+  {
+    title: 'Beaches',
+    icon: <BeachIcon width={64} height={64} color="black" />
+  },
+  {
+    title: 'Surfing',
+    icon: <SurfingIcon width={64} height={64} color="black" />
+  },
+  {
+    title: 'Restaurants',
+    icon: <RestaurantIcon width={64} height={64} color="black" />
+  },
+  {
+    title: 'Nightlife',
+    icon: <NightlifeIcon width={64} height={64} color="black" />
+  },
+  {
+    title: 'Activities',
+    icon: <ActivitiesIcon width={64} height={64} color="black" />
+  },
+  {
+    title: 'Shopping',
+    icon: <ShoppingIcon width={64} height={64} color="black" />
+  },
+  {
+    title: 'Transportation',
+    icon: <TransportationIcon width={64} height={64} color="black" />
+  },
+  {
+    title: 'Tour Guide',
+    icon: <TourGuideIcon width={64} height={64} color="black" />
+  },
+];
+
 const JacoPage: React.FC = () => {
   const [tabValue, setTabValue] = useState(0);
+  const [previousTab, setPreviousTab] = useState(0);
   const [mobileMenuAnchor, setMobileMenuAnchor] = useState<null | HTMLElement>(null);
 
   // Handle URL hash for tab selection
@@ -77,6 +124,7 @@ const JacoPage: React.FC = () => {
   }, []);
 
   const handleTabChange = (_: unknown, newValue: number) => {
+    setPreviousTab(tabValue);
     setTabValue(newValue);
   };
 
@@ -89,8 +137,14 @@ const JacoPage: React.FC = () => {
   };
 
   const handleMobileTabSelect = (index: number) => {
+    setPreviousTab(tabValue);
     setTabValue(index);
     setMobileMenuAnchor(null);
+  };
+
+  const handleSwipableTabChange = (newTab: number) => {
+    setPreviousTab(tabValue);
+    setTabValue(newTab);
   };
 
   return (
@@ -193,7 +247,7 @@ const JacoPage: React.FC = () => {
                 textShadow: '0 8px 48px #000b, 0 2px 0 #222',
                 letterSpacing: 15,
                 mb: { xs: 0, md: 5 },
-                fontSize: { xs: 100, md: 85, lg: 145 },
+                fontSize: { xs: 85, md: 100, lg: 120 },
                 lineHeight: 1.05,
                 textTransform: 'uppercase',
                 mt: { xs: 5, md: 0 },
@@ -231,7 +285,7 @@ const JacoPage: React.FC = () => {
         }}>
           {/* Mobile: Navigation with Arrows and Menu */}
           <Box sx={{
-            display: { xs: 'flex', md: 'none' },
+            display: { xs: 'flex', lg: 'none' },
             flexDirection: 'row',
             alignItems: 'center',
             gap: 1,
@@ -248,8 +302,8 @@ const JacoPage: React.FC = () => {
                 border: '1.5px solid rgba(255,255,255,0.25)',
                 boxShadow: '0 2px 12px #0003',
                 color: '#fff',
-                width: 44,
-                height: 44,
+                width: 38,
+                height: 38,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -268,9 +322,9 @@ const JacoPage: React.FC = () => {
               onClick={handleMobileMenuOpen}
               variant="contained"
               sx={{
-                py: 1.5,
-                px: 3,
-                fontSize: 16,
+                py: 1.2,
+                px: 2.5,
+                fontSize: 14,
                 fontWeight: 600,
                 borderRadius: 2,
                 textTransform: 'none',
@@ -279,7 +333,7 @@ const JacoPage: React.FC = () => {
                 border: '1.5px solid rgba(255,255,255,0.3)',
                 color: '#fff',
                 boxShadow: '0 2px 12px #0003',
-                minWidth: 200,
+                minWidth: 180,
                 '&:hover': {
                   background: 'rgba(255,255,255,0.3)',
                   border: '1.5px solid rgba(255,255,255,0.4)',
@@ -290,28 +344,28 @@ const JacoPage: React.FC = () => {
             </Button>
 
             {/* Right Arrow Button */}
-            <IconButton
-              onClick={() => setTabValue((prev) => Math.min(tabLabels.length - 1, prev + 1))}
-              disabled={tabValue === tabLabels.length - 1}
-              sx={{
-                borderRadius: '50%',
-                backdropFilter: 'blur(16px)',
-                background: tabValue === tabLabels.length - 1 ? 'rgba(255,255,255,0.32)' : 'rgba(255,255,255,0.18)',
-                border: '1.5px solid rgba(255,255,255,0.25)',
-                boxShadow: '0 2px 12px #0003',
-                color: '#fff',
-                width: 44,
-                height: 44,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'background 0.2s',
-                '&:hover': {
-                  background: 'rgba(255,255,255,0.28)',
-                },
-                opacity: 1,
-              }}
-            >
+                          <IconButton
+                onClick={() => setTabValue((prev) => Math.min(tabLabels.length - 1, prev + 1))}
+                disabled={tabValue === tabLabels.length - 1}
+                sx={{
+                  borderRadius: '50%',
+                  backdropFilter: 'blur(16px)',
+                  background: tabValue === tabLabels.length - 1 ? 'rgba(255,255,255,0.32)' : 'rgba(255,255,255,0.18)',
+                  border: '1.5px solid rgba(255,255,255,0.25)',
+                  boxShadow: '0 2px 12px #0003',
+                  color: '#fff',
+                  width: 38,
+                  height: 38,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'background 0.2s',
+                  '&:hover': {
+                    background: 'rgba(255,255,255,0.28)',
+                  },
+                  opacity: 1,
+                }}
+              >
               <ArrowForwardIosIcon fontSize="medium" sx={{ mr: '-3px', color: '#fff' }} />
             </IconButton>
             
@@ -325,8 +379,8 @@ const JacoPage: React.FC = () => {
                 border: '1.5px solid rgba(255,255,255,0.25)',
                 boxShadow: '0 2px 12px #0003',
                 color: '#fff',
-                width: 44,
-                height: 44,
+                width: 38,
+                height: 38,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -344,7 +398,7 @@ const JacoPage: React.FC = () => {
 
           {/* Desktop: Original Tab Design */}
           <Box sx={{
-            display: { xs: 'none', md: 'flex' },
+            display: { xs: 'none', lg: 'flex' },
             alignItems: 'center',
           }}>
             {/* Left Arrow Button */}
@@ -364,8 +418,8 @@ const JacoPage: React.FC = () => {
                   border: '1.5px solid rgba(255,255,255,0.25)',
                   boxShadow: '0 2px 12px #0003',
                   color: '#fff',
-                  width: 44,
-                  height: 44,
+                  width: 50,
+                  height: 50,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -400,17 +454,17 @@ const JacoPage: React.FC = () => {
                 value={tabValue}
                 onChange={handleTabChange}
                 aria-label="Jacó exploration tabs"
-                variant="scrollable"
-                scrollButtons="auto"
+                variant="standard"
+                scrollButtons={false}
                 sx={{
-                  minHeight: 40,
+                  minHeight: 35,
                   '& .MuiTab-root': {
-                    fontSize: { xs: 13, md: 16 },
+                    fontSize: { xs: 11, md: 14 },
                     fontWeight: 700,
                     textTransform: 'none',
-                    minWidth: { xs: 80, md: 95 },
-                    px: { xs: 1, md: 2 },
-                    py: { xs: 0.8, md: 1.2 },
+                    minWidth: { xs: 70, md: 85 },
+                    px: { xs: 0.8, md: 1.5 },
+                    py: { xs: 0.6, md: 1 },
                     color: '#fff',
                     opacity: 0.95,
                     borderRadius: '10px',
@@ -433,7 +487,7 @@ const JacoPage: React.FC = () => {
                   },
                   '& .MuiTabs-indicator': {
                     backgroundColor: '#fff',
-                    height: 3,
+                    height: 2.5,
                     borderRadius: 2,
                     boxShadow: '0 2px 8px #0007',
                   },
@@ -461,8 +515,8 @@ const JacoPage: React.FC = () => {
                   border: '1.5px solid rgba(255,255,255,0.25)',
                   boxShadow: '0 2px 12px #0003',
                   color: '#fff',
-                  width: 44,
-                  height: 44,
+                  width: 50,
+                  height: 50,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -485,170 +539,218 @@ const JacoPage: React.FC = () => {
       <Container maxWidth="lg" sx={{ py: { xs: 3, md: 4 } }}>
         {/* Beaches Tab */}
         <TabPanel value={tabValue} index={0}>
-          <TabContentSection
-            title="Beaches"
-            cards={[
-              {
-                title: "Beach Information",
-                description: "placeholder"
-              },
-              {
-                title: "Beach Activities", 
-                description: "placeholder"
-              },
-              {
-                title: "Beach Services",
-                description: "placeholder"
-              }
-            ]}
-          />
+          <TabTransitionWrapper currentTab={tabValue} previousTab={previousTab}>
+            <TabContentSection
+              title="Beaches"
+              icon={<BeachIcon width={64} height={64} color="black" />}
+              currentTab={tabValue}
+              onTabChange={handleSwipableTabChange}
+              allTitles={tabTitles}
+              cards={[
+                {
+                  title: "Beach Information",
+                  description: "placeholder"
+                },
+                {
+                  title: "Beach Activities", 
+                  description: "placeholder"
+                },
+                {
+                  title: "Beach Services",
+                  description: "placeholder"
+                }
+              ]}
+            />
+          </TabTransitionWrapper>
         </TabPanel>
 
         {/* Surfing Tab */}
         <TabPanel value={tabValue} index={1}>
-          <TabContentSection
-            title="Surfing"
-            cards={[
-              {
-                title: "Surf Spots",
-                description: "placeholder"
-              },
-              {
-                title: "Surf Schools", 
-                description: "placeholder"
-              },
-              {
-                title: "Surf Equipment",
-                description: "placeholder"
-              }
-            ]}
-          />
+          <TabTransitionWrapper currentTab={tabValue} previousTab={previousTab}>
+            <TabContentSection
+              title="Surfing"
+              icon={<SurfingIcon width={64} height={64} color="black" />}
+              currentTab={tabValue}
+              onTabChange={handleSwipableTabChange}
+              allTitles={tabTitles}
+              cards={[
+                {
+                  title: "Surf Spots",
+                  description: "placeholder"
+                },
+                {
+                  title: "Surf Schools", 
+                  description: "placeholder"
+                },
+                {
+                  title: "Surf Equipment",
+                  description: "placeholder"
+                }
+              ]}
+            />
+          </TabTransitionWrapper>
         </TabPanel>
 
         {/* Restaurants Tab */}
         <TabPanel value={tabValue} index={2}>
-          <TabContentSection
-            title="Restaurants"
-            cards={[
-              {
-                title: "Local Cuisine",
-                description: "placeholder"
-              },
-              {
-                title: "International Dining", 
-                description: "placeholder"
-              },
-              {
-                title: "Beachfront Dining",
-                description: "placeholder"
-              }
-            ]}
-          />
+          <TabTransitionWrapper currentTab={tabValue} previousTab={previousTab}>
+            <TabContentSection
+              title="Restaurants"
+              icon={<RestaurantIcon width={64} height={64} color="black" />}
+              currentTab={tabValue}
+              onTabChange={handleSwipableTabChange}
+              allTitles={tabTitles}
+              cards={[
+                {
+                  title: "Local Cuisine",
+                  description: "placeholder"
+                },
+                {
+                  title: "International Dining", 
+                  description: "placeholder"
+                },
+                {
+                  title: "Beachfront Dining",
+                  description: "placeholder"
+                }
+              ]}
+            />
+          </TabTransitionWrapper>
         </TabPanel>
 
         {/* Nightlife Tab */}
         <TabPanel value={tabValue} index={3}>
-          <TabContentSection
-            title="Nightlife"
-            cards={[
-              {
-                title: "Bars & Clubs",
-                description: "placeholder"
-              },
-              {
-                title: "Live Music", 
-                description: "placeholder"
-              },
-              {
-                title: "Beach Parties",
-                description: "placeholder"
-              }
-            ]}
-          />
+          <TabTransitionWrapper currentTab={tabValue} previousTab={previousTab}>
+            <TabContentSection
+              title="Nightlife"
+              icon={<NightlifeIcon width={64} height={64} color="black" />}
+              currentTab={tabValue}
+              onTabChange={handleSwipableTabChange}
+              allTitles={tabTitles}
+              cards={[
+                {
+                  title: "Bars & Clubs",
+                  description: "placeholder"
+                },
+                {
+                  title: "Live Music", 
+                  description: "placeholder"
+                },
+                {
+                  title: "Beach Parties",
+                  description: "placeholder"
+                }
+              ]}
+            />
+          </TabTransitionWrapper>
         </TabPanel>
 
         {/* Activities Tab */}
         <TabPanel value={tabValue} index={4}>
-          <TabContentSection
-            title="Activities"
-            cards={[
-              {
-                title: "Adventure Tours",
-                description: "placeholder"
-              },
-              {
-                title: "Water Sports", 
-                description: "placeholder"
-              },
-              {
-                title: "Nature Tours",
-                description: "placeholder"
-              }
-            ]}
-          />
+          <TabTransitionWrapper currentTab={tabValue} previousTab={previousTab}>
+            <TabContentSection
+              title="Activities"
+              icon={<ActivitiesIcon width={64} height={64} color="black" />}
+              currentTab={tabValue}
+              onTabChange={handleSwipableTabChange}
+              allTitles={tabTitles}
+              cards={[
+                {
+                  title: "Adventure Tours",
+                  description: "placeholder"
+                },
+                {
+                  title: "Water Sports", 
+                  description: "placeholder"
+                },
+                {
+                  title: "Nature Tours",
+                  description: "placeholder"
+                }
+              ]}
+            />
+          </TabTransitionWrapper>
         </TabPanel>
 
         {/* Shopping Tab */}
         <TabPanel value={tabValue} index={5}>
-          <TabContentSection
-            title="Shopping"
-            cards={[
-              {
-                title: "Local Markets",
-                description: "placeholder"
-              },
-              {
-                title: "Surf Shops", 
-                description: "placeholder"
-              },
-              {
-                title: "Boutiques",
-                description: "placeholder"
-              }
-            ]}
-          />
+          <TabTransitionWrapper currentTab={tabValue} previousTab={previousTab}>
+            <TabContentSection
+              title="Shopping"
+              icon={<ShoppingIcon width={64} height={64} color="black" />}
+              currentTab={tabValue}
+              onTabChange={handleSwipableTabChange}
+              allTitles={tabTitles}
+              cards={[
+                {
+                  title: "Local Markets",
+                  description: "placeholder"
+                },
+                {
+                  title: "Surf Shops", 
+                  description: "placeholder"
+                },
+                {
+                  title: "Boutiques",
+                  description: "placeholder"
+                }
+              ]}
+            />
+          </TabTransitionWrapper>
         </TabPanel>
 
         {/* Transportation Tab */}
         <TabPanel value={tabValue} index={6}>
-          <TabContentSection
-            title="Transportation"
-            cards={[
-              {
-                title: "Getting Around",
-                description: "placeholder"
-              },
-              {
-                title: "Airport Transfers", 
-                description: "placeholder"
-              },
-              {
-                title: "Car Rentals",
-                description: "placeholder"
-              }
-            ]}
-          />
+          <TabTransitionWrapper currentTab={tabValue} previousTab={previousTab}>
+            <TabContentSection
+              title="Transportation"
+              icon={<TransportationIcon width={64} height={64} color="black" />}
+              currentTab={tabValue}
+              onTabChange={handleSwipableTabChange}
+              allTitles={tabTitles}
+              cards={[
+                {
+                  title: "Getting Around",
+                  description: "placeholder"
+                },
+                {
+                  title: "Airport Transfers", 
+                  description: "placeholder"
+                },
+                {
+                  title: "Car Rentals",
+                  description: "placeholder"
+                }
+              ]}
+            />
+          </TabTransitionWrapper>
         </TabPanel>
 
         {/* Tour Guide Tab */}
         <TabPanel value={tabValue} index={7}>
-          <TabContentSection
-            title="Tour Guide"
-            cards={[
-              {
-                title: "Local Guides",
-                description: "placeholder"
-              },
-              {
-                title: "Custom Tours", 
-                description: "placeholder"
-              },
-              {
-                title: "Group Tours",
-                description: "placeholder"
-              }
-            ]}
-          />
+          <TabTransitionWrapper currentTab={tabValue} previousTab={previousTab}>
+            <TabContentSection
+              title="Tour Guide"
+              icon={<TourGuideIcon width={64} height={64} color="black" />}
+              currentTab={tabValue}
+              onTabChange={handleSwipableTabChange}
+              allTitles={tabTitles}
+              cards={[
+                {
+                  title: "Local Guides",
+                  description: "placeholder"
+                },
+                {
+                  title: "Custom Tours", 
+                  description: "placeholder"
+                },
+                {
+                  title: "Group Tours",
+                  description: "placeholder"
+                }
+              ]}
+            />
+          </TabTransitionWrapper>
         </TabPanel>
       </Container>
       
@@ -658,7 +760,7 @@ const JacoPage: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.0, ease: 'easeInOut' }}
+          transition={{ duration: 0.1, ease: 'easeOut' }}
           style={{
             position: 'fixed',
             top: 0,
@@ -681,12 +783,13 @@ const JacoPage: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.2, delay: 0.1 }}
+            transition={{ duration: 0.1, delay: 0.05 }}
             style={{
               position: 'absolute',
-              top: 100,
+              top: 40,
               right: 20,
               zIndex: 100000,
+              height: 44,
             }}
           >
             <IconButton
@@ -715,66 +818,91 @@ const JacoPage: React.FC = () => {
           
           {/* Full Screen Mobile Menu */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.0, delay: 0.0, ease: 'easeOut' }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.1 }}
             style={{
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
               display: 'flex',
               flexDirection: 'column',
-              width: '100%',
-              maxWidth: 400,
-              gap: 16,
-              padding: '0 24px',
-              marginTop: 60,
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: '100px 20px 40px 20px',
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {tabLabels.map((label, idx) => (
-              <motion.div
-                key={label}
-                initial={{ opacity: 0, y: 40 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  duration: 0.1, 
-                  delay: 0.1 + ((tabLabels.length - 1 - idx) * 0.02), 
-                  ease: 'easeOut' 
-                }}
-              >
-                <Button
-                  onClick={() => handleMobileTabSelect(idx)}
-                  variant={tabValue === idx ? "contained" : "outlined"}
-                  sx={{
-                    py: 2.5,
-                    px: 3,
-                    fontSize: 18,
-                    fontWeight: tabValue === idx ? 700 : 500,
-                    borderRadius: 2,
-                    textTransform: 'none',
-                    backdropFilter: 'blur(16px)',
-                    background: tabValue === idx 
-                      ? 'rgba(255,255,255,0.25)' 
-                      : 'rgba(255,255,255,0.15)',
-                    border: '1.5px solid rgba(255,255,255,0.3)',
-                    color: '#fff',
-                    boxShadow: '0 2px 12px #0003',
-                    width: '100%',
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      background: 'rgba(255,255,255,0.3)',
-                      border: '1.5px solid rgba(255,255,255,0.4)',
-                      transform: 'translateY(-2px)',
-                    },
-                    '&.MuiButton-contained': {
-                      background: 'rgba(255,255,255,0.35)',
-                      border: '2px solid rgba(255,255,255,0.5)',
-                      boxShadow: '0 4px 16px #0004',
-                    },
+            {/* Grid Container */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.15, delay: 0.05 }}
+              style={{
+                width: '100%',
+                maxWidth: 500,
+                height: 'calc(100vh - 140px)',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(2, 1fr)',
+                gap: 16,
+                padding: '20px',
+              }}
+            >
+              {tabLabels.map((label, idx) => (
+                <motion.div
+                  key={label}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ 
+                    duration: 0.1, 
+                    delay: 0.1 + (idx * 0.02), 
+                    ease: 'easeOut' 
                   }}
                 >
-                  {label}
-                </Button>
-              </motion.div>
-            ))}
+                  <Button
+                    onClick={() => handleMobileTabSelect(idx)}
+                    variant={tabValue === idx ? "contained" : "outlined"}
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      fontSize: 'clamp(16px, 3.5vw, 22px)',
+                      fontWeight: tabValue === idx ? 700 : 500,
+                      borderRadius: 2,
+                      textTransform: 'none',
+                      backdropFilter: 'blur(16px)',
+                      background: tabValue === idx 
+                        ? 'rgba(255,255,255,0.25)' 
+                        : 'rgba(255,255,255,0.15)',
+                      border: '1.5px solid rgba(255,255,255,0.3)',
+                      color: '#fff',
+                      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+                      transition: 'all 0.3s ease',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      textAlign: 'center',
+                      lineHeight: 1.2,
+                      '&:hover': {
+                        background: 'rgba(255,255,255,0.3)',
+                        border: '1.5px solid rgba(255,255,255,0.4)',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 6px 25px rgba(0,0,0,0.2)',
+                      },
+                      '&.MuiButton-contained': {
+                        background: 'rgba(255,255,255,0.35)',
+                        border: '2px solid rgba(255,255,255,0.5)',
+                        boxShadow: '0 6px 25px rgba(0,0,0,0.25)',
+                      },
+                    }}
+                  >
+                    {label}
+                  </Button>
+                </motion.div>
+              ))}
+            </motion.div>
           </motion.div>
         </motion.div>
       )}
