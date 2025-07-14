@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Box, Typography } from '@mui/material';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import type { PanInfo } from 'framer-motion';
@@ -20,7 +20,6 @@ const SwipableTitleSection: React.FC<SwipableTitleSectionProps> = ({
   threshold = 60
 }) => {
   const [isDragging, setIsDragging] = useState(false);
-  const [dragDirection, setDragDirection] = useState<'left' | 'right' | null>(null);
   const x = useMotionValue(0);
   const opacity = useTransform(x, [-threshold, 0, threshold], [0, 1, 0]);
   const scale = useTransform(x, [-threshold, 0, threshold], [0.9, 1, 0.9]);
@@ -30,22 +29,22 @@ const SwipableTitleSection: React.FC<SwipableTitleSectionProps> = ({
     setIsDragging(true);
   };
 
-  const handleDrag = (event: any, info: PanInfo) => {
+  const handleDrag = (_event: any, info: PanInfo) => {
     x.set(info.offset.x);
-    setDragDirection(info.offset.x > 0 ? 'right' : 'left');
   };
 
-  const handleDragEnd = (event: any, info: PanInfo) => {
+  const handleDragEnd = (_event: any, info: PanInfo) => {
     setIsDragging(false);
-    setDragDirection(null);
     
     if (Math.abs(info.offset.x) > threshold) {
-      if (info.offset.x > 0 && currentTab > 0) {
-        // Swipe right - go to previous tab
-        onTabChange(currentTab - 1);
-      } else if (info.offset.x < 0 && currentTab < titles.length - 1) {
-        // Swipe left - go to next tab
-        onTabChange(currentTab + 1);
+      if (info.offset.x > 0) {
+        // Swipe right - go to previous tab (wrap to last if at first)
+        const newTab = currentTab === 0 ? titles.length - 1 : currentTab - 1;
+        onTabChange(newTab);
+      } else if (info.offset.x < 0) {
+        // Swipe left - go to next tab (wrap to first if at last)
+        const newTab = currentTab === titles.length - 1 ? 0 : currentTab + 1;
+        onTabChange(newTab);
       }
     }
     
@@ -133,33 +132,29 @@ const SwipableTitleSection: React.FC<SwipableTitleSectionProps> = ({
       </motion.div>
 
       {/* Swipe Indicators */}
-      {currentTab > 0 && (
-        <motion.div
-          style={{
-            position: 'absolute',
-            left: 20,
-            opacity: useTransform(x, [0, threshold], [0, 0.5]),
-          }}
-        >
-          <Typography variant="body2" color="text.secondary">
-            ← Previous
-          </Typography>
-        </motion.div>
-      )}
+      <motion.div
+        style={{
+          position: 'absolute',
+          left: 20,
+          opacity: useTransform(x, [0, threshold], [0, 0.5]),
+        }}
+      >
+        <Typography variant="body2" color="text.secondary">
+          ← Previous
+        </Typography>
+      </motion.div>
       
-      {currentTab < titles.length - 1 && (
-        <motion.div
-          style={{
-            position: 'absolute',
-            right: 20,
-            opacity: useTransform(x, [-threshold, 0], [0.5, 0]),
-          }}
-        >
-          <Typography variant="body2" color="text.secondary">
-            Next →
-          </Typography>
-        </motion.div>
-      )}
+      <motion.div
+        style={{
+          position: 'absolute',
+          right: 20,
+          opacity: useTransform(x, [-threshold, 0], [0.5, 0]),
+        }}
+      >
+        <Typography variant="body2" color="text.secondary">
+          Next →
+        </Typography>
+      </motion.div>
     </Box>
   );
 };

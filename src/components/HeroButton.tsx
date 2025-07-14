@@ -17,9 +17,9 @@ const HeroButton: React.FC<HeroButtonProps> = ({
 }) => {
   const baseStyles = {
     fontWeight: 600,
-    fontSize: { xs: 16, sm: 18, md: 20, lg: 22 },
-    px: { xs: 6, sm: 8, md: 10, lg: 12 },
-    py: { xs: 2, sm: 2.5, md: 3, lg: 4 },
+    fontSize: { xs: 18, sm: 20, md: 22, lg: 24, xl: 26 },
+    px: { xs: 8, sm: 10, md: 12, lg: 14, xl: 16 },
+    py: { xs: 2.5, sm: 3, md: 3.5, lg: 4, xl: 5 },
     borderRadius: '7px',
     letterSpacing: 1.2,
     textTransform: 'uppercase' as const,
@@ -41,19 +41,19 @@ const HeroButton: React.FC<HeroButtonProps> = ({
       },
     },
     '@media (max-width: 450px)': {
+      fontSize: 18,
+      px: 6,
+      py: 2.5,
+    },
+    '@media (max-width: 350px)': {
+      fontSize: 16,
+      px: 5,
+      py: 2,
+    },
+    '@media (max-width: 250px)': {
       fontSize: 14,
       px: 4,
       py: 1.5,
-    },
-    '@media (max-width: 350px)': {
-      fontSize: 12,
-      px: 3,
-      py: 1,
-    },
-    '@media (max-width: 250px)': {
-      fontSize: 10,
-      px: 2,
-      py: 0.5,
     },
     '&::before': {
       content: '""',

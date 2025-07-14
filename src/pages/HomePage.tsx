@@ -256,7 +256,7 @@ const HomePage: React.FC = () => {
       </Box>
 
       {/* Features Section - Modern Carousel */}
-      <Container maxWidth="lg" sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 4, md: 6 } }}>
+      <Container maxWidth="lg" sx={{ pt: { xs: 6, md: 12 }, pb: { xs: 4, md: 6 } }}>
         <Typography variant="h4" fontWeight={700} color="black" align="center" mb={2}>
           Experience Paradise
         </Typography>
@@ -300,7 +300,7 @@ const HomePage: React.FC = () => {
       </Container>
 
       {/* Amenities Section - 2 rows, auto-scrolling, cards from both sides */}
-      <Container maxWidth="lg" sx={{ pt: { xs: 4, md: 6 }, pb: { xs: 2, md: 3 } }}>
+      <Container maxWidth="lg" sx={{ pt: { xs: 2, md: 6 }, pb: { xs: 2, md: 3 } }}>
         <Typography variant="h4" fontWeight={700} color="text.primary" align="center" mb={2}>
           Amenities
         </Typography>
@@ -338,7 +338,7 @@ const HomePage: React.FC = () => {
         {/* Split amenities into two rows */}
         <Box sx={{ display: { xs: 'flex', md: 'flex' }, flexDirection: 'column', gap: 4 }}>
           {/* Top row: Splide carousel with autoplay swipes */}
-          <Box ref={topRef} sx={{ width: '100%', overflow: 'visible', mb: 3, py: 5, position: 'relative' }}>
+          <Box ref={topRef} sx={{ width: '100%', overflow: 'visible', mb: 3, py: { xs: 3, md: 5 }, position: 'relative' }}>
             <Splide
               ref={topSplideRef}
               options={{
@@ -410,7 +410,7 @@ const HomePage: React.FC = () => {
             </Splide>
           </Box>
           {/* Bottom row: Splide carousel with faster autoplay swipes */}
-          <Box ref={bottomRef} sx={{ width: '100%', overflow: 'visible', py: 5, position: 'relative', mt: -11 }}>
+          <Box ref={bottomRef} sx={{ width: '100%', overflow: 'visible', py: { xs: 3, md: 5 }, position: 'relative', mt: -11 }}>
             <Splide
               ref={bottomSplideRef}
               options={{
@@ -490,7 +490,7 @@ const HomePage: React.FC = () => {
           position: 'relative',
           minHeight: { xs: '100vh', md: '90vh' },
           width: '100%',
-          mt: { xs: 8, md: 12 },
+          mt: { xs: 6, md: 12 },
           mb: 0,
           overflow: 'hidden',
           display: 'flex',
@@ -531,7 +531,7 @@ const HomePage: React.FC = () => {
           }} />
         </Box>
         {/* Content */}
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, py: { xs: 8, md: 12 } }} ref={ref}>
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 2, py: { xs: 6, md: 12 } }} ref={ref}>
           <Typography variant="h4" fontWeight={800} color="#FFFFFF" align="center" mb={5} sx={{ fontSize: { xs: 40, md: 54 } }}>
             Prime Location in Jacó
           </Typography>

@@ -1,14 +1,28 @@
-import React from 'react';
-import { Box, Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Typography, Link, Button } from '@mui/material';
+import { Link as LinkIcon, Phone as PhoneIcon, Google as GoogleIcon, Map as MapIcon, ExpandMore as ExpandMoreIcon, ExpandLess as ExpandLessIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import SwipableTitleSection from './SwipableTitleSection';
+import ModernCarousel from './ModernCarousel';
 
 interface TabContentSectionProps {
   title: string;
   icon?: React.ReactNode;
   cards: {
     title: string;
+    subtitle?: string;
     description: string;
+    images?: string[];
+    links?: {
+      name: string;
+      url: string;
+    }[];
+    phone?: string;
+                      mapLocation?: {
+                    coordinates: string;
+                    googleMapsUrl: string;
+                    appleMapsUrl?: string;
+                  };
   }[];
   currentTab?: number;
   onTabChange?: (newTab: number) => void;
@@ -16,6 +30,8 @@ interface TabContentSectionProps {
     title: string;
     icon: React.ReactNode;
   }[];
+  jacoStyle?: boolean;
+  smartFit?: boolean;
 }
 
 const TabContentSection: React.FC<TabContentSectionProps> = ({ 
@@ -24,8 +40,18 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
   cards, 
   currentTab, 
   onTabChange, 
-  allTitles 
+  allTitles,
+  jacoStyle = false,
+  smartFit = false
 }) => {
+  const [expandedMaps, setExpandedMaps] = useState<{ [key: number]: boolean }>({});
+
+  const toggleMap = (index: number) => {
+    setExpandedMaps(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -108,21 +134,241 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
               },
             }}
           >
-            <Typography variant="h6" fontWeight={700} mb={2} color="grey.900">
+            <Typography variant="h6" fontWeight={700} mb={1} color="grey.900">
               {card.title}
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            
+            {card.subtitle && (
+              <Typography 
+                variant="body2" 
+                color="text.secondary" 
+                sx={{ 
+                  mb: 2, 
+                  fontStyle: 'italic',
+                  fontSize: '0.875rem',
+                  lineHeight: 1.4
+                }}
+              >
+                {card.subtitle}
+              </Typography>
+            )}
+            
+            {card.images && card.images.length > 0 && (
+              <Box sx={{ 
+                mb: 3, 
+                borderRadius: 0, 
+                overflow: 'hidden',
+                boxShadow: 'none',
+                height: '200px',
+                width: '100%'
+              }}>
+                <ModernCarousel 
+                  images={card.images}
+                  height={200}
+                  autoplayInterval={4000}
+                  showNavigation={false}
+                  scaleToFit={true}
+                  showPagination={false}
+                  jacoStyle={jacoStyle}
+                  smartFit={smartFit}
+                />
+              </Box>
+            )}
+            
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 3, lineHeight: 1.6 }}>
               {card.description}
             </Typography>
-            <Box sx={{ 
-              bgcolor: 'grey.100', 
-              p: 2, 
-              borderRadius: 2,
-              textAlign: 'center'
-            }}>
-              <Typography variant="body2" color="text.secondary">
-                Information Coming Soon
-              </Typography>
+            
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                {card.phone && (
+                  <Link
+                    href={`tel:${card.phone}`}
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1,
+                      color: '#000000',
+                      textDecoration: 'none',
+                      fontWeight: 600,
+                      fontSize: '0.875rem',
+                      transition: 'all 0.2s ease',
+                      '&:hover': {
+                        color: '#333333',
+                        textDecoration: 'underline',
+                        transform: 'translateX(2px)',
+                      },
+                      '& .MuiSvgIcon-root': {
+                        fontSize: '1rem',
+                        transition: 'transform 0.2s ease',
+                      },
+                      '&:hover .MuiSvgIcon-root': {
+                        transform: 'translateX(2px)',
+                      },
+                    }}
+                  >
+                    <PhoneIcon />
+                    {card.phone}
+                  </Link>
+                )}
+                
+                {card.links && card.links.length > 0 ? (
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                    {card.links.map((link, linkIndex) => (
+                      <Link
+                        key={linkIndex}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1,
+                          color: '#1993e5',
+                          textDecoration: 'none',
+                          fontWeight: 600,
+                          fontSize: '0.875rem',
+                          transition: 'all 0.2s ease',
+                          '&:hover': {
+                            color: '#1565c0',
+                            textDecoration: 'underline',
+                            transform: 'translateX(2px)',
+                          },
+                          '& .MuiSvgIcon-root': {
+                            fontSize: '1rem',
+                            transition: 'transform 0.2s ease',
+                          },
+                          '&:hover .MuiSvgIcon-root': {
+                            transform: 'translateX(2px)',
+                          },
+                        }}
+                      >
+                        <LinkIcon />
+                        {link.name}
+                      </Link>
+                    ))}
+                  </Box>
+                ) : (
+                  <Box sx={{ 
+                    bgcolor: 'grey.100', 
+                    p: 2, 
+                    borderRadius: 2,
+                    textAlign: 'center'
+                  }}>
+                    <Typography variant="body2" color="text.secondary">
+                      Information Coming Soon
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+
+              {/* Show Map Button - Bottom Center */}
+              {card.mapLocation && (
+                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0, mb: expandedMaps[index] ? 0 : -4 }}>
+                  <Button
+                    variant="contained"
+                    size="small"
+                    onClick={() => toggleMap(index)}
+                    startIcon={expandedMaps[index] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                    sx={{
+                      borderRadius: 2,
+                      background: '#000',
+                      color: '#fff',
+                      px: 2,
+                      py: 1,
+                      fontWeight: 600,
+                      textTransform: 'none',
+                      fontSize: '0.75rem',
+                      minWidth: 'auto',
+                      '&:hover': {
+                        background: '#333',
+                      }
+                    }}
+                  >
+                    {expandedMaps[index] ? 'Hide Map' : 'Show Map'}
+                  </Button>
+                </Box>
+              )}
+
+              {/* Collapsible Map Section */}
+              {card.mapLocation && (
+                <motion.div
+                  initial={false}
+                  animate={{
+                    height: expandedMaps[index] ? 'auto' : 0,
+                    opacity: expandedMaps[index] ? 1 : 0
+                  }}
+                  transition={{
+                    duration: 0.3,
+                    ease: 'easeInOut'
+                  }}
+                  style={{
+                    overflow: 'hidden',
+                    marginTop: '16px'
+                  }}
+                >
+                  <Box sx={{ borderRadius: 2, overflow: 'hidden', boxShadow: 2, mb: 2 }}>
+                    <iframe
+                      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${card.mapLocation.coordinates}`}
+                      width="100%"
+                      height="200"
+                      style={{ border: 0, borderRadius: 8 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      title={`${card.title} Location`}
+                    />
+                  </Box>
+                  <Box sx={{ textAlign: 'center', display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
+                    <Button
+                      variant="contained"
+                      href={card.mapLocation.googleMapsUrl}
+                      target="_blank"
+                      startIcon={<GoogleIcon />}
+                      sx={{
+                        borderRadius: 2,
+                        background: '#000',
+                        color: '#fff',
+                        px: 3,
+                        py: 1.5,
+                        fontWeight: 600,
+                        textTransform: 'none',
+                        fontSize: '0.875rem',
+                        '&:hover': {
+                          background: '#333',
+                        }
+                      }}
+                    >
+                      View on Google Maps
+                    </Button>
+                    {card.mapLocation.appleMapsUrl && (
+                      <Button
+                        variant="outlined"
+                        href={card.mapLocation.appleMapsUrl}
+                        target="_blank"
+                        startIcon={<MapIcon />}
+                        sx={{
+                          borderRadius: 2,
+                          borderColor: '#000',
+                          color: '#000',
+                          px: 3,
+                          py: 1.5,
+                          fontWeight: 600,
+                          textTransform: 'none',
+                          fontSize: '0.875rem',
+                          '&:hover': {
+                            borderColor: '#333',
+                            color: '#333',
+                            background: 'rgba(0,0,0,0.04)',
+                          }
+                        }}
+                      >
+                        View on Apple Maps
+                      </Button>
+                    )}
+                  </Box>
+                </motion.div>
+              )}
             </Box>
           </Box>
         ))}

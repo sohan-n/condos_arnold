@@ -32,7 +32,7 @@ const UnifiedHero: React.FC<UnifiedHeroProps> = ({
     if (customHeight) return customHeight;
     switch (heightPreset) {
       case 'listingpage':
-        return '70vh';
+        return '77vh';
       case 'mainpage':
       default:
         return { xs: '83vh', md: '85vh' };
@@ -112,7 +112,7 @@ const UnifiedHero: React.FC<UnifiedHeroProps> = ({
           alignItems: 'center', 
           justifyContent: 'center', 
           height: '100%',
-          pt: { xs: 30, md: 27 },
+          pt: { xs: heightPreset === 'listingpage' ? 18 : 22, md: heightPreset === 'listingpage' ? 22 : 27 },
           pb: { xs: 6, md: 10 }
         }}>
           {/* Title */}
@@ -168,7 +168,7 @@ const UnifiedHero: React.FC<UnifiedHeroProps> = ({
 
           {/* Hero Button */}
           {buttonText && buttonTo && (
-            <Box sx={{ display: 'block', textAlign: 'center', mt: 3 }}>
+            <Box sx={{ display: 'block', textAlign: 'center', mt: { xs: 6, md: 5 } }}>
               <HeroButton
                 to={buttonTo}
                 buttonVariant="glass"

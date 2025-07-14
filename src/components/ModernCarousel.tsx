@@ -15,12 +15,22 @@ interface ModernCarouselProps {
   images: string[];
   autoplayInterval?: number;
   height?: number; // height in px
+  showNavigation?: boolean;
+  scaleToFit?: boolean;
+  showPagination?: boolean;
+  jacoStyle?: boolean;
+  smartFit?: boolean;
 }
 
 const ModernCarousel: React.FC<ModernCarouselProps> = ({ 
   images, 
   autoplayInterval = 3000,
   height = 500,
+  showNavigation = true,
+  scaleToFit = false,
+  showPagination = true,
+  jacoStyle = false,
+  smartFit = false,
 }) => {
   // Responsive height calculation
   const responsiveHeight = typeof window !== 'undefined' && window.innerWidth <= 768 
@@ -34,6 +44,7 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
   const [isDragging, setIsDragging] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [expandedIndex, setExpandedIndex] = useState(0);
+  const [imageAspectRatios, setImageAspectRatios] = useState<number[]>([]);
   const splideRef = useRef<any>(null);
 
   // Combine refs
@@ -42,13 +53,59 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
     viewRef(node);
   }, [measureRef, viewRef]);
 
+  // Detect image aspect ratios for smart fitting
+  useEffect(() => {
+    if (!smartFit || images.length === 0) return;
+    
+    const detectAspectRatios = async () => {
+      const ratios: number[] = [];
+      let loadedCount = 0;
+      
+      const checkComplete = () => {
+        loadedCount++;
+        if (loadedCount === images.length) {
+          setImageAspectRatios(ratios);
+        }
+      };
+      
+      // Set a timeout to ensure we have fallback values
+      const timeout = setTimeout(() => {
+        if (loadedCount < images.length) {
+          const fallbackRatios = images.map(() => 1);
+          setImageAspectRatios(fallbackRatios);
+        }
+      }, 3000); // 3 second timeout
+      
+      images.forEach((imageUrl, index) => {
+        const img = new Image();
+        
+        img.onload = () => {
+          const ratio = img.width / img.height;
+          ratios[index] = ratio;
+          checkComplete();
+          clearTimeout(timeout);
+        };
+        
+        img.onerror = () => {
+          ratios[index] = 1; // Default to square if detection fails
+          checkComplete();
+          clearTimeout(timeout);
+        };
+        
+        img.src = imageUrl;
+      });
+    };
+    
+    detectAspectRatios();
+  }, [images, smartFit]);
+
   // Calculate indices for visible slides
   const getPrevIndex = (current: number) => (current - 1 + images.length) % images.length;
   const getNextIndex = (current: number) => (current + 1) % images.length;
 
   // Spring animations for the carousel movement
   const slideProps = useSpring({
-    transform: `translateX(calc(-${currentIndex * (bounds.width || 0)}px + ${dragX}px))`,
+    transform: `translateX(calc(-${currentIndex * (100 / images.length)}% + ${dragX}px))`,
     config: { mass: 1, tension: 320, friction: isDragging ? 40 : 32 },
   });
 
@@ -87,7 +144,7 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
   const bind = useDrag(({ down, movement: [mx], last }) => {
     setIsDragging(down);
     setDragX(down ? mx : 0);
-    if (!down && last && Math.abs(mx) > (bounds.width || 0) * 0.15) {
+    if (!down && last && Math.abs(mx) > 50) {
       if (mx < 0) {
         setCurrentIndex(current => (current + 1) % images.length);
       } else if (mx > 0) {
@@ -110,7 +167,7 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
           height: responsiveHeight,
           overflow: 'hidden',
           bgcolor: 'transparent',
-          borderRadius: 1,
+          borderRadius: 0,
           boxShadow: 'none',
           touchAction: 'pan-y',
         }}
@@ -141,24 +198,23 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
                   height: '100%',
                   transition: 'all 0.3s ease-in-out',
                   transform: isActive 
-                    ? 'scale(1) translateZ(0)' 
+                    ? 'scale(1)' 
                     : (isPrev || isNext) 
-                      ? 'scale(0.85) translateZ(-100px)' 
-                      : 'scale(0.7) translateZ(-200px)',
-                  opacity: isActive ? 1 : isPrev || isNext ? 0.7 : 0.4,
-                  filter: isActive ? 'none' : 'blur(2px)',
-                  transformStyle: 'preserve-3d',
-                  perspective: '1000px',
+                      ? 'scale(0.9)' 
+                      : 'scale(0.8)',
+                  opacity: isActive ? 1 : isPrev || isNext ? 0.8 : 0.5,
+                  filter: isActive ? 'none' : 'blur(1px)',
                   pointerEvents: isDragging ? 'none' : 'auto',
                   bgcolor: 'transparent',
                   boxShadow: 'none',
                   cursor: isActive ? 'pointer' : 'default',
+                  borderRadius: 0.7,
                   '&:hover': {
                     transform: isActive 
-                      ? 'scale(1.02) translateZ(0)' 
+                      ? 'scale(1.01)' 
                       : (isPrev || isNext) 
-                        ? 'scale(0.87) translateZ(-100px)' 
-                        : 'scale(0.72) translateZ(-200px)',
+                        ? 'scale(0.91)' 
+                        : 'scale(0.81)',
                   },
                 }}
               >
@@ -169,9 +225,15 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
                   sx={{
                     width: '100%',
                     height: '100%',
-                    objectFit: 'cover',
+                    objectFit: smartFit && imageAspectRatios.length > index && imageAspectRatios[index] !== undefined
+                      ? (imageAspectRatios[index] < 0.8 ? 'contain' : 'cover')
+                      : (scaleToFit ? 'contain' : 'cover'),
                     userSelect: 'none',
                     pointerEvents: 'none',
+                    ...(jacoStyle && {
+                      borderRadius: '0px',
+                      filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.15))',
+                    }),
                   }}
                   draggable={false}
                 />
@@ -181,62 +243,68 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
         </animated.div>
 
         {/* Navigation Buttons - smaller & translucent */}
-        <IconButton
-          onClick={handlePrevClick}
-          sx={{
-            position: 'absolute',
-            left: 8,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            width: 32,
-            height: 32,
-            bgcolor: 'rgba(255, 255, 255, 0.6)',
-            '&:hover': {
-              bgcolor: 'rgba(255,255,255,0.8)',
-            },
-            zIndex: 2,
-          }}
-          aria-label="Previous slide"
-        >
-          <ChevronLeftIcon sx={{ fontSize: 18 }} />
-        </IconButton>
-        <IconButton
-          onClick={handleNextClick}
-          sx={{
-            position: 'absolute',
-            right: 8,
-            top: '50%',
-            transform: 'translateY(-50%)',
-            width: 32,
-            height: 32,
-            bgcolor: 'rgba(255, 255, 255, 0.6)',
-            '&:hover': {
-              bgcolor: 'rgba(255,255,255,0.8)',
-            },
-            zIndex: 2,
-          }}
-          aria-label="Next slide"
-        >
-          <ChevronRightIcon sx={{ fontSize: 18 }} />
-        </IconButton>
+        {showNavigation && (
+          <>
+            <IconButton
+              onClick={handlePrevClick}
+              sx={{
+                position: 'absolute',
+                left: 8,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: 32,
+                height: 32,
+                bgcolor: 'rgba(255, 255, 255, 0.6)',
+                '&:hover': {
+                  bgcolor: 'rgba(255,255,255,0.8)',
+                },
+                zIndex: 2,
+              }}
+              aria-label="Previous slide"
+            >
+              <ChevronLeftIcon sx={{ fontSize: 18 }} />
+            </IconButton>
+            <IconButton
+              onClick={handleNextClick}
+              sx={{
+                position: 'absolute',
+                right: 8,
+                top: '50%',
+                transform: 'translateY(-50%)',
+                width: 32,
+                height: 32,
+                bgcolor: 'rgba(255, 255, 255, 0.6)',
+                '&:hover': {
+                  bgcolor: 'rgba(255,255,255,0.8)',
+                },
+                zIndex: 2,
+              }}
+              aria-label="Next slide"
+            >
+              <ChevronRightIcon sx={{ fontSize: 18 }} />
+            </IconButton>
+          </>
+        )}
       </Box>
       
       {/* Slide Indicator */}
-      <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 2 }}>
-        {images.map((_, index) => (
-          <Box
-            key={index}
-            sx={{
-              width: index === currentIndex ? 24 : 8,
-              height: 3,
-              bgcolor: index === currentIndex ? 'white' : 'grey.300',
-              borderRadius: 1.5,
-              transition: 'all 0.3s ease-in-out',
-              boxShadow: index === currentIndex ? '0 2px 8px rgba(95, 95, 95, 0.4)' : 'none',
-            }}
-          />
-        ))}
-      </Box>
+      {showPagination && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, mt: 2 }}>
+          {images.map((_, index) => (
+            <Box
+              key={index}
+              sx={{
+                width: index === currentIndex ? 24 : 8,
+                height: 3,
+                bgcolor: index === currentIndex ? 'white' : 'grey.300',
+                borderRadius: 0.5,
+                transition: 'all 0.3s ease-in-out',
+                boxShadow: index === currentIndex ? '0 2px 8px rgba(95, 95, 95, 0.4)' : 'none',
+              }}
+            />
+          ))}
+        </Box>
+      )}
 
       {/* Expanded Modal */}
       <Modal
@@ -260,7 +328,7 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
               position: 'relative',
               width: '100vw',
               height: '100vh',
-              bgcolor: 'black',
+              bgcolor: 'rgba(0, 0, 0, 0.75)',
               overflow: 'hidden',
               outline: 'none',
             }}
@@ -319,7 +387,7 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      bgcolor: 'black',
+                      bgcolor: 'transparent',
                     }}
                   >
                     <img

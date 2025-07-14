@@ -121,7 +121,7 @@ const ContactPage: React.FC = () => {
       bgcolor: '#f5f5f5',
     }}>
       <Container maxWidth="md" sx={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
-        {/* Gradient Title */}
+        {/* Breathing Gradient Title */}
         <Typography
           variant="h4"
           fontWeight={800}
@@ -129,13 +129,19 @@ const ContactPage: React.FC = () => {
           sx={{
             letterSpacing: 1,
             fontSize: { xs: 32, md: 44 },
-            background: 'linear-gradient(90deg, #111 0%, #eaeaea 100%)',
-            textShadow: '0 10px 48px rgba(0,0,0,0.38), 0 2px 8px rgba(0,0,0,0.18)',
+            background: 'linear-gradient(90deg, #000000, #333333,rgb(162, 162, 162),rgb(204, 204, 204))',
+            backgroundSize: '300% 300%',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
             color: 'transparent',
             display: 'inline-block',
+            animation: 'gradientShift 4s ease-in-out infinite',
+            '@keyframes gradientShift': {
+              '0%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+              '100%': { backgroundPosition: '0% 50%' },
+            },
           }}
         >
           Contact us to book now!

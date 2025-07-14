@@ -119,7 +119,7 @@ const Header: React.FC = () => {
                               color: '#222',
                               px: 6,
                               py: 2,
-                              borderRadius: 99,
+                              borderRadius: 2,
                               background: 'rgba(255,255,255,0.85)',
                               boxShadow: '0 2px 12px #0001',
                               letterSpacing: 2,
