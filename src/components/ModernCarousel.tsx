@@ -36,7 +36,7 @@ const ModernCarousel: React.FC<ModernCarouselProps> = ({
   const responsiveHeight = typeof window !== 'undefined' && window.innerWidth <= 768 
     ? Math.min(height * 0.7, 400) // Shorter on mobile, max 400px
     : height;
-  const [measureRef, bounds] = useMeasure();
+  const [measureRef] = useMeasure();
   const { ref: viewRef, inView } = useInView({ threshold: 0.1 });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Typography, Container } from '@mui/material';
+import { Box, Container } from '@mui/material';
 import TabContentSection from '../components/TabContentSection';
 import TabTransitionWrapper from '../components/TabTransitionWrapper';
 import JacoHero from '../components/JacoHero';
