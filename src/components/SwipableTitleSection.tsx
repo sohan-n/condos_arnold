@@ -145,7 +145,7 @@ const SwipableTitleSection: React.FC<SwipableTitleSectionProps> = ({
             mt: 0
           }}
         >
-          Many images/descriptions are from the linked websites and are not our own. Check the linked websites for the most up to date information.
+          Many images/descriptions are not our own. Check the linked websites for the most up to date information.
         </Typography>
       </motion.div>
 

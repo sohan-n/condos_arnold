@@ -392,8 +392,8 @@ const tabConfig = {
     allCards.playaHermosa,
   ],
   restaurants: [
-    allCards.jacoBar,
     allCards.vidaHermosa,
+    allCards.jacoBar,
   ],
   nightlife: [
     allCards.jacoBar,
