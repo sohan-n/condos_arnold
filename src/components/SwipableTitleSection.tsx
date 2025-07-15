@@ -85,49 +85,67 @@ const SwipableTitleSection: React.FC<SwipableTitleSectionProps> = ({
           scale,
           x: xTransform,
           display: 'flex',
+          flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
           gap: 16,
           width: '100%',
         }}
       >
-        {/* Icon */}
-        <Box sx={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center',
-          width: { xs: 48, md: 56, lg: 64 },
-          height: { xs: 48, md: 56, lg: 64 },
-          color: 'black',
-          flexShrink: 0
-        }}>
-          {currentTitle.icon}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          {/* Icon */}
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'center',
+            width: { xs: 48, md: 56, lg: 64 },
+            height: { xs: 48, md: 56, lg: 64 },
+            color: 'black',
+            flexShrink: 0
+          }}>
+            {currentTitle.icon}
+          </Box>
+          
+          {/* Title */}
+          <Typography 
+            variant="h4" 
+            fontWeight={800} 
+            sx={{
+              fontSize: { xs: '2.4rem', md: '2.5rem', lg: '3rem' },
+              textAlign: 'center',
+              letterSpacing: '-0.01em',
+              lineHeight: 1.2,
+              color: 'transparent',
+              background: 'linear-gradient(90deg, #000000, #333333,rgb(162, 162, 162),rgb(204, 204, 204))',
+              backgroundSize: '300% 300%',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              animation: 'gradientShift 4s ease-in-out infinite',
+              '@keyframes gradientShift': {
+                '0%': { backgroundPosition: '0% 50%' },
+                '50%': { backgroundPosition: '100% 50%' },
+                '100%': { backgroundPosition: '0% 50%' },
+              },
+            }}
+          >
+            {currentTitle.title}
+          </Typography>
         </Box>
-        
-        {/* Title */}
+
+        {/* Disclaimer */}
         <Typography 
-          variant="h4" 
-          fontWeight={800} 
+          variant="body2" 
           sx={{
-            fontSize: { xs: '2.4rem', md: '2.5rem', lg: '3rem' },
             textAlign: 'center',
-            letterSpacing: '-0.01em',
-            lineHeight: 1.2,
-            color: 'transparent',
-            background: 'linear-gradient(90deg, #000000, #333333,rgb(162, 162, 162),rgb(204, 204, 204))',
-            backgroundSize: '300% 300%',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            animation: 'gradientShift 4s ease-in-out infinite',
-            '@keyframes gradientShift': {
-              '0%': { backgroundPosition: '0% 50%' },
-              '50%': { backgroundPosition: '100% 50%' },
-              '100%': { backgroundPosition: '0% 50%' },
-            },
+            color: 'text.secondary',
+            fontSize: '0.875rem',
+            fontStyle: 'italic',
+            opacity: 0.8,
+            mt: 0
           }}
         >
-          {currentTitle.title}
+          Many images/descriptions are from the linked websites and are not our own. Check the linked websites for the most up to date information.
         </Typography>
       </motion.div>
 

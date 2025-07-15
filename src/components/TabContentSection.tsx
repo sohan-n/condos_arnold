@@ -20,12 +20,15 @@ interface TabContentSectionProps {
       name: string;
       url: string;
     }[];
-    phone?: string;
-                      mapLocation?: {
-                    googleMapsUrl?: string;
-                    appleMapsUrl?: string;
-                    embedUrl?: string;
-                  };
+    phone?: string | {
+      number: string;
+      label?: string;
+    }[];
+    mapLocation?: {
+      googleMapsUrl?: string;
+      appleMapsUrl?: string;
+      embedUrl?: string;
+    };
   }[];
   currentTab?: number;
   onTabChange?: (newTab: number) => void;
@@ -48,9 +51,17 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
   smartFit = false
 }) => {
   const [expandedMaps, setExpandedMaps] = useState<{ [key: number]: boolean }>({});
+  const [expandedDescriptions, setExpandedDescriptions] = useState<{ [key: number]: boolean }>({});
 
   const toggleMap = (index: number) => {
     setExpandedMaps(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
+
+  const toggleDescription = (index: number) => {
+    setExpandedDescriptions(prev => ({
       ...prev,
       [index]: !prev[index]
     }));
@@ -188,9 +199,50 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
               </Box>
             )}
             
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 3, lineHeight: 1.6 }}>
-              <span dangerouslySetInnerHTML={{ __html: card.description }} />
-            </Typography>
+            <Box sx={{ mb: 3, position: 'relative' }}>
+              <Typography 
+                variant="body2" 
+                color="text.secondary" 
+                sx={{ 
+                  lineHeight: 1.6,
+                  maxHeight: expandedDescriptions[index] ? 'none' : '6em', // 3 lines of text
+                  overflow: 'hidden',
+                  position: 'relative',
+                  transition: 'max-height 0.3s ease-in-out',
+                  '&::after': expandedDescriptions[index] ? {} : {
+                    content: '""',
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    height: '2em',
+                    background: 'linear-gradient(transparent, white)',
+                    pointerEvents: 'none',
+                  }
+                }}
+              >
+                <span dangerouslySetInnerHTML={{ __html: card.description }} />
+              </Typography>
+              
+              <Button
+                onClick={() => toggleDescription(index)}
+                sx={{
+                  mt: 1,
+                  p: 0,
+                  minWidth: 'auto',
+                  color: 'black',
+                  fontSize: '0.875rem',
+                  fontWeight: 600,
+                  textTransform: 'none',
+                  '&:hover': {
+                    backgroundColor: 'transparent',
+                    textDecoration: 'underline',
+                  }
+                }}
+              >
+                {expandedDescriptions[index] ? 'Read Less' : 'Read More'}
+              </Button>
+            </Box>
             
             {card.highlights && card.highlights.length > 0 && (
               <Box sx={{ mb: 3 }}>
@@ -237,44 +289,90 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
                 {card.phone && (
-                  <Link
-                    href={`tel:${card.phone}`}
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: 1,
-                      color: '#000000',
-                      textDecoration: 'none',
-                      fontWeight: 600,
-                      fontSize: '0.875rem',
-                      transition: 'all 0.2s ease',
-                      padding: '12px 8px',
-                      borderRadius: 1,
-                      minHeight: '44px',
-                      border: '1px solid rgba(0,0,0,0.1)',
-                      '&:hover': {
-                        color: '#333333',
-                        textDecoration: 'underline',
-                        transform: 'translateX(2px)',
-                        backgroundColor: 'rgba(0,0,0,0.04)',
-                        borderColor: 'rgba(0,0,0,0.2)',
-                      },
-                      '&:active': {
-                        backgroundColor: 'rgba(0,0,0,0.08)',
-                        borderColor: 'rgba(0,0,0,0.3)',
-                      },
-                      '& .MuiSvgIcon-root': {
-                        fontSize: '1.25rem',
-                        transition: 'transform 0.2s ease',
-                      },
-                      '&:hover .MuiSvgIcon-root': {
-                        transform: 'translateX(2px)',
-                      },
-                    }}
-                  >
-                    <PhoneIcon />
-                    {card.phone}
-                  </Link>
+                  <>
+                    {typeof card.phone === 'string' ? (
+                      <Link
+                        href={`tel:${card.phone}`}
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 1,
+                          color: '#000000',
+                          textDecoration: 'none',
+                          fontWeight: 600,
+                          fontSize: '0.875rem',
+                          transition: 'all 0.2s ease',
+                          padding: '12px 8px',
+                          borderRadius: 1,
+                          minHeight: '44px',
+                          border: '1px solid rgba(0,0,0,0.1)',
+                          '&:hover': {
+                            color: '#333333',
+                            textDecoration: 'underline',
+                            transform: 'translateX(2px)',
+                            backgroundColor: 'rgba(0,0,0,0.04)',
+                            borderColor: 'rgba(0,0,0,0.2)',
+                          },
+                          '&:active': {
+                            backgroundColor: 'rgba(0,0,0,0.08)',
+                            borderColor: 'rgba(0,0,0,0.3)',
+                          },
+                          '& .MuiSvgIcon-root': {
+                            fontSize: '1.25rem',
+                            transition: 'transform 0.2s ease',
+                          },
+                          '&:hover .MuiSvgIcon-root': {
+                            transform: 'translateX(2px)',
+                          },
+                        }}
+                      >
+                        <PhoneIcon />
+                        {card.phone}
+                      </Link>
+                    ) : (
+                      card.phone.map((phoneItem, phoneIndex) => (
+                        <Link
+                          key={phoneIndex}
+                          href={`tel:${phoneItem.number}`}
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 1,
+                            color: '#000000',
+                            textDecoration: 'none',
+                            fontWeight: 600,
+                            fontSize: '0.875rem',
+                            transition: 'all 0.2s ease',
+                            padding: '12px 8px',
+                            borderRadius: 1,
+                            minHeight: '44px',
+                            border: '1px solid rgba(0,0,0,0.1)',
+                            '&:hover': {
+                              color: '#333333',
+                              textDecoration: 'underline',
+                              transform: 'translateX(2px)',
+                              backgroundColor: 'rgba(0,0,0,0.04)',
+                              borderColor: 'rgba(0,0,0,0.2)',
+                            },
+                            '&:active': {
+                              backgroundColor: 'rgba(0,0,0,0.08)',
+                              borderColor: 'rgba(0,0,0,0.3)',
+                            },
+                            '& .MuiSvgIcon-root': {
+                              fontSize: '1.25rem',
+                              transition: 'transform 0.2s ease',
+                            },
+                            '&:hover .MuiSvgIcon-root': {
+                              transform: 'translateX(2px)',
+                            },
+                          }}
+                        >
+                          <PhoneIcon />
+                          {phoneItem.label ? `${phoneItem.label}: ${phoneItem.number}` : phoneItem.number}
+                        </Link>
+                      ))
+                    )}
+                  </>
                 )}
                 
                 {card.links && card.links.length > 0 ? (
