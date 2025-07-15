@@ -43,8 +43,8 @@ const UnifiedHero: React.FC<UnifiedHeroProps> = ({
   const getTitleShadow = () => {
     if (shadowType === 'light') {
       return {
-        xs: '0 4px 24px rgba(226, 226, 226, 0.9), 0 2px 8px rgba(255, 255, 255, 0.9)',
-        md: '0 10px 48px rgba(255, 255, 255, 0.5), 0 2px 8px rgba(255, 255, 255, 0.5)'
+        xs: '0 4px 24px rgba(226, 226, 226, 0.6), 0 2px 8px rgba(255, 255, 255, 0.6)',
+        md: '0 10px 48px rgba(255, 255, 255, 0.6), 0 2px 8px rgba(255, 255, 255, 0.6)'
       };
     } else {
       return {
@@ -57,8 +57,8 @@ const UnifiedHero: React.FC<UnifiedHeroProps> = ({
   const getSubtitleShadow = () => {
     if (shadowType === 'light') {
       return {
-        xs: '0 4px 24px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 255, 255, 0.9)',
-        md: '0 10px 48px rgba(255, 255, 255, 0.9), 0 2px 8px rgba(255, 255, 255, 0.9)'
+        xs: '0 4px 24px rgba(255, 255, 255, 0.6), 0 2px 8px rgba(255, 255, 255, 0.6)',
+        md: '0 10px 48px rgba(255, 255, 255, 0.6), 0 2px 8px rgba(255, 255, 255, 0.6)'
       };
     } else {
       return {

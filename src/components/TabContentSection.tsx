@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography, Link, Button } from '@mui/material';
-import { Link as LinkIcon, Phone as PhoneIcon, Google as GoogleIcon, Map as MapIcon, ExpandMore as ExpandMoreIcon, ExpandLess as ExpandLessIcon } from '@mui/icons-material';
+import { Link as LinkIcon, Phone as PhoneIcon, Google as GoogleIcon, Map as MapIcon, ExpandMore as ExpandMoreIcon, ExpandLess as ExpandLessIcon, Warning as WarningIcon, LocationOn as LocationIcon, Star as StarIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import SwipableTitleSection from './SwipableTitleSection';
 import ModernCarousel from './ModernCarousel';
@@ -12,6 +12,9 @@ interface TabContentSectionProps {
     title: string;
     subtitle?: string;
     description: string;
+    locationLabel?: string;
+    highlights?: string[];
+    warnings?: string[];
     images?: string[];
     links?: {
       name: string;
@@ -19,9 +22,9 @@ interface TabContentSectionProps {
     }[];
     phone?: string;
                       mapLocation?: {
-                    coordinates: string;
-                    googleMapsUrl: string;
+                    googleMapsUrl?: string;
                     appleMapsUrl?: string;
+                    embedUrl?: string;
                   };
   }[];
   currentTab?: number;
@@ -113,10 +116,20 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
       )}
       
       <Box sx={{ 
-        display: 'grid',
-        gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)', lg: 'repeat(3, 1fr)' },
+        display: 'flex',
+        flexDirection: 'column',
         gap: 3,
         mt: 4,
+        '@media (min-width: 900px)': {
+          display: 'grid',
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: 3,
+          alignItems: 'start',
+        },
+        '@media (min-width: 1200px)': {
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          alignItems: 'start',
+        },
       }}>
         {cards.map((card, index) => (
           <Box
@@ -176,8 +189,50 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
             )}
             
             <Typography variant="body2" color="text.secondary" sx={{ mb: 3, lineHeight: 1.6 }}>
-              {card.description}
+              <span dangerouslySetInnerHTML={{ __html: card.description }} />
             </Typography>
+            
+            {card.highlights && card.highlights.length > 0 && (
+              <Box sx={{ mb: 3 }}>
+                {card.highlights.map((highlight, highlightIndex) => (
+                  <Box key={highlightIndex} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1, mb: 1 }}>
+                    <StarIcon sx={{ color: '#4caf50', fontSize: '1rem', mt: 0.25, flexShrink: 0 }} />
+                    <Typography 
+                      variant="body2" 
+                      color="#4caf50" 
+                      sx={{ 
+                        lineHeight: 1.5,
+                        fontSize: '0.875rem',
+                        fontWeight: 500
+                      }}
+                    >
+                      {highlight}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+            )}
+            
+            {card.warnings && card.warnings.length > 0 && (
+              <Box sx={{ mb: 3 }}>
+                {card.warnings.map((warning, warningIndex) => (
+                  <Box key={warningIndex} sx={{ display: 'flex', alignItems: 'flex-start', gap: 1, mb: 1 }}>
+                    <WarningIcon sx={{ color: '#d32f2f', fontSize: '1rem', mt: 0.25, flexShrink: 0 }} />
+                    <Typography 
+                      variant="body2" 
+                      color="#d32f2f" 
+                      sx={{ 
+                        lineHeight: 1.5,
+                        fontSize: '0.875rem',
+                        fontWeight: 500
+                      }}
+                    >
+                      {warning}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+            )}
             
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -193,13 +248,23 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
                       fontWeight: 600,
                       fontSize: '0.875rem',
                       transition: 'all 0.2s ease',
+                      padding: '12px 8px',
+                      borderRadius: 1,
+                      minHeight: '44px',
+                      border: '1px solid rgba(0,0,0,0.1)',
                       '&:hover': {
                         color: '#333333',
                         textDecoration: 'underline',
                         transform: 'translateX(2px)',
+                        backgroundColor: 'rgba(0,0,0,0.04)',
+                        borderColor: 'rgba(0,0,0,0.2)',
+                      },
+                      '&:active': {
+                        backgroundColor: 'rgba(0,0,0,0.08)',
+                        borderColor: 'rgba(0,0,0,0.3)',
                       },
                       '& .MuiSvgIcon-root': {
-                        fontSize: '1rem',
+                        fontSize: '1.25rem',
                         transition: 'transform 0.2s ease',
                       },
                       '&:hover .MuiSvgIcon-root': {
@@ -229,13 +294,23 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
                           fontWeight: 600,
                           fontSize: '0.875rem',
                           transition: 'all 0.2s ease',
+                          padding: '12px 8px',
+                          borderRadius: 1,
+                          minHeight: '44px',
+                          border: '1px solid rgba(25, 147, 229, 0.2)',
                           '&:hover': {
                             color: '#1565c0',
                             textDecoration: 'underline',
                             transform: 'translateX(2px)',
+                            backgroundColor: 'rgba(25, 147, 229, 0.08)',
+                            borderColor: 'rgba(25, 147, 229, 0.4)',
+                          },
+                          '&:active': {
+                            backgroundColor: 'rgba(25, 147, 229, 0.12)',
+                            borderColor: 'rgba(25, 147, 229, 0.6)',
                           },
                           '& .MuiSvgIcon-root': {
-                            fontSize: '1rem',
+                            fontSize: '1.25rem',
                             transition: 'transform 0.2s ease',
                           },
                           '&:hover .MuiSvgIcon-root': {
@@ -262,24 +337,41 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
                 )}
               </Box>
 
+              {/* Divider */}
+              <Box sx={{ 
+                height: '1px', 
+                backgroundColor: 'rgba(0,0,0,0.1)', 
+                my: 0.5,
+                mx: 0
+              }} />
+
               {/* Show Map Button - Bottom Center */}
               {card.mapLocation && (
-                <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0, mb: expandedMaps[index] ? 0 : -4 }}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, mt: 0, mb: expandedMaps[index] ? 0 : -4 }}>
+                  {card.locationLabel && (
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <LocationIcon sx={{ color: '#4caf50', fontSize: '1.25rem' }} />
+                      <Typography variant="subtitle2" fontWeight={600} color="#4caf50">
+                        {card.locationLabel}
+                      </Typography>
+                    </Box>
+                  )}
                   <Button
                     variant="contained"
                     size="small"
                     onClick={() => toggleMap(index)}
                     startIcon={expandedMaps[index] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                     sx={{
-                      borderRadius: 2,
+                      borderRadius: 0.5,
                       background: '#000',
                       color: '#fff',
-                      px: 2,
-                      py: 1,
+                      px: 2.1,
+                      py: 1.2,
                       fontWeight: 600,
                       textTransform: 'none',
-                      fontSize: '0.75rem',
+                      fontSize: '0.8rem',
                       minWidth: 'auto',
+                      mt: 1,
                       '&:hover': {
                         background: '#333',
                       }
@@ -309,7 +401,7 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
                 >
                   <Box sx={{ borderRadius: 2, overflow: 'hidden', boxShadow: 2, mb: 2 }}>
                     <iframe
-                      src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${card.mapLocation.coordinates}`}
+                      src={card.mapLocation.embedUrl || "https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Jaco+Costa+Rica"}
                       width="100%"
                       height="200"
                       style={{ border: 0, borderRadius: 8 }}
@@ -320,27 +412,29 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
                     />
                   </Box>
                   <Box sx={{ textAlign: 'center', display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
-                    <Button
-                      variant="contained"
-                      href={card.mapLocation.googleMapsUrl}
-                      target="_blank"
-                      startIcon={<GoogleIcon />}
-                      sx={{
-                        borderRadius: 2,
-                        background: '#000',
-                        color: '#fff',
-                        px: 3,
-                        py: 1.5,
-                        fontWeight: 600,
-                        textTransform: 'none',
-                        fontSize: '0.875rem',
-                        '&:hover': {
-                          background: '#333',
-                        }
-                      }}
-                    >
-                      View on Google Maps
-                    </Button>
+                    {card.mapLocation.googleMapsUrl && (
+                      <Button
+                        variant="contained"
+                        href={card.mapLocation.googleMapsUrl}
+                        target="_blank"
+                        startIcon={<GoogleIcon />}
+                        sx={{
+                          borderRadius: 2,
+                          background: '#000',
+                          color: '#fff',
+                          px: 3,
+                          py: 1.5,
+                          fontWeight: 600,
+                          textTransform: 'none',
+                          fontSize: '0.875rem',
+                          '&:hover': {
+                            background: '#333',
+                          }
+                        }}
+                      >
+                        View on Google Maps
+                      </Button>
+                    )}
                     {card.mapLocation.appleMapsUrl && (
                       <Button
                         variant="outlined"
