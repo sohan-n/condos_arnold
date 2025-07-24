@@ -784,7 +784,7 @@ const allCards = {
    },
 
    jerahAuthenticThai: {
-    isfavorite: true,
+    isFavorite: true,
      title: "Jerah Authentic Thai Cuisine",
      subtitle: "Authentic Thai dishes in a cozy treehouse-style setting",
      description: "Since 2002, this beloved spot on Calle Anita serves fresh, flavorful Thai cuisine—soup, curry, stir-fry, noodles—with chef Christian's international touch and a relaxed 'treehouse' vibe.",
@@ -845,7 +845,7 @@ const allCards = {
    },
 
    jerahGermanBakery: {
-    isfavorite: true,
+    isFavorite: true,
      title: "Jerah German Bakery",
      subtitle: "Authentic German breads & pastries beneath Jerah Thai",
      description: "Located underneath Jerah Authentic Thai on Calle Anita, this bakery offers freshly baked German-style breads, baguettes, and pastries each morning.",
@@ -952,6 +952,8 @@ const tabConfig = {
     allCards.elManglar,
     allCards.seasalt,
     allCards.vidaHermosa,
+    allCards.jerahGermanBakery,
+    allCards.jerahAuthenticThai,
     allCards.KoKoGastroBar,
     allCards.elChicano,
     allCards.amancios,
@@ -965,9 +967,7 @@ const tabConfig = {
     allCards.brittCafe,
     allCards.maleconBar,
     allCards.lemonZest,
-    allCards.jerahAuthenticThai,
     allCards.mundaka,
-    allCards.jerahGermanBakery,
     allCards.jacoBar,
   ],
   nightlife: [
