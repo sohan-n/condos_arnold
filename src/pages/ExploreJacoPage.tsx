@@ -238,6 +238,7 @@ const allCards = {
   },
 
   vladAlvarado: {
+    isFavorite: true,
     title: "Vlad Alvarado",
     subtitle: "Our Tour Guide. He will beat almost any price.",
     description: "Vlad is your go-to local tour guide who can create any custom tour experience you desire. From adventure tours to cultural experiences, beach excursions to rainforest hikes - he'll design the perfect itinerary for your group. <strong>Best of all: he tends to beat most competitor's price!</strong> Contact him on WhatsApp to discuss your dream adventure.",
@@ -299,6 +300,7 @@ const allCards = {
   },
 
   airportTransfer: {
+    isFavorite: true,
     title: "Airport Transfer Service",
     subtitle: "Comfortable and safe private transportation from San José Airport to Jaco",
     description: "Start your Costa Rican adventure with a stress-free arrival! We offer private airport transfer service from Juan Santamaría International Airport (SJO) to Jaco. <strong>Perfect for families and groups looking for reliable, comfortable transportation.</strong> Our professional drivers will meet you at the airport and ensure a smooth journey to your destination.",
@@ -397,6 +399,7 @@ const allCards = {
   },
 
   elManglar: {
+    isFavorite: true,
     title: "El Manglar Restaurante y Bar",
     subtitle: "Open-air seafood & cocktail bar on Jacó Beach",
     description: "An inviting open-air eatery located just one block north of Hotel Crocs on Jacó Beach. El Manglar offers a laid-back, tropical atmosphere with wooden accents and lush greenery, perfect for romantic dinners, friendly gatherings, or enjoying live music nights. Their menu focuses on fresh, locally sourced ingredients—from ceviche and seafood specials to burgers, ribs, pasta, and handcrafted cocktails. Service is friendly and bilingual, capturing that classic Pura Vida vibe.",
@@ -887,6 +890,37 @@ const allCards = {
        googleMapsUrl: "https://maps.app.goo.gl/6qFVkuWpczNthcfK6",
        embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.8103865216895!2d-84.6277425237804!3d9.611589190474914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c740f6df79ef%3A0x7278529da8b4ad12!2sJac%C3%B3%20Walk%20Shopping%20Center!5e0!3m2!1sen!2sus!4v1753320293370!5m2!1sen!2sus"
      }
+   },
+
+   seasalt: {
+    isFavorite: true,
+     title: "SeaSalt Beachfront Bar & Restaurant",
+     subtitle: "Beachfront fusion dining",
+     description: "Open 7 AM to 10 PM daily, SeaSalt offers Mediterranean-Caribbean fusion cuisine—fish tacos, ceviche, patacones, sandwiches, salads—served right by the sand with vibrant sea-breeze ambiance.",
+     locationLabel: "Calle Bribrí, Jacó Beach, Puntarenas, Costa Rica 61101",
+      images: [
+       '/jaco_card_images/sea_salt_a_3.png',
+       '/jaco_card_images/sea_salt_a_4.png',
+       '/jaco_card_images/sea_salt_a_5.png',
+       '/jaco_card_images/sea_salt_a_6.png',
+       '/jaco_card_images/sea_salt_a_7.png'
+      ],
+     phone: [
+       { number: "+506-7089-0385" }
+     ],
+     highlights: [
+       "Mediterranean-Caribbean fusion dishes",
+       "Happy hour drinks with ocean view",
+       "Beachfront seating at Hotel Jacó"
+     ],
+     links: [
+       { name: "Website", url: "https://www.seasaltjacobeachcr.com/" },
+       { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d26839294-Sea_Salt_Beachfront_Bar_and_Restaurant-Jaco.html" }
+     ],
+     mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/xb8Y4ProqmNEKnDQ7",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.752230027837!2d-84.63550972378036!3d9.616589790470119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c7816bc252d3%3A0x85a2ef2085f96efa!2sSeaSalt!5e0!3m2!1sen!2sus!4v1753322742628!5m2!1sen!2sus"
+     }
    }
 
 
@@ -913,9 +947,10 @@ const tabConfig = {
     allCards.playaHermosa,
   ],
   restaurants: [
+    allCards.elManglar,
+    allCards.seasalt,
     allCards.vidaHermosa,
     allCards.KoKoGastroBar,
-    allCards.elManglar,
     allCards.elChicano,
     allCards.amancios,
     allCards.infierno,

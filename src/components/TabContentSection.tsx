@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography, Link, Button } from '@mui/material';
-import { Link as LinkIcon, Phone as PhoneIcon, Google as GoogleIcon, Map as MapIcon, ExpandMore as ExpandMoreIcon, ExpandLess as ExpandLessIcon, Warning as WarningIcon, LocationOn as LocationIcon, Star as StarIcon } from '@mui/icons-material';
+import { Link as LinkIcon, Phone as PhoneIcon, Google as GoogleIcon, Map as MapIcon, ExpandMore as ExpandMoreIcon, ExpandLess as ExpandLessIcon, Warning as WarningIcon, LocationOn as LocationIcon, Star as StarIcon, Favorite as FavoriteIcon } from '@mui/icons-material';
 import { motion } from 'framer-motion';
 import SwipableTitleSection from './SwipableTitleSection';
 import ModernCarousel from './ModernCarousel';
@@ -16,6 +16,7 @@ interface TabContentSectionProps {
     highlights?: string[];
     warnings?: string[];
     images?: string[];
+    isFavorite?: boolean;
     links?: {
       name: string;
       url: string;
@@ -150,15 +151,63 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
               borderRadius: 1,
               p: 4,
               boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
-              border: '1px solid rgba(0,0,0,0.06)',
+              border: card.isFavorite ? '2px solid #e91e63' : '1px solid rgba(0,0,0,0.06)',
               transition: 'transform 0.2s, box-shadow 0.2s',
+              position: 'relative',
               '&:hover': {
                 transform: 'translateY(-4px)',
                 boxShadow: '0 8px 30px rgba(0,0,0,0.12)',
               },
             }}
           >
-            <Typography variant="h6" fontWeight={700} mb={1} color="grey.900">
+            {/* Our Favorite Badge */}
+            {card.isFavorite && (
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 20,
+                  right: 12,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 0.5,
+                  bgcolor: 'rgba(233, 30, 99, 0.1)',
+                  border: '1px solid #e91e63',
+                  borderRadius: 2,
+                  px: 1,
+                  py: 0.5,
+                  zIndex: 1,
+                }}
+              >
+                <FavoriteIcon 
+                  sx={{ 
+                    color: '#e91e63', 
+                    fontSize: '0.875rem' 
+                  }} 
+                />
+                <Typography
+                  variant="caption"
+                  sx={{
+                    color: '#e91e63',
+                    fontWeight: 600,
+                    fontSize: '0.75rem',
+                    lineHeight: 1,
+                    textTransform: 'none',
+                  }}
+                >
+                  our favorite
+                </Typography>
+              </Box>
+            )}
+
+            <Typography 
+              variant="h6" 
+              fontWeight={700} 
+              mb={1} 
+              color="grey.900"
+              sx={{ 
+                mt: card.isFavorite ? 3 : 0 
+              }}
+            >
               {card.title}
             </Typography>
             
