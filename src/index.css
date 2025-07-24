@@ -2,6 +2,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* FullCalendar Styles */
 :root {
       --bg-main: #f6faff;
       --bg-slate: #fff;
@@ -381,4 +383,33 @@
     /* Prevent horizontal scroll caused by expanding Splide slides */
     html, body {
       overflow-x: hidden;
+    } 
+
+    /* Hide scrollbar for the entire site */
+    html {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* Internet Explorer 10+ */
+    }
+
+    html::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    body {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* Internet Explorer 10+ */
+    }
+
+    body::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+
+    /* Hide scrollbar for all scrollable elements */
+    * {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* Internet Explorer 10+ */
+    }
+
+    *::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
     } 

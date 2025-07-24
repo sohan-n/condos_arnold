@@ -1,6 +1,5 @@
 import React from 'react';
-import { Box, Typography, Card, CardContent, Container, Paper, Button } from '@mui/material';
-import UnifiedHero from '../components/UnifiedHero';
+import { Box, Typography, CardContent, Container, Button } from '@mui/material';
 import BathtubIcon from '@mui/icons-material/Bathtub';
 import KingBedIcon from '@mui/icons-material/KingBed';
 import TvIcon from '@mui/icons-material/Tv';
@@ -13,7 +12,10 @@ import LocalParkingIcon from '@mui/icons-material/LocalParking';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import LocalLaundryServiceIcon from '@mui/icons-material/LocalLaundryService';
 import GoogleIcon from '@mui/icons-material/Google';
-import ModernCarousel from '../components/ModernCarousel';
+import BackgroundSlideshow from '../components/BackgroundSlideshow';
+import BlurCard from '../components/BlurCard';
+import HeroSlideshow from '../components/HeroSlideshow';
+import CustomGoogleCalendar from '../components/CustomGoogleCalendar';
 
 
 
@@ -59,7 +61,7 @@ const galleryImages = [
 const detailedAmenities = [
   {
     category: 'Kitchen & Cooking',
-    icon: <KitchenIcon sx={{ fontSize: 24, color: '#222' }} />,
+    icon: <KitchenIcon sx={{ fontSize: 32, color: '#000' }} />,
     description: 'Fully equipped gourmet kitchen perfect for preparing meals and entertaining guests.',
     details: [
       'Kitchen space to cook your own meals',
@@ -76,7 +78,7 @@ const detailedAmenities = [
   },
   {
     category: 'Bedrooms',
-    icon: <KingBedIcon sx={{ fontSize: 24, color: '#222' }} />,
+    icon: <KingBedIcon sx={{ fontSize: 32, color: '#000' }} />,
     description: 'Four spacious bedrooms designed for ultimate comfort and relaxation with bedding.',
     details: [
       'Beach towels, bathroom towels, and bed sheets',
@@ -89,7 +91,7 @@ const detailedAmenities = [
   },
   {
     category: 'Outdoor & Balcony',
-    icon: <DeckIcon sx={{ fontSize: 24, color: '#222' }} />,
+    icon: <DeckIcon sx={{ fontSize: 32, color: '#000' }} />,
     description: 'Private outdoor spaces with stunning ocean views and comfortable seating.',
     details: [
       'Private patio or balcony',
@@ -102,7 +104,7 @@ const detailedAmenities = [
   },
   {
     category: 'Parking & Building Facilities',
-    icon: <LocalParkingIcon sx={{ fontSize: 24, color: '#222' }} />,
+    icon: <LocalParkingIcon sx={{ fontSize: 32, color: '#000' }} />,
     description: 'Convenient parking and access to premium building amenities.',
     details: [
       '2 Residential parking spaces',
@@ -114,7 +116,7 @@ const detailedAmenities = [
   },
   {
     category: 'Bathroom & Hygiene',
-    icon: <BathtubIcon sx={{ fontSize: 24, color: '#222' }} />,
+    icon: <BathtubIcon sx={{ fontSize: 32, color: '#000' }} />,
     description: 'Four fully equipped bathrooms with premium amenities for your comfort and convenience.',
     details: [
       'Hair dryer in each bathroom',
@@ -125,7 +127,7 @@ const detailedAmenities = [
   },
   {
     category: 'Safety & Security',
-    icon: <VerifiedUserIcon sx={{ fontSize: 24, color: '#222' }} />,
+    icon: <VerifiedUserIcon sx={{ fontSize: 32, color: '#000' }} />,
     description: '',
     details: [
       'Smoke alarm in all rooms',
@@ -136,7 +138,7 @@ const detailedAmenities = [
   },
   {
     category: 'Laundry & Housekeeping',
-    icon: <LocalLaundryServiceIcon sx={{ fontSize: 24, color: '#222' }} />,
+    icon: <LocalLaundryServiceIcon sx={{ fontSize: 32, color: '#000' }} />,
     description: 'Convenient in-unit laundry facilities for your complete comfort during extended stays.',
     details: [
       'Washer and Dryer – In unit',
@@ -146,7 +148,7 @@ const detailedAmenities = [
   },
   {
     category: 'Entertainment & Technology',
-    icon: <TvIcon sx={{ fontSize: 24, color: '#222' }} />,
+    icon: <TvIcon sx={{ fontSize: 32, color: '#000' }} />,
     description: 'Modern entertainment system with streaming capabilities and high-speed internet throughout.',
     details: [
       'HDTV with cable and streaming apps',
@@ -155,7 +157,7 @@ const detailedAmenities = [
   },
   {
     category: 'Climate Control',
-    icon: <AcUnitIcon sx={{ fontSize: 24, color: '#222' }} />,
+    icon: <AcUnitIcon sx={{ fontSize: 32, color: '#000' }} />,
     description: '',
     details: [
       'AC in each room',
@@ -164,7 +166,7 @@ const detailedAmenities = [
   },
   {
     category: 'Services & Convenience',
-    icon: <VpnKeyIcon sx={{ fontSize: 24, color: '#222' }} />,
+    icon: <VpnKeyIcon sx={{ fontSize: 32, color: '#000' }} />,
     description: 'Seamless check-in and additional services for your convenience.',
     details: [
       'Self check-in with keypad access',
@@ -173,7 +175,7 @@ const detailedAmenities = [
   },
   {
     category: 'Dining',
-    icon: <RestaurantMenuIcon sx={{ fontSize: 24, color: '#222' }} />,
+    icon: <RestaurantMenuIcon sx={{ fontSize: 32, color: '#000' }} />,
     description: '',
     details: [
       'Formal dining table seating 8-10'
@@ -192,12 +194,23 @@ The condo's location on the main strip of Jacó provides easy access to the beac
 Whether you're planning a family vacation, a friends' getaway, or a business retreat, our condo provides the perfect blend of luxury, comfort, and convenience in one of Costa Rica's most vibrant beach communities.`;
 
 const CondoPage: React.FC = () => {
+  const [carouselIndex, setCarouselIndex] = React.useState(0);
 
   return (
-    <Box sx={{ bgcolor: 'linear-gradient(to bottom, #fff 0%, #f6faff 60%, #eaf2fb 100%)', minHeight: '100vh' }}>
-      {/* Hero Section */}
-      <UnifiedHero
-        backgroundImage="condo1_hero.png"
+            <Box sx={{ minHeight: '100vh', position: 'relative' }}>
+      {/* Background Slideshow */}
+      <BackgroundSlideshow 
+        images={galleryImages}
+        fadeDuration={500}
+        currentIndex={carouselIndex}
+        syncWithCarousel={true}
+        useBlurredImages={true}
+        blurredImagePath="slideshow-blurred"
+      />
+      
+      {/* Hero Slideshow */}
+      <HeroSlideshow
+        images={galleryImages}
         title="The Spacious Ocean View Condo for Groups"
         subtitle="Available now for booking"
         buttonText="Book Now"
@@ -205,16 +218,12 @@ const CondoPage: React.FC = () => {
         heightPreset="listingpage"
         shadowType="light"
         overlayOpacity={0.25}
+        fadeDuration={400}
+        autoplayInterval={5000}
+        onIndexChange={setCarouselIndex}
       />
-
-
-
-      {/* Gallery Carousel */}
-      <Container maxWidth="xl" sx={{ py: { xs: 3, md: 4 } }}>
-        <ModernCarousel images={galleryImages} autoplayInterval={4000} />
-      </Container>
       {/* Quick Facts / Highlights */}
-      <Container maxWidth="md" sx={{ pb: { xs: 4, md: 0  } }}>
+      <Container maxWidth="md" sx={{ pb: { xs: 4, md: 0  }, mt: 7 }}>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: { xs: 1, md: 1.4 }}}>
           {quickFacts.map((fact) => (
             <Box
@@ -224,119 +233,152 @@ const CondoPage: React.FC = () => {
                 minWidth: { xs: 80, sm: 100, md: 140, lg: 160 }
               }}
             >
-              <Card elevation={3} sx={{ borderRadius: 1, boxShadow: 3, border: '1px solid #e3eaf1', bgcolor: 'rgba(255,255,255,0.96)' }}>
+              <BlurCard blurIntensity="light" opacity={0.85}>
                 <CardContent>
-                  <Typography variant="h5" fontWeight={700} color="black" align="center" gutterBottom>
+                  <Typography variant="h5" fontWeight={700} color="#000" align="center" gutterBottom>
                     {fact.value}
                   </Typography>
-                  <Typography color="#637988" align="center" fontSize={16 }>{fact.label}</Typography>
+                  <Typography color="rgba(0,0,0,0.7)" align="center" fontSize={16} fontWeight={500}>{fact.label}</Typography>
                 </CardContent>
-              </Card>
+              </BlurCard>
             </Box>
           ))}
         </Box>
       </Container>
       {/* Availability Calendar */}
       <Container maxWidth="xl" sx={{ pt: { xs: 3, md: 7 }, pb: 4 }}>
-        <Paper elevation={4} sx={{ borderRadius: 1, p: { xs: 2, md: 4 }, mb: 4 }}>
-          <Typography variant="h5" fontWeight={700} mb={2} align="center">
-            Availability
+        <BlurCard blurIntensity="light" opacity={0.9} sx={{ p: 3 }}>
+          <Typography variant="h5" fontWeight={700} mb={3} color="#000" align="center">
+            Availability Calendar
           </Typography>
-          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-            <iframe
-              src="https://calendar.google.com/calendar/embed?height=400&wkst=1&ctz=America%2FNew_York&showPrint=0&title=asdas&showTitle=0&showTabs=0&showCalendars=0&src=dGlvcXNpM2lsYmtiaGs5c2pmb3JxMGNyM3NtdHI1bnFAaW1wb3J0LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%233f51b5"
-              style={{ borderWidth: 0, borderRadius: 4 }}
-              width="100%"
-              height="500"
-              frameBorder="0"
-              scrolling="no"
-              title="Availability Calendar"
-              allowFullScreen
-            />
+          <Box sx={{ borderRadius: 2, overflow: 'hidden', boxShadow: 2, display: 'flex', justifyContent: 'center' }}>
+            <CustomGoogleCalendar/>
           </Box>
-        </Paper>
+        </BlurCard>
       </Container>
 
       {/* About the Space */}
-      <Container maxWidth="xl" sx={{ pb: { xs: 6, md: 10 } }}>
-        <Card elevation={2} sx={{ borderRadius: 1, p: 3, mb: 2, bgcolor: 'rgba(255,255,255,0.98)' }}>
-          <Typography variant="h5" fontWeight={700} mb={2}>
+      <Container maxWidth="xl" sx={{ pb: { xs: 6, md: 10 }, mt: 5 }}>
+        <BlurCard blurIntensity="light" opacity={0.9} sx={{ p: 3, mb: 2 }}>
+          <Typography variant="h5" fontWeight={700} mb={2} color="#000">
             About the Space
           </Typography>
-          <Typography color="text.secondary" mb={2} fontSize={16} fontWeight={450}>
+          <Typography color="rgba(0,0,0,0.8)" mb={2} fontSize={18} fontWeight={450}>
             {aboutShort}
           </Typography>
-          <Box sx={{ whiteSpace: 'pre-line', color: '#637988', fontSize: 15 }}>
+          <Box sx={{ whiteSpace: 'pre-line', color: 'rgba(0,0,0,0.7)', fontSize: 17, fontWeight: 400 }}>
             {aboutLong}
           </Box>
-        </Card>
+        </BlurCard>
       </Container>
 
       {/* Elegant Amenities Section */}
       <Container id="amenities" maxWidth="xl" sx={{ pb: { xs: 6, md: 10 } }}>
-        <Typography variant="h4" fontWeight={700} mb={4} align="center">
-          Complete Amenities
-        </Typography>
-        <Typography color="text.secondary" mb={6} align="center">
-          Everything you need for a luxurious and comfortable stay
-        </Typography>
-        
-        <Box sx={{ 
-          display: 'grid', 
-          gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, 
-          gap: 2,
-          bgcolor: 'rgba(255,255,255,0.98)',
-          borderRadius: 1,
-          p: 4,
-          boxShadow: '0 4px 20px rgba(0,0,0,0.08)'
-        }}>
+        <BlurCard 
+          blurIntensity="light" 
+          opacity={0.9}
+          sx={{ 
+            p: 4
+          }}
+        >
+          <Typography variant="h4" fontWeight={700} mb={4} align="center" color="#000">
+            Complete Amenities
+          </Typography>
+          <Typography color="rgba(0,0,0,0.7)" mb={6} align="center">
+            Everything you need for a luxurious and comfortable stay
+          </Typography>
+          
+          <Box sx={{ 
+            display: 'grid', 
+            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' }, 
+            gap: 1.5
+          }}>
           {detailedAmenities.map((amenity) => (
-            <Box key={amenity.category} sx={{ mb: 2 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
-                {amenity.icon}
-                <Typography variant="h6" fontWeight={600} color="text.primary">
+            <Box key={amenity.category} sx={{ 
+              mb: 1.5, 
+              p: 2, 
+              borderRadius: 2, 
+              border: '1px solid rgba(255,255,255,0.8)',
+              backgroundColor: '#fff',
+              transition: 'all 0.2s ease',
+              '&:hover': {
+                border: '1px solid rgba(255,255,255,1)',
+                backgroundColor: '#fff',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+              }
+            }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 0.5 }}>
+                <Box sx={{ color: 'rgba(0,0,0,0.8)' }}>
+                  {amenity.icon}
+                </Box>
+                <Typography variant="h5" fontWeight={600} color="#000">
                   {amenity.category}
                 </Typography>
               </Box>
-              <Typography variant="body1" color="text.secondary" sx={{ mb: 1, lineHeight: 1.6 }}>
+              <Typography variant="body1" color="rgba(0,0,0,0.8)" sx={{ mb: 0.5, lineHeight: 1.6, fontSize: 18 }}>
                 {amenity.description}
               </Typography>
-              <Box sx={{ pl: 4 }}>
+              <Box sx={{ 
+                display: 'grid', 
+                gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, 
+                gap: 0.5,
+                pl: 3
+              }}>
                 {amenity.details.map((detail, detailIndex) => (
-                  <Typography 
-                    key={detailIndex} 
-                    variant="body2" 
-                    sx={{ 
-                      mb: 0.5, 
-                      color: '#333',
-                      fontWeight: 500,
-                      position: 'relative',
-                      '&::before': {
-                        content: '"•"',
-                        color: '#333',
-                        fontWeight: 'bold',
-                        position: 'absolute',
-                        left: '-12px',
-                        top: 0
+                  <Box
+                    key={detailIndex}
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      mb: 0.5,
+                      p: 0.5,
+                      pl: 2,
+                      ml: -2,
+                      borderRadius: 1,
+                      transition: 'all 0.2s ease',
+                      '&:hover': {
+                        backgroundColor: 'rgba(0,0,0,0.03)'
                       }
                     }}
                   >
-                    {detail}
-                  </Typography>
+                    <Box
+                      sx={{
+                        width: 12,
+                        height: 2,
+                        backgroundColor: '#000',
+                        mt: 1.5,
+                        mr: 2,
+                        flexShrink: 0,
+                        borderRadius: 1
+                      }}
+                    />
+                    <Typography 
+                      variant="body1" 
+                      sx={{ 
+                        color: 'rgba(0,0,0,0.7)',
+                        fontWeight: 500,
+                        fontSize: 16,
+                        lineHeight: 1.5
+                      }}
+                    >
+                      {detail}
+                    </Typography>
+                  </Box>
                 ))}
               </Box>
             </Box>
           ))}
-        </Box>
+          </Box>
+        </BlurCard>
       </Container>
 
       {/* Location */}
       <Container maxWidth="lg" sx={{ pb: { xs: 6, md: 10 } }}>
-        <Card elevation={2} sx={{ borderRadius: 1, p: 3, bgcolor: 'rgba(255,255,255,0.98)' }}>
-          <Typography variant="h5" fontWeight={700} mb={2}>
+        <BlurCard blurIntensity="light" opacity={0.9} sx={{ p: 3 }}>
+          <Typography variant="h5" fontWeight={700} mb={2} color="#000">
             Location
           </Typography>
-          <Typography color="text.secondary" mb={3}>
+          <Typography color="rgba(0,0,0,0.8)" mb={3}>
             Located right on the main strip of Jacó, steps from the beach, restaurants, and nightlife. Enjoy the best of Costa Rica from your luxury penthouse.
           </Typography>
           <Box sx={{ borderRadius: 2, overflow: 'hidden', boxShadow: 2, mb: 2 }}>
@@ -373,11 +415,20 @@ const CondoPage: React.FC = () => {
               View on Google Maps
             </Button>
           </Box>
-        </Card>
+        </BlurCard>
       </Container>
 
       {/* Footer */}
-      <Box sx={{ py: 4, textAlign: 'center', fontWeight: 500, fontSize: 13, letterSpacing: 0.5, mt: 6, color: '#637988' }}>
+      <Box sx={{ 
+        py: 4, 
+        textAlign: 'center', 
+        fontWeight: 500, 
+        fontSize: 13, 
+        letterSpacing: 0.5, 
+        mt: 6, 
+        color: '#fff',
+        textShadow: '0 1px 3px rgba(0,0,0,0.5)'
+      }}>
         © 2025 Jacó Bay Condos. All rights reserved.
       </Box>
     </Box>

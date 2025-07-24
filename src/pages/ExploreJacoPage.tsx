@@ -370,7 +370,528 @@ const allCards = {
       googleMapsUrl: "https://maps.app.goo.gl/DEp6uT7e7Bvi7JfcA",
       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7868.791479116163!2d-84.59511259921507!3d9.561113199999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c0a70f0948e3%3A0xe4b5f820bd358128!2sHermosa%20Beach!5e0!3m2!1sen!2sus!4v1752611829471!5m2!1sen!2sus"
     }
-  }
+  },
+  KoKoGastroBar: {
+    title: "KoKo GastroBar",
+    subtitle: "GastroBar in Jaco",
+    description: "Bar, Seafood, Contemporary, Central American, Costa Rican",
+    locationLabel: "C. Dankers, Provincia de Puntarenas, Jacó, Costa Rica",
+    images: [
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2e/9d/70/bd/caption.jpg?w=1100&h=600&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/27/f6/9b/caption.jpg?w=1100&h=-1&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/e2/6d/5d/menu-koko-gastro.jpg?w=1100&h=-1&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/76/fd/73/photo1jpg.jpg?w=1400&h=-1&s=1'
+    ],
+    highlights: [
+      "Vegetarian friendly, Vegan options",
+      "Accepts Credit Cards",
+      "Breakfast, Lunch, Dinner, Drinks"
+    ],
+    links: [
+      { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d17424702-Reviews-KoKo_Gastro_Bar-Jaco_Jaco_District_Garabito_Municipality_Province_of_Puntarenas.html" }
+    ],
+    mapLocation: {
+      googleMapsUrl: "https://maps.app.goo.gl/7JcX6m43f69g3sCU6",
+      embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d711.9230546050125!2d-84.63001099273762!3d9.613630437579722!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c7a91ff751d1%3A0x12b3444055ace8fd!2sKoKo%20Gastro%20Bar!5e0!3m2!1sen!2sus!4v1753294400538!5m2!1sen!2sus"
+    }
+  },
+
+  elManglar: {
+    title: "El Manglar Restaurante y Bar",
+    subtitle: "Open-air seafood & cocktail bar on Jacó Beach",
+    description: "An inviting open-air eatery located just one block north of Hotel Crocs on Jacó Beach. El Manglar offers a laid-back, tropical atmosphere with wooden accents and lush greenery, perfect for romantic dinners, friendly gatherings, or enjoying live music nights. Their menu focuses on fresh, locally sourced ingredients—from ceviche and seafood specials to burgers, ribs, pasta, and handcrafted cocktails. Service is friendly and bilingual, capturing that classic Pura Vida vibe.",
+    locationLabel: "50 mts north of Hotel Crocs, Jacó Beach, Puntarenas, Costa Rica",
+    images: [
+      'https://resizer.otstatic.com/v3/photos/79003659-2?width=752&height=752&webp=true',
+      'https://resizer.otstatic.com/v3/photos/79264552-1?width=752&height=752&webp=true',
+      'https://resizer.otstatic.com/v3/photos/79264550-1?width=752&height=752&webp=true',
+      'https://resizer.otstatic.com/v3/photos/79265837-1?width=752&height=752&webp=true',
+      'https://resizer.otstatic.com/v3/photos/79264547-1?width=752&height=752&webp=true',
+      'https://resizer.otstatic.com/v3/photos/79265836-1?width=752&height=752&webp=true'
+    ],
+    phone: "+506-4704-9318",
+    highlights: [
+      "“We Cook Your Catch” experience",
+      "Signature Chili-Piña shots & sangria"
+    ],
+    links: [
+      { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d23349601-El_Manglar_Restaurante_Bar-Jaco.html" },
+      { name: "OpenTable", url: "https://www.opentable.com/r/el-manglar-restaurant-and-bar-jaco" }
+    ],
+    mapLocation: {
+      googleMapsUrl: "https://maps.app.goo.gl/krv1NtBkR9dK7Pi26",
+      embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.664429188077!2d-84.6434684237803!3d9.624134490462916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c750afcc1c4d%3A0xf97796c7ccbc7b9b!2sManglar%20Bar%20and%20Restaurant!5e0!3m2!1sen!2sus!4v1753313623231!5m2!1sen!2sus"
+    }
+  },
+
+  elChicano: {
+    title: "El Chicano Mexican Food",
+    subtitle: "Authentic Mexican tacos & casual eatery in downtown Jacó",
+    description: "Air-conditioned restaurant on Avenida Pastor Díaz, near El Jardín shopping center. Serving tacos al pastor, burritos, fajitas, enchiladas, nachos, and house-made salsa in a lively, colorful décor with TVs and bilingual staff.",
+    locationLabel: "J97F+288, C. Central, Provincia de Puntarenas, Jacó, Costa Rica",
+    images: [
+      'https://itin-dev.wanderlogstatic.com/freeImage/VxtLLSWSEo1LnIsCFFojlwgnlyvYRThX',
+      'https://itin-dev.wanderlogstatic.com/freeImage/X6ENziXl37gZmMKvX8LSk8B6vCmGFMVM',
+
+    ],
+    phone: "+506-8608-4649",
+    highlights: [
+      "Tacos al pastor with slow-rotisserie pork & pineapple",
+      "Daily specials & house-made salsa",
+      "Air-conditioned comfort with happy hour (3-6 PM) & sports on TV"
+    ],
+    links: [
+      { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d19654615-El_Chicano_Mexican_Food-Jaco.html" },
+      { name: "Wanderlog", url: "https://wanderlog.com/place/details/859854/el-chicano-mexican-food" }
+    ],
+    mapLocation: {
+      googleMapsUrl: "https://maps.app.goo.gl/JuqzEzG1Q3hXmxcc8",
+      embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.798578432093!2d-84.62671686310583!3d9.612604720366727!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c7d6af1311b3%3A0xdcb61e65e1a573ee!2sRestaurante%20El%20Chicano!5e0!3m2!1sen!2sus!4v1753314162225!5m2!1sen!2sus"
+    }
+  },
+
+  amancios: {
+    title: "Amancio's Pizza - Pasta & Drinks",
+    subtitle: "Italian restaurant specializing in wood-oven pizza & pasta in central Jacó",
+    description: "Italian-owned eatery in Centro Comercial El Jardín on Main Street, offering wood-oven pizzas, homemade pasta (Cacio e Pepe, Penne Vodka), antipasti and a curated wine list, served with friendly, bilingual service.",
+    locationLabel: "Puntarenas Province, Jaco, Costa Rica",
+    images: [
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/85/f9/05/caption.jpg?w=1400&h=-1&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1e/b9/4e/c2/cute-pizza-place.jpg?w=1100&h=-1&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/d0/44/96/caption.jpg?w=1100&h=-1&s=1'
+    ],
+    phone: [
+      { number: "+506-2643-2373"}
+    ],
+    highlights: [
+      "Wood-oven pizza & homemade pasta",
+      "Gluten-free & vegan options",
+      "Friendly Italian-style service"
+    ],
+    links: [
+      { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d6371640-Amancio_s_Pizza_Pasta_Drinks-Jaco_Jaco_District_Garabito_Municipality_Province_of.html" },
+      { name: "Facebook", url: "https://www.facebook.com/amancios" }
+    ],
+    mapLocation: {
+      googleMapsUrl: "https://maps.app.goo.gl/MamgkqTg6muga8pJ9"
+    }
+  },
+
+  infierno: {
+    title: "INFIERNO - Wood Fired Pizzeria & Grill",
+    subtitle: "Wood-fired Neapolitan pizza, pasta & grill in Centro Comercial Il Galeone",
+    description: "Italian-style restaurant featuring 90-sec wood-fired Neapolitan pizzas, grilled meats, paninis and pasta, plus fresh salads and Italian wines. Located in Centro Comercial Il Galeone on Pastor Díaz Ave.",
+    locationLabel: "Centro Comercial Il Galeone, Av. Pastor Díaz, Provincia de Puntarenas, Jacó, 61101, Costa Rica",
+    images: [
+      'https://scontent-lga3-3.xx.fbcdn.net/v/t39.30808-6/327270422_626193652604605_6174034836301370407_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=1gDXaVZnS4QQ7kNvwG7gLxh&_nc_oc=AdnRNDkdam666UYOtthFJnCX4V46G5qmpc45OZvrpxRHECZJgZ-URT4jTgWU6WAf_05f6jUJKq8XJy2K3H4hw170&_nc_zt=23&_nc_ht=scontent-lga3-3.xx&_nc_gid=scuXAHCmxaEfbPSql-hLKA&oh=00_AfQ5b1KhvD3Xsq3g-xpgaFQ1I2ZmD9SaPXmCwcR64raxqQ&oe=688757B9',
+      'https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/518348204_1454416469352397_8459054621126739401_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=AIkl0GncQSkQ7kNvwEwpK9v&_nc_oc=AdnkAl0f7HJv_YEfhSM9kCy-p4NSDPd4UbMhUbzXRcb0Fy9JPkMxMMLY2lKjWNjqytIKmYPJ3azPRPMUAXpX4Dc-&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=xeQvN8w2MU4g-5vvLCMH3w&oh=00_AfQtmQiqDPxsNyl1Q3k-2mzCcphGsQckkDpP9slcPdLvvA&oe=68874987',
+      'https://scontent-lga3-3.xx.fbcdn.net/v/t39.30808-6/520258375_1462373671890010_7585239073117844928_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=YOEE54X0AHoQ7kNvwHBR7Vu&_nc_oc=AdmV0iVyDWp0cmNwvvs4ne4ViK-0YzTc47QDbv_maJBqyltTYL0V1JEQsz03SuCyfDuWss8jRws_4UAU7tNTdcf3&_nc_zt=23&_nc_ht=scontent-lga3-3.xx&_nc_gid=Q5xuslleAd7Ft79n222D6g&oh=00_AfRg2EyW58CjpYjEe7dk9aGUnk4WA8Y_MUeTI4Fe50Zwww&oe=688744C0',
+      'https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/517799509_1456021509191893_6345157244053129148_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=iKUBB6Bz1FcQ7kNvwGTYyWR&_nc_oc=AdluNdyLpxsYWTReCUzXZl0s1Fxfwg7TGrSK6H1dw2c_JlmNX2O4n9CIBiijHiwh2ZuPoVG2FVLxdLNzElAPU7i4&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=nCKUnQ98TfFxICQCPAzS1Q&oh=00_AfTS1c-VkHL5VaeWlMVXNobL5523pVTj6TgpA4KM5kj3ow&oe=68873480',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/35/36/a9/pizza-napolitana.jpg?w=2000&h=-1&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/e6/d6/44/photo2jpg.jpg?w=2000&h=-1&s=1'
+    ],
+    phone: [
+      { number: "+506-8726-7575" }
+    ],
+    highlights: [
+      "Neapolitan-style wood-fired pizzas",
+      "Salads served in bread bowls",
+      "Italian wines, paninis & grilled dishes"
+    ],
+    links: [
+      { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d12213482-Infierno_Wood_Fired_Pizzeria_Grill-Jaco.html" },
+      { name: "Facebook", url: "https://www.facebook.com/infierno.jaco/" }
+    ],
+         mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/6AyWtYTTogzHSfGy8",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d245.86073619014118!2d-84.62835912491046!3d9.614909151254697!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c7156068ccd3%3A0x803ac141ba65e5d6!2sINFERNO%20-%20Wood%20Fired%20Pizzeria%20%26%20Grill!5e0!3m2!1sen!2sus!4v1753315795246!5m2!1sen!2sus"
+     }
+   },
+
+
+ //WORKING NOTES&&&&&&&&&
+
+
+   pizzaPata: {
+     title: "Pizza Pata Jacó",
+     subtitle: "Popular local pizzeria with delivery in downtown Jacó",
+     description: "Casual pizzeria located in Plaza Coral in front of Mega Super. Offers a variety of hand-tossed pizzas, chicken wings, natural juices, and cold drinks. Free delivery around Jacó and Herradura.",
+     locationLabel: "J97C+RRR, Puntarenas Province, Jaco, Costa Rica",
+     images: [
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2e/0b/62/ea/caption.jpg?w=1100&h=-1&s=1',
+      'https://scontent-lga3-1.xx.fbcdn.net/v/t39.30808-6/306982374_502999451637896_7076311600983690752_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=Y1zYwDkMkjQQ7kNvwGkM0l-&_nc_oc=AdkSgKw5SynXiKo9-763Zp1AmaA8f3XqvlMdjrAwF0bzJ8EH26DXfMdjJDgCd6a3mNTVU5OcaJTrX9eGuAphyFdK&_nc_zt=23&_nc_ht=scontent-lga3-1.xx&_nc_gid=DpdR4M6wu_uxB5Z-AJFjjA&oh=00_AfRluUaErNh8fYOJznsboUhWuexshCVnHtMrwMY_W3vPCw&oe=688741FC',
+      'https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/472789589_1001664088438094_9006920680021125537_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=833d8c&_nc_ohc=zuGoCycK6GgQ7kNvwGJr9WM&_nc_oc=AdlpUzYf_PHli3--JH2k2daToe_LL03MxnaRlZ7V3veaB-qN-oM3zcIQbCg1rxigIZ5fxAwgLUrzzCKSofFyvOSs&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=vRHl1a1r9Sda2a2ZDPwWRQ&oh=00_AfSbJ0XFC7b2uThAdw8PGpOVa11tRnsyknPkKfa0li_XeA&oe=68874FEA'
+    ],
+     phone: [
+       { number: "+506-2643-6543" }
+     ],
+     highlights: [
+       "Free delivery around Jacó and Herradura",
+       "Chicken wings & hand-tossed pizzas",
+       "Natural juice options"
+     ],
+     links: [
+       { name: "Website", url: "https://www.pizzapatajaco.com/" },
+       { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d3598612-Pizza_Pata-Jaco.html" },
+       { name: "Facebook", url: "https://www.facebook.com/p/Pizza-Pata-Jaco-100057835351677/" }
+      ],
+      mapLocation: {
+        googleMapsUrl: "https://maps.app.goo.gl/z5v8jrFVdDgVjwTX7",
+        embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62942.5958066939!2d-84.66228893546736!3d9.602825259082426!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c73fe1d9aaeb%3A0x7c9ecfc63212a081!2sPizza%20Pata%20Jac%C3%B3!5e0!3m2!1sen!2sus!4v1753317046661!5m2!1sen!2sus"
+      }
+   },
+
+   ridiculousBurgers: {
+     title: "Ridiculous Burgers",
+     subtitle: "Gourmet burgers, crazy shakes & delivery on Main Street",
+     description: "Popular burger joint on Av. Pastor Díaz offering over 48 gourmet burgers, salads, shakes, and fun food challenges. Dine-in, pick-up, and delivery available in English and Spanish.",
+     locationLabel: "&, Av Pastor Diaz (Jaco Main Street) between, C. Hicaco, Provincia de Puntarenas, Jacó, 61101, Costa Rica",
+     images: [
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/99/82/f5/torta-de-carne-angus.jpg?w=600&h=400&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/30/64/bc/73/caption.jpg?w=1100&h=-1&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1d/dd/10/f5/ridiculous-burgers.jpg?w=1100&h=-1&s=1'
+     ],
+     phone: [
+       { number: "+506-2643-1010" }
+     ],
+     highlights: [
+       "Over 48 gourmet burger options",
+       "Crazy shakes & salad menu",
+       "Food challenges & weekly specials"
+     ],
+     links: [
+       { name: "Website", url: "https://www.ridiculousburgerscr.com/" },
+       { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d12899136-Ridiculous_Burgers-Jaco_Jaco_District_Garabito_Municipality_Province_of_Puntaren.html" }
+     ],
+     mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/9Hix4A4Qx7bBJMuZA",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31470.16962287411!2d-84.64921196566368!3d9.614958690176726!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c740631dd9e1%3A0x38300ba33814702e!2sRidiculous%20Burgers!5e0!3m2!1sen!2sus!4v1753318054807!5m2!1sen!2sus"
+     }
+   },
+
+   diabloBurger: {
+     title: "Diablo Burger",
+     subtitle: "Premium Angus burgers at Jaco Walk Shopping Center",
+     description: "Burger restaurant offering premium Angus beef grilled patties, paninis, salads and shakes. Located in Jaco Walk Shopping Center, with dine-in, pick-up and delivery options.",
+     locationLabel: "J96F+PW6 Jaco Walk Shopping Center, Puntarenas Province, Jaco, 61101, Costa Rica",
+     images: [
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/b0/1b/da/diablo-burger-logo.jpg?w=1000&h=600&s=1",
+       "https://tb-static.uber.com/prod/image-proc/processed_images/9260acb3380f27f29d81277e9ca39fbe/fb86662148be855d931b37d6c1e5fcbe.jpeg",
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/b0/1b/e1/burger.jpg?w=1400&h=800&s=1",
+       'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1c/b0/1b/d4/burger.jpg?w=800&h=-1&s=1'
+       
+     ],
+     phone: [
+       { number: "+506-8823-7000" }
+     ],
+     highlights: [
+       "Premium Angus beef burgers",
+       "Paninis, salads and shakes",
+       "Delivery via Uber Eats"
+     ],
+     links: [
+       { name: "Uber Eats", url: "https://www.ubereats.com/cr-en/store/diablo-burger-wood-fired-grill/ktD1ZKyJQteWEsaD69-njA" },
+       { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d23035888-Diablo_Burger-Jaco.html" }
+     ],
+     mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/Z6n2G7pzmN7yxgcq5",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.8082018046975!2d-84.62779972497387!3d9.611777090474716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c7dbe296015b%3A0x302bcbed56a50e1d!2sDiablo%20Burger!5e0!3m2!1sen!2sus!4v1753318332267!5m2!1sen!2sus"
+     }
+   },
+
+   tsunamiSushi: {
+     title: "Tsunami Sushi",
+     subtitle: "Casual sushi & Japanese cuisine at Jaco Walk",
+     description: "Since 2002, this hip spot in Jaco Walk Plaza serves fresh Pacific-caught sushi, sashimi, rolls, ramen, bowls, salads, paninis, and seafood dishes in a casual, beachside atmosphere.",
+     locationLabel: "J96F+JV5, Jaco Walk Plaza, Provincia de Puntarenas, Jacó, 61101, Costa Rica",
+     images: [
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/73/c4/55/tsunami-sushi-el-sabor.jpg?w=800&h=500&s=1",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/5c/39/19/we-make-the-best-combo.jpg?w=900&h=500&s=1",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/2b/b0/be/ingredientes-siempre.jpg?w=1100&h=600&s=1",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/2b/b0/a5/calidad-y-frescura.jpg?w=1400&h=800&s=1",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/2b/b0/90/las-mejores-combinaciones.jpg?w=1400&h=800&s=1",
+      "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/04/54/61/el-mejor-sushi-con-la.jpg?w=1100&h=600&s=1"
+     ],
+     phone: [
+       { number: "+506-2643-1635" }
+     ],
+     highlights: [
+       "Half-price sushi Wednesdays & Fridays",
+       "Gluten-free soy sauce available",
+       "Fresh Pacific fish, 4.5★ average rating"
+     ],
+     links: [
+       { name: "OpenTable", url: "https://www.opentable.com/r/tsunami-sushi-jaco-jaco-beach-jaco-puntarenas?ref=18708" },
+       { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d1634918-Tsunami_Sushi_Jaco_Walk-Jaco.html" }
+     ],
+     mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/wZvcmnGDdtXkfXaDA",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.8112155171184!2d-84.62784192497386!3d9.611517890474948!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c740e4230371%3A0x27497640f69057c2!2sSushi%20Tsunami%20%E2%80%A2%20Garabito!5e0!3m2!1sen!2sus!4v1753318395717!5m2!1sen!2sus"
+     }
+   },
+
+   sushiAtHome: {
+     title: "Sushi at Home",
+     subtitle: "Casual sushi, bowls & rolls with delivery in downtown Jacó",
+     description: "Located just south of Mas x Menos in Plaza Castillo, 2nd floor next to Mango Surf Shop. Serves sushi rolls, bowls, ramen, salads and fresh seafood in a relaxed, casual setting with free Wi-Fi.",
+     locationLabel: "Segunda planta, 25 m sur del Mas X Menos, Plaza Castillo, Av. Pastor Díaz, Provincia de Puntarenas, Jacó, 61101, Costa Rica",
+     images: [
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/10/bf/36/a8/nice-view-from-the-terrace.jpg?w=1000&h=600&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/ea/a5/67/sushi-specialist.jpg?w=1100&h=600&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/18/13/d0/c9/combinacion-de-sushi.jpg?w=1400&h=800&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/ea/a5/88/daily-promos.jpg?w=1000&h=600&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/ea/a5/70/variety-of-fusion-food.jpg?w=800&h=-1&s=1'
+
+     ],
+     phone: [
+       { number: "+506-2643-1212" }
+     ],
+     highlights: [
+       "Half-price rolls Wed & Fri",
+       "Vegan/vegetarian bowls available",
+       "Fresh fish & friendly service"
+     ],
+     links: [
+       { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d10799383-Sushi_At_Home-Jaco.html" },
+       { name: "Facebook", url: "https://www.facebook.com/SushiAtHomeJaco/" }
+     ],
+     mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/3HKdDHA1aqXi4tbn7",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.799090415984!2d-84.6289218249739!3d9.612560690473929!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c713c43f5c21%3A0xe5085d2a98f3ee2a!2sSushi%20At%20Home!5e0!3m2!1sen!2sus!4v1753318818647!5m2!1sen!2sus"
+     }
+   },
+
+   greenRoom: {
+     title: "Green Room Café & Bar",
+     subtitle: "Urban oasis for artisan brunch, cocktails & live music",
+     description: "Casual-elegant spot on C. Cocal in central Jacó offering artisan brunch, global fusion dishes, craft beers, specialty cocktails and wine. Known for live music nightly and a relaxed, green-filled atmosphere.",
+     locationLabel: "Frente Oficinas Del ICE, Calle Casino Cocal, Provincia de Puntarenas, Jacó, 61101, Costa Rica",
+     images: [
+       "https://greenroomjaco.com/wp-content/uploads/2024/05/Green-Room-Brunch-Menu-Item.jpg",
+       'https://greenroomjaco.com/wp-content/uploads/2024/05/Catering-Jaco-Private-Events.jpg',
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/40/32/7b/organic-greens.jpg?w=1100&h=600&s=1",
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1b/40/20/fb/live-music-every-night.jpg?w=1400&h=800&s=1"
+     ],
+     phone: [
+       { number: "+506-2643-4425" }
+     ],
+     highlights: [
+       "Artisan brunch & global fusion dinner",
+       "Craft beers, cocktails & wine selection",
+       "Live music every night"
+     ],
+     links: [
+       { name: "Website", url: "https://greenroomjaco.com/" },
+       { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d3835245-Green_Room-Jaco.html" }
+     ],
+     mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/hALiPHHSHgWsFMTA9",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.7859278345354!2d-84.63042002497389!3d9.613692590472867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c73fe5f36425%3A0x7e11edcf56faa0f2!2sGreen%20Room%20Cafe%20Bar!5e0!3m2!1sen!2sus!4v1753319063953!5m2!1sen!2sus"
+     }
+   },
+
+   brittCafe: {
+     title: "Britt Café & Bakery",
+     subtitle: "Artisan coffee, pastries & light bites at Jaco Walk",
+     description: "Charming café in Jaco Walk offering freshly baked pastries, artisan breads, sandwiches, and premium Café Britt coffee in an airy, AC-cooled space with indoor and outdoor seating.",
+     locationLabel: "Jaco Walk Provincia de Puntarenas Garabito, 61101, Costa Rica",
+     images: [
+       "https://www.brittcafebakery.com/assets/img/carrusel/home-carrusel-1.jpg",
+       "https://www.brittcafebakery.com/assets/img/home/home-bg-freshbakeddaily.jpg",
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/12/36/9e/our-teracce.jpg?w=1600&h=900&s=1",
+       'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/24/46/f1/enjoy-our-pizza.jpg?w=1600&h=900&s=1'
+     ],
+     phone: [
+       { number: "+506-4102-1363" }
+     ],
+     highlights: [
+       "Freshly baked French-style pastries",
+       "Premium artisan coffee",
+       "Indoor and outdoor seating with AC"
+     ],
+     warnings: [
+       "Can get busy mid-morning on weekends"
+     ],
+     links: [
+       { name: "Website", url: "http://www.brittcafebakery.com" },
+       { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d13495234-Britt_Cafe_Bakery_Jaco-Jaco.html" }
+     ],
+     mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/GJf6bqftpqQ4tSf99",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.8077099759325!2d-84.62814572497385!3d9.611819390474665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c798795a59bf%3A0xfd2367a8d9730e5c!2sBritt%20Caf%C3%A9%20and%20Bakery%20%E2%80%A2%20Garabito!5e0!3m2!1sen!2sus!4v1753319213826!5m2!1sen!2sus"
+     }
+   },
+
+   maleconBar: {
+     title: "Malecón Bar Restaurante Jacó",
+     subtitle: "Beachfront bar & grill with ocean views",
+     description: "Beachfront bar and grill on Calle Las Olas, offering grilled seafood, quesadillas, patacones, smoothies, cocktails served in frozen pineapples, and a relaxed oceanfront vibe with friendly, bilingual service.",
+     locationLabel: "J979+VJW, Calle Las Olas, Provincia de Puntarenas, Jacó, Costa Rica",
+     images: [
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/1b/96/1c/entrance.jpg?w=1400&h=800&s=1",
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/a3/a0/48/seafood.jpg?w=1400&h=800&s=1",
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/97/f4/72/photo0jpg.jpg?w=1400&h=800&s=1"
+     ],
+     phone: [
+       { number: "+506-2643-3916" }
+     ],
+     highlights: [
+       "Oceanfront seating with sunset views",
+       "Quesadillas, seafood spaghetti & smoothies",
+       "Cocktails served in frozen pineapples"
+     ],
+     links: [
+       { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d6484715-Malecon_Bar_y_Restaurante-Jaco.html" }
+     ],
+     mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/pVaGPSfyFm7U4gTUA",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.7737953636483!2d-84.63350852497382!3d9.614735790471892!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c71c90cb143d%3A0xfea4565408aabb08!2sBar%20y%20Restaurante%20Malec%C3%B3n!5e0!3m2!1sen!2sus!4v1753319248633!5m2!1sen!2sus"
+     }
+   },
+
+   lemonZest: {
+     title: "Lemon Zest Restaurant",
+     subtitle: "Fine-dining fusion cuisine in central Jacó",
+     description: "Family-owned since 2007, this chef-driven restaurant by Richard and Nellie Lemon offers international fusion — from sushi to duck in blackberry sauce and Caribbean-style jerk pork. Features an extensive wine list and refined yet relaxed ambiance.",
+     locationLabel: "Garabito, El Jardin Plaza-above Amancio's Pizza; Av. Diaz, 50m S. Mas x Menos; Jaco, Puntarenas Province, Costa Rica",
+     images: [
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/19/ca/0d/caption.jpg?w=1400&h=-1&s=1",
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/30/21/fc/a2/caption.jpg?w=1000&h=600&s=1",
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/86/82/eb/duck.jpg?w=1400&h=-1&s=1"
+     ],
+     phone: [
+       { number: "+506-2643-2591" }
+     ],
+     highlights: [
+       "Chef-driven international fusion dishes",
+       "Extensive wine list",
+       "Air-conditioned + outdoor patio seating"
+     ],
+     warnings: [
+       "Reservations strongly recommended - very popular"
+     ],
+     links: [
+       { name: "Website", url: "http://www.lemonzestjaco.com/" },
+       { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d1022065-Lemon_Zest_Restaurant-Jaco.html" }
+     ],
+     mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/ffsoW9f3upjh6H1i8",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7867.593045595746!2d-84.6264769!3d9.612781499999997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c73db445da79%3A0xf97fccd49eb620a2!2sLemon%20Zest!5e0!3m2!1sen!2sus!4v1753319391871!5m2!1sen!2sus"
+     }
+   },
+
+   jerahAuthenticThai: {
+     title: "Jerah Authentic Thai Cuisine",
+     subtitle: "Authentic Thai dishes in a cozy treehouse-style setting",
+     description: "Since 2002, this beloved spot on Calle Anita serves fresh, flavorful Thai cuisine—soup, curry, stir-fry, noodles—with chef Christian's international touch and a relaxed 'treehouse' vibe.",
+     locationLabel: "J998+6P3 Entre Bar Isaga y Jacó Club Blù, C. Anita, Provincia de Puntarenas, Jacó, 61101, Costa Rica",
+     images: [
+       "https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/294598794_494167262629429_8967100247288967602_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=mawAkYDsS6cQ7kNvwFYDxZ0&_nc_oc=AdkzGHbqwVSwERvSJrPcF-_2J2g9ansRvoMw7OlirJIHBInekBvG518-VjCIB35KxTrBV7WLEY2oBZ_jm4gQw9Sy&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=piKkfyEHLvWgHS-WRpzDrQ&oh=00_AfR64rOgd2o5Yhn3aV0OnLfHlKS1WiFntYXR-eqBHiMUiw&oe=68875489",
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/4f/f1/48/nice-and-airy-up-here.jpg?w=1100&h=-1&s=1",
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2f/fd/a0/11/caption.jpg?w=1400&h=800&s=1"
+     ],
+     phone: [
+       { number: "+506-8359-2067" }
+     ],
+     highlights: [
+       "Fresh-caught Thai soups, curries, noodles",
+       "Vegetarian/vegan menu options",
+       "Strong TripAdvisor rating (~4.7)"
+     ],
+     warnings: [
+       "Cash-only; no credit cards accepted"
+     ],
+     links: [
+       { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d12429756-Jerah_Authentic_Thai_Cuisine-Jaco.html" },
+       { name: "Facebook", url: "https://www.facebook.com/JerahThaiJaco/" }
+     ],
+     mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/hmb4wcxQccvSUVdi7",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.7360754286215!2d-84.63578922497382!3d9.617978390468798!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c71689449e39%3A0xb3ce66ddfdd171d!2sJerah%20Restaurant!5e0!3m2!1sen!2sus!4v1753319455152!5m2!1sen!2sus"
+     }
+   },
+
+   mundaka: {
+     title: "Mundaka - Breakfast & Smoothies",
+     subtitle: "Healthy breakfast, smoothie bowls & wraps in downtown Jacó",
+     description: "Vibrant cafe on Avenida Pastor Díaz serving smoothie bowls, crepes, waffles, wraps, salads, and Costa Rican breakfast like gallo pinto. Casual, surf-inspired setting with free Wi-Fi.",
+     locationLabel: "Pastor Diaz Ave centro, Puntarenas Province, Jaco, 61101, Costa Rica",
+     images: [
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/e9/82/8e/caption.jpg?w=1100&h=600&s=1",
+       "https://media-cdn.tripadvisor.com/media/photo-o/2f/ff/38/37/caption.jpg",
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2d/50/55/04/caption.jpg?w=1400&h=-1&s=1",
+       "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/27/a6/bc/71/caption.jpg?w=1400&h=-1&s=1"
+     ],
+     phone: [
+       { number: "+506-2643-1281" }
+     ],
+     highlights: [
+       "Fresh smoothie bowls & crepes",
+       "Costa Rican breakfast options",
+       "Surf-inspired cafe with free Wi-Fi"
+     ],
+     links: [
+       { name: "TripAdvisor", url: "https://www.tripadvisor.com/Restaurant_Review-g309271-d24562308-Mundaka_Restaurant_Jaco-Jaco.html" },
+       { name: "Facebook", url: "https://www.facebook.com/Mundaka-Good-food-and-smoothies-100063653072767/" }
+     ],
+     mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/nSPv1z8zw56tqjfr6",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.764524058982!2d-84.62893859999997!3d9.615532899999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c779cd2374b7%3A0xb8be412922b057f1!2sRestaurante%20Mundaka!5e0!3m2!1sen!2sus!4v1753319621320!5m2!1sen!2sus"
+     }
+   },
+
+   jerahGermanBakery: {
+     title: "Jerah German Bakery",
+     subtitle: "Authentic German breads & pastries beneath Jerah Thai",
+     description: "Located underneath Jerah Authentic Thai on Calle Anita, this bakery offers freshly baked German-style breads, baguettes, and pastries each morning.",
+     locationLabel: "C. Anita, Provincia de Puntarenas, Jacó, 61101, Costa Rica",
+     phone: [
+       { number: "+506-8359-2067" }
+     ],
+     highlights: [
+       "Freshly baked German breads and baguettes",
+       "Variety of authentic pastries"
+     ],
+     links: [
+       { name: "Google Maps", url: "https://www.google.com/maps/place/Jerah+Bakery+%2F+Panader%C3%ADa/@9.6179552,-84.6331247,17z/data=!4m15!1m8!3m7!1s0x8fa1c7003fdcf503:0x86cf56bda700a2dc!2sJerah+Bakery+%2F+Panader%C3%ADa!8m2!3d9.6180035!4d-84.6331992!10e5!16s%2Fg%2F11w21dhf0g!3m5!1s0x8fa1c7003fdcf503:0x86cf56bda700a2dc!8m2!3d9.6180035!4d-84.6331992!16s%2Fg%2F11w21dhf0g?entry=ttu&g_ep=EgoyMDI1MDcyMS4wIKXMDSoASAFQAw%3D%3D" }
+     ],
+     mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/PJhtoohXvQXYU4mt8",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3933.736345239274!2d-84.6331247!3d9.617955199999999!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c7003fdcf503%3A0x86cf56bda700a2dc!2sJerah%20Bakery%20%2F%20Panader%C3%ADa!5e0!3m2!1sen!2sus!4v1753319937673!5m2!1sen!2sus"
+     }
+   },
+   jacoWalk: {
+     title: "Jaco Walk Shopping Center",
+     subtitle: "Open-air mall with shopping, dining & entertainment",
+     description: "A vibrant, open-air mixed-use center in the heart of Jacó Beach featuring shops, restaurants, cafés, bars, fitness studios, services and an ecological walkway.",
+     locationLabel: "Puntarenas Province, Jaco, 61101, Costa Rica",
+     images: [
+      'https://www.jacowalk.com/sites/all/files/styles/slideshow/public/images/slideshow/Dise%C3%B1o%20sin%20t%C3%ADtulo.png?itok=qZunNv_R',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2c/fb/7b/5d/caption.jpg?w=1400&h=-1&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/a5/dc/72/photo5jpg.jpg?w=1400&h=-1&s=1',
+      'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/78/fe/cf/from-the-walk-one-block.jpg?w=2000&h=-1&s=1'
+    ],
+     phone: [
+       { number: "+506-4001-3272" }
+     ],
+     highlights: [
+       "Wide variety of boutiques, artisan shops & services",
+       "Diverse restaurants, cafés & live music events",
+       "Dog-friendly with green corridors & free Wi-Fi"
+     ],
+     links: [
+       { name: "Website", url: "http://www.jacowalk.com/" },
+       { name: "TripAdvisor", url: "https://www.tripadvisor.com/Attraction_Review-g309271-d13942031-Jaco_Walk_Open_Air_Shopping_Center-Jaco.html" }
+     ],
+     mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/6qFVkuWpczNthcfK6",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.8103865216895!2d-84.6277425237804!3d9.611589190474914!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c740f6df79ef%3A0x7278529da8b4ad12!2sJac%C3%B3%20Walk%20Shopping%20Center!5e0!3m2!1sen!2sus!4v1753320293370!5m2!1sen!2sus"
+     }
+   }
+
+
+
+
 
 };
 
@@ -393,6 +914,23 @@ const tabConfig = {
   ],
   restaurants: [
     allCards.vidaHermosa,
+    allCards.KoKoGastroBar,
+    allCards.elManglar,
+    allCards.elChicano,
+    allCards.amancios,
+    allCards.infierno,
+    allCards.pizzaPata,
+    allCards.ridiculousBurgers,
+    allCards.diabloBurger,
+    allCards.tsunamiSushi,
+    allCards.sushiAtHome,
+    allCards.greenRoom,
+    allCards.brittCafe,
+    allCards.maleconBar,
+    allCards.lemonZest,
+    allCards.jerahAuthenticThai,
+    allCards.mundaka,
+    allCards.jerahGermanBakery,
     allCards.jacoBar,
   ],
   nightlife: [
@@ -409,7 +947,7 @@ const tabConfig = {
     
   ],
   shopping: [
-
+    allCards.jacoWalk,
   ],
   transportation: [
     allCards.airportTransfer,

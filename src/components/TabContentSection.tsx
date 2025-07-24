@@ -272,7 +272,6 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
                     <WarningIcon sx={{ color: '#d32f2f', fontSize: '1rem', mt: 0.25, flexShrink: 0 }} />
                     <Typography 
                       variant="body2" 
-                      color="#d32f2f" 
                       sx={{ 
                         lineHeight: 1.5,
                         fontSize: '0.875rem',
@@ -498,16 +497,43 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
                   }}
                 >
                   <Box sx={{ borderRadius: 2, overflow: 'hidden', boxShadow: 2, mb: 2 }}>
-                    <iframe
-                      src={card.mapLocation.embedUrl || "https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Jaco+Costa+Rica"}
-                      width="100%"
-                      height="200"
-                      style={{ border: 0, borderRadius: 8 }}
-                      allowFullScreen
-                      loading="lazy"
-                      referrerPolicy="no-referrer-when-downgrade"
-                      title={`${card.title} Location`}
-                    />
+                    {card.mapLocation.embedUrl ? (
+                      <iframe
+                        src={card.mapLocation.embedUrl}
+                        width="100%"
+                        height="200"
+                        style={{ border: 0, borderRadius: 8 }}
+                        allowFullScreen
+                        loading="lazy"
+                        referrerPolicy="no-referrer-when-downgrade"
+                        title={`${card.title} Location`}
+                      />
+                    ) : (
+                      <Box
+                        sx={{
+                          width: '100%',
+                          height: 200,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          backgroundColor: '#f5f5f5',
+                          borderRadius: 1,
+                          border: '2px dashed #ccc',
+                          color: '#666',
+                          textAlign: 'center',
+                          p: 2
+                        }}
+                      >
+                        <MapIcon sx={{ fontSize: 48, mb: 1, color: '#999' }} />
+                        <Typography variant="body2" sx={{ fontWeight: 500, mb: 0.5 }}>
+                          Map Preview Not Available
+                        </Typography>
+                        <Typography variant="caption" sx={{ color: '#888' }}>
+                          Open maps below to view location
+                        </Typography>
+                      </Box>
+                    )}
                   </Box>
                   <Box sx={{ textAlign: 'center', display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
                     {card.mapLocation.googleMapsUrl && (
