@@ -114,7 +114,8 @@ const HeroSlideshow: React.FC<HeroSlideshowProps> = ({
   // Height presets
   const getHeight = () => {
     if (customHeight) return customHeight;
-    return '100vh';
+    // Make hero shorter on mobile devices
+    return { xs: '90vh', md: '100vh' };
   };
 
   // Shadow configurations
@@ -148,11 +149,13 @@ const HeroSlideshow: React.FC<HeroSlideshowProps> = ({
 
   if (images.length === 0) return null;
 
+  const heightValue = getHeight();
+  
   return (
     <Box 
       sx={{ 
         position: 'relative', 
-        minHeight: getHeight(), 
+        minHeight: heightValue, 
         overflow: 'hidden',
         cursor: 'grab',
         '&:active': { cursor: 'grabbing' }

@@ -253,6 +253,155 @@ const allCards = {
     ]
   },
 
+  monkeyTour: {
+    title: "Monkey Tour (8am)",
+    subtitle: "Contact Vlad for booking",
+    description: "Experience the thrill of holding and feeding monkeys! This tour includes a stop to see crocodiles from the bridge on the way back, and a visit to Tarcoles town (Fisherman's town) where you can see lots of sea birds, parrots, and vultures.",
+    locationLabel: "Various locations around Jaco",
+    highlights: [
+      "Hold and feed the monkeys",
+      "See crocodiles from the bridge",
+      "Visit Tarcoles town (Fisherman's town)",
+      "See sea birds, parrots, and vultures"
+    ],
+    phone: "+506-8305-8080",
+    links: [
+      { name: "WhatsApp", url: "https://wa.me/50683058080" }
+    ]
+  },
+
+  snorkelingTour: {
+    title: "Snorkeling Tour in Playa Blanca",
+    subtitle: "Contact Vlad for booking",
+    description: "This beautiful white sand beach features a lot of flora and fauna like sloths, monkeys, parrots, and you will see more than 20 different species of sea life. <strong>Tour needs to be done during high tide.</strong>",
+    locationLabel: "Playa Blanca",
+    highlights: [
+      "Beautiful white sand beach",
+      "See sloths, monkeys, parrots",
+      "More than 20 different species of sea life",
+      "Must be done during high tide"
+    ],
+    phone: "+506-8305-8080",
+    links: [
+      { name: "WhatsApp", url: "https://wa.me/50683058080" }
+    ]
+  },
+
+  nauyacaWaterfalls: {
+    title: "Nauyaca Waterfalls (All Day Tour)",
+    subtitle: "Contact Vlad for booking",
+    description: "All day tour featuring swimming and cliff jumping from up to 80 feet high. Includes bottle of water and fruits.",
+    locationLabel: "Nauyaca Waterfalls",
+    highlights: [
+      "All day tour",
+      "Swimming and cliff jumping",
+      "Up to 80 feet high jumps",
+      "Bottle of water and fruits included"
+    ],
+    phone: "+506-8305-8080",
+    links: [
+      { name: "WhatsApp", url: "https://wa.me/50683058080" }
+    ]
+  },
+
+  lasMonasWaterfall: {
+    title: "Las Monas Waterfall Tour",
+    subtitle: "Contact Vlad for booking",
+    description: "4-hour hike featuring 12 waterfalls, hanging bridges, and a house in the tree. Available as 8am tour or 2pm tour.",
+    locationLabel: "Las Monas Waterfall",
+    highlights: [
+      "4-hour hike",
+      "12 waterfalls",
+      "Hanging bridges",
+      "House in the tree",
+      "8am tour or 2pm tour"
+    ],
+    warnings: ["Not for the timid"],
+    phone: "+506-8305-8080",
+    links: [
+      { name: "WhatsApp", url: "https://wa.me/50683058080" }
+    ]
+  },
+
+  jumperWaterfall: {
+    title: "Jumper Waterfall Tour",
+    subtitle: "Contact Vlad for booking",
+    description: "Located south of Jaco, this tour features an interesting geological formation of 3 pools in the same area, one on top of the other.",
+    locationLabel: "South of Jaco",
+    highlights: [
+      "Interesting geological formation",
+      "3 pools in the same area",
+      "One pool on top of the other"
+    ],
+    phone: "+506-8305-8080",
+    links: [
+      { name: "WhatsApp", url: "https://wa.me/50683058080" }
+    ]
+  },
+
+  nightWaterfall: {
+    title: "Night Waterfall Tour",
+    subtitle: "Contact Vlad for booking",
+    description: "Starts at 5pm. Enjoy the sounds of the jungle at night time and see lots of amphibians and snakes.",
+    locationLabel: "Various waterfall locations",
+    highlights: [
+      "Starts at 5pm",
+      "Enjoy jungle sounds at night",
+      "See lots of amphibians and snakes"
+    ],
+    requirements: [
+      "Bring: Swimsuit and Long Pants"
+    ],
+    phone: "+506-8305-8080",
+    links: [
+      { name: "WhatsApp", url: "https://wa.me/50683058080" }
+    ]
+  },
+
+  marinoBallena: {
+    title: "Marino Ballena National Park",
+    subtitle: "Contact Vlad for booking",
+    description: "Come to see Humpback Whales. All day guiding available.",
+    locationLabel: "Marino Ballena National Park",
+    highlights: [
+      "See Humpback Whales",
+      "All day guiding"
+    ],
+    phone: "+506-8305-8080",
+    links: [
+      { name: "WhatsApp", url: "https://wa.me/50683058080" }
+    ]
+  },
+
+  manuelAntonio: {
+    title: "Manuel Antonio National Park",
+    subtitle: "Contact Vlad for booking",
+    description: "All day guiding available at this famous national park.",
+    locationLabel: "Manuel Antonio National Park",
+    highlights: [
+      "All day guiding"
+    ],
+    phone: "+506-8305-8080",
+    links: [
+      { name: "WhatsApp", url: "https://wa.me/50683058080" }
+    ]
+  },
+
+  carraraNationalPark: {
+    title: "Carrara National Park",
+    subtitle: "Contact Vlad for booking",
+    description: "Explore the diverse wildlife and natural beauty of Carrara National Park.",
+    locationLabel: "Carrara National Park",
+    highlights: [
+      "Diverse wildlife",
+      "Natural beauty"
+    ],
+    phone: "+506-8305-8080",
+    links: [
+      { name: "WhatsApp", url: "https://wa.me/50683058080" }
+    ]
+  },
+
   beachHomeCostaRica: {
     title: "BEACHHOME Adventure/Activities",
     subtitle: "Experience adventures. Book securely online with real-time availability",
@@ -279,13 +428,7 @@ const allCards = {
     description: "Experience the beautiful waters of the Pacific Ocean and the tropical paradise of Isla Tortuga! Departing from Los Suenos Marina in Herradura (10 minutes from Jacó), this 45-minute catamaran ride takes you to a secluded 300-acre island with pristine white sand beaches. <strong>Perfect for families and adventure seekers alike!</strong>",
     locationLabel: "Los Suenos Marina, Herradura (10 min from Jaco)",
     images: [
-      'https://www.twoweeksincostarica.com/wp-content/uploads/2023/05/tortuga-island-catamaran-beach-snorkel-tour-jaco.jpg',
-      'https://www.twoweeksincostarica.com/wp-content/uploads/2023/05/white-sand-beach-costa-rica.jpg',
-      'https://www.twoweeksincostarica.com/wp-content/uploads/2023/05/costa-cat-boat-tortuga-island.jpg',
-      'https://www.twoweeksincostarica.com/wp-content/uploads/2023/05/beach-chairs-tortuga-island.jpg',
-      'https://www.twoweeksincostarica.com/wp-content/uploads/2023/05/snorkeling-tortuga-island-costa-cat.jpg',
-      "https://www.twoweeksincostarica.com/wp-content/uploads/2023/05/alcatraz-island-costa-rica.jpg"
-
+      'https://costacatcruises.com/wp-content/uploads/2024/01/costacat-costarica-tour-isla-tortuga-banner-catamaran-back-3-scaled.jpg'
     ],
     highlights: [
       "Snorkeling with coral reefs and tropical fish", 
@@ -295,7 +438,7 @@ const allCards = {
     ],
     warnings: ["Plan to visit during weekdays to avoid crowds - weekends are much busier"],
     links: [
-      { name: "twoweeksincostarica.com", url: "https://www.twoweeksincostarica.com/tortuga-island-catamaran/" }
+      { name: "costacatcruises.com", url: "https://costacatcruises.com/isla-tortuga-one-day-cruise/" }
     ]
   },
 
@@ -318,6 +461,28 @@ const allCards = {
     ],
     links: [
       { name: "Book Online", url: "https://costaricaadventuretoursandtransportation.com/san-jose-city-transfer/" }
+    ]
+  },
+
+  zumaToursShuttle: {
+    title: "Zuma Tours Shuttle Service",
+    subtitle: "Scheduled shuttle service to airport and other destinations",
+    description: "Shuttle service from Jaco Beach to various destinations including San José Airport and La Fortuna/Arenal Volcano. Convenient scheduled departures with hotel pick-up service available.",
+    locationLabel: "Jaco Beach, Hermosa Costa Rica",
+    phone: [
+      { number: "+506-2642-0024" },
+      { number: "+506-2640-0093" }
+    ],
+    highlights: [
+      "To San José and Airport: Daily departure 10:00am-10:30am (1.5 hrs)",
+      "To La Fortuna/Arenal Volcano: Two daily departures",
+      "Morning: 9:30am-9:45am pickup (3.5 hrs)",
+      "Afternoon: 2:45pm-3:00pm pickup (3.5 hrs)",
+      "Direct hotel pick-up available"
+    ],
+    links: [
+      { name: "WhatsApp", url: "https://wa.me/50688404389?text=Hello Zuma Tours" },
+      { name: "Website", url: "https://www.zumatours.net/from-jaco-beach-shuttles-transfers/" }
     ]
   },
 
@@ -923,6 +1088,140 @@ const allCards = {
        googleMapsUrl: "https://maps.app.goo.gl/xb8Y4ProqmNEKnDQ7",
        embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.752230027837!2d-84.63550972378036!3d9.616589790470119!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c7816bc252d3%3A0x85a2ef2085f96efa!2sSeaSalt!5e0!3m2!1sen!2sus!4v1753322742628!5m2!1sen!2sus"
      }
+   },
+
+  miroMountainHike: {
+    title: "Hiking to the Miro Mountain",
+    subtitle: "Short hike to view mysterious ruins of El Miro",
+    description: "Just across the street from the puddlefish, near Villa Mariposa you can find the start to a short hike to view the mysterious ruins of El Miro. This hike is about 30 minutes. You can see various wild animals, like monkeys or poison dart frogs. This is a free hike, unless you park near the bottom there is a cheap cash parking fee.",
+    locationLabel: "Near Villa Mariposa, Jaco",
+    highlights: [
+      "30-minute hike",
+      "View mysterious ruins of El Miro",
+      "See wild animals like monkeys and poison dart frogs",
+      "Free hike (small parking fee if parking at bottom)"
+    ],
+    links: [
+      { name: "alltrails.com", url: "https://www.alltrails.com/trail/costa-rica/puntarenas--2/miro-mountain" }
+    ]
+  },
+
+  villaCaletas: {
+    title: "Villa Caletas",
+    subtitle: "Hotel with breathtaking sunset views and amphitheater",
+    description: "This is a hotel about 15 minutes north of Jaco where you can go to watch the sunset and get a drink or dinner. Their amphitheater was built into the side of a 1,000-foot cliff that overlooks the jungle to the ocean. Witness one of the most breathtaking sunsets of your life and it's free to visit.",
+    locationLabel: "15 minutes north of Jaco",
+    highlights: [
+      "Breathtaking sunset views",
+      "Amphitheater built into 1,000-foot cliff",
+      "Overlooks jungle to ocean",
+      "Free to visit",
+      "Restaurant and bar available"
+    ],
+    links: [
+      { name: "Google Maps", url: "https://maps.app.goo.gl/Kv3kUxed9gF2f3an6" }
+    ]
+  },
+
+  acquaSalonSpa: {
+    title: "Acqua Salon & Spa",
+    subtitle: "Spa rituals and treatments in Jaco",
+    description: "Acqua Salon & Spa in front of the 8-story yellow Aqua building, next to the Best Western. Offers spa rituals and treatments in Costa Rica.",
+    locationLabel: "In front of 8-story yellow Aqua building, next to Best Western, Jaco",
+    highlights: [
+      "Spa rituals and treatments",
+      "Professional salon services",
+      "Convenient location in central Jaco"
+    ],
+    links: [
+      { name: "Website", url: "https://www.acquaspajaco.com/" }
+    ]
+  },
+     theBeerHouse: {
+     title: "The Beer House",
+     subtitle: "Local craft beers and casual atmosphere",
+     description: "10 local craft beers on tap as well as many bottle options. Great casual atmosphere and friendly service.",
+     locationLabel: "Jacó Centro, Jacó, Costa Rica",
+     phone: [
+       { number: "+506-7199-2381" }
+     ],
+     highlights: [
+       "10 local craft beers on tap",
+       "Many bottle options",
+       "Casual atmosphere",
+       "Friendly service"
+     ],
+     images: [
+       'https://scontent-lga3-2.xx.fbcdn.net/v/t39.30808-6/305209594_776189470353723_3171545707443155891_n.png?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=Bukbs2S9sDQQ7kNvwEFnUA3&_nc_oc=AdmNhtTcIhArZzPwJF442T_Yvqm687W1bzf9TWJUx3ZyeECLT62WvbdBNq2yDogT5Q5YmtbN8s9xyQseremxYCDo&_nc_zt=23&_nc_ht=scontent-lga3-2.xx&_nc_gid=wHszk2LlC8DJxtz7qh5xZQ&oh=00_AfUiBtQV5_WA914ly4wlfWjJFaRSPsofCDDgAsUPOpwKDA&oe=689816EA'
+     ],
+     links: [
+       { name: "Facebook", url: "https://www.facebook.com/thebeerhousecr/" }
+     ]
+   },
+
+        fruityMonkeyPoopBoutique: {
+      title: "Fruity Monkey Poop Boutique",
+      subtitle: "Colorful gift shop offering coffee, artisan goods & quirky souvenirs",
+      description: "Charming boutique in downtown Jacó featuring locally made artisan souvenirs: Chorotega pottery, organic coffee, bean-to-bar chocolate, jewelry, indigenous masks, dried fruits and \"monkey poop\" candy samples served freely.",
+      locationLabel: "Avenida Pastor Díaz, Jacó, Costa Rica",
+      images: [
+       'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2e/85/77/15/store-exterior-beside.jpg?w=1400&h=-1&s=1',
+       'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2e/85/77/19/sidewalk-in-front-of.jpg?w=1100&h=-1&s=1',
+       'https://itin-dev.wanderlogstatic.com/freeImage/r6Pe7HlWwFGrwGZlD0vzMphDYzqHmpvK'
+     ],
+      highlights: [
+        "Free coffee & pineapple samples",
+        "Handmade artisan gifts & masks",
+        "High-quality Costa Rican coffee & chocolate"
+      ],
+      links: [
+        { name: "TripAdvisor", url: "https://www.tripadvisor.com/Attraction_Review-g309271-d2048543-Reviews-Fruity_Monkey_Poop_Boutique-Jaco.html" }
+      ],
+      mapLocation: {
+       googleMapsUrl: "https://maps.app.goo.gl/LteMP5QqQkQsGcWK9",
+       embedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3933.777101806064!2d-84.6278026!3d9.614451500000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa1c73f8c438fd1%3A0x5bd730a4c913a89a!2sFruity%20Monkey%20Poop%20Boutique!5e0!3m2!1sen!2sus!4v1754423195264!5m2!1sen!2sus"
+     }
+     },
+
+   farmersMarket: {
+     title: "Farmer's Market",
+     subtitle: "Fresh vegetables and fruit directly from farmers - Fridays only",
+     description: "This is only on Fridays and located by the soccer field on the south end of town. They have fresh vegetables and fruit directly from the farmers.",
+     locationLabel: "By the soccer field, south end of Jaco",
+     highlights: [
+       "Fresh vegetables and fruit from local farmers",
+       "Direct from farmers - authentic local produce",
+       "Friday mornings only"
+     ],
+     warnings: [
+       "Only available on Fridays"
+     ],
+     suppressInfoMessage: true
+   },
+
+   fruitVeggiesMarket: {
+     title: "Fruit and Veggies Market",
+     subtitle: "Local market for fresh fruits and vegetables",
+     description: "Turn left at Pops and go halfway down the street on your right-side. This is where locals shop for their fresh fruits and vegetables.",
+     locationLabel: "Turn left at Pops, halfway down street on right side, Jaco",
+     highlights: [
+       "Where locals shop for fresh produce",
+       "Fresh fruits and vegetables",
+       "Authentic local market experience"
+     ],
+     suppressInfoMessage: true
+   },
+
+   ticoPodArtHouse: {
+     title: "Tico Pod Art House & Gifts",
+     subtitle: "Art house and gift shop",
+     description: "Local art house and gift shop offering unique items and artistic pieces.",
+     locationLabel: "Jaco, Costa Rica",
+     highlights: [
+       "Local art and unique gifts",
+       "Artistic pieces and handmade items"
+     ],
+     suppressInfoMessage: true
    }
 
 
@@ -969,28 +1268,46 @@ const tabConfig = {
     allCards.lemonZest,
     allCards.mundaka,
     allCards.jacoBar,
+    
   ],
   nightlife: [
     allCards.jacoBar,
     allCards.orangePub,
     allCards.xtcJaco,
     allCards.republikCostaRica,
+    allCards.theBeerHouse,
   ],
   activities: [
     allCards.beachHomeCostaRica,
     allCards.tortugaIsland,
     allCards.soulSurf,
     allCards.surferFactory,
-    
+    allCards.miroMountainHike,
+    allCards.villaCaletas,
+    allCards.acquaSalonSpa,
   ],
   shopping: [
     allCards.jacoWalk,
+    allCards.fruityMonkeyPoopBoutique,
+    allCards.farmersMarket,
+    allCards.fruitVeggiesMarket,
+    allCards.ticoPodArtHouse,
   ],
   transportation: [
     allCards.airportTransfer,
+    allCards.zumaToursShuttle,
   ],
   tourGuide: [
     allCards.vladAlvarado,
+    allCards.monkeyTour,
+    allCards.snorkelingTour,
+    allCards.nauyacaWaterfalls,
+    allCards.lasMonasWaterfall,
+    allCards.jumperWaterfall,
+    allCards.nightWaterfall,
+    allCards.marinoBallena,
+    allCards.manuelAntonio,
+    allCards.carraraNationalPark,
   ],
 };
 
@@ -1192,6 +1509,7 @@ const JacoPage: React.FC = () => {
           <TabTransitionWrapper currentTab={tabValue} previousTab={previousTab}>
             <TabContentSection
               title="Activities"
+              subtitle="Eric can help you book any tours or activities you're interested in!"
               icon={<ActivitiesIcon width={64} height={64} color="black" />}
               currentTab={tabValue}
               onTabChange={handleSwipableTabChange}

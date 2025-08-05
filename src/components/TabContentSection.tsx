@@ -7,6 +7,7 @@ import ModernCarousel from './ModernCarousel';
 
 interface TabContentSectionProps {
   title: string;
+  subtitle?: string;
   icon?: React.ReactNode;
   cards: {
     title: string;
@@ -30,6 +31,7 @@ interface TabContentSectionProps {
       appleMapsUrl?: string;
       embedUrl?: string;
     };
+    suppressInfoMessage?: boolean;
   }[];
   currentTab?: number;
   onTabChange?: (newTab: number) => void;
@@ -43,6 +45,7 @@ interface TabContentSectionProps {
 
 const TabContentSection: React.FC<TabContentSectionProps> = ({ 
   title, 
+  subtitle,
   icon, 
   cards, 
   currentTab, 
@@ -67,6 +70,11 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
       [index]: !prev[index]
     }));
   };
+
+  // Check if this is the Tour Guide section with Vlad's card
+  const isTourGuideSection = title === 'Tour Guide';
+  const vladCard = isTourGuideSection && cards.length > 0 && cards[0].isFavorite ? cards[0] : null;
+  const otherTourCards = isTourGuideSection && vladCard ? cards.slice(1) : cards;
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -74,11 +82,33 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
       transition={{ duration: 0.2 }}
     >
       {allTitles && currentTab !== undefined && onTabChange ? (
-        <SwipableTitleSection
-          currentTab={currentTab}
-          onTabChange={onTabChange}
-          titles={allTitles}
-        />
+        <>
+          <SwipableTitleSection
+            currentTab={currentTab}
+            onTabChange={onTabChange}
+            titles={allTitles}
+          />
+          {subtitle && (
+            <Typography 
+              variant="h6" 
+              fontWeight={500} 
+              sx={{
+                fontSize: { xs: '1.1rem', md: '1.25rem' },
+                textAlign: 'center',
+                mt: -2,
+                mb: 3,
+                color: 'text.secondary',
+                fontStyle: 'italic',
+                lineHeight: 1.4,
+                maxWidth: '800px',
+                mx: 'auto',
+                px: 2
+              }}
+            >
+              {subtitle}
+            </Typography>
+          )}
+        </>
       ) : (
         <Box sx={{ 
           display: 'flex', 
@@ -124,14 +154,284 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
           >
             {title}
           </Typography>
+          {subtitle && (
+            <Typography 
+              variant="h6" 
+              fontWeight={500} 
+              sx={{
+                fontSize: { xs: '1.1rem', md: '1.25rem' },
+                textAlign: 'center',
+                mt: 2,
+                mb: 1,
+                color: 'text.secondary',
+                fontStyle: 'italic',
+                lineHeight: 1.4,
+                maxWidth: '800px',
+                mx: 'auto',
+                px: 2
+              }}
+            >
+              {subtitle}
+            </Typography>
+          )}
         </Box>
       )}
       
+      {/* Vlad's Horizontal Card - Only for Tour Guide Section */}
+      {vladCard && (
+        <Box sx={{ 
+          bgcolor: 'white',
+          borderRadius: 1,
+          p: 4,
+          mb: 4,
+          mt: 4,
+          boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+          border: '2px solid #e91e63',
+          transition: 'transform 0.2s, box-shadow 0.2s',
+          position: 'relative',
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          gap: { xs: 3, md: 4 },
+          alignItems: { xs: 'center', md: 'flex-start' },
+          '&:hover': {
+            transform: 'translateY(-4px)',
+            boxShadow: '0 8px 30px rgba(0,0,0,0.12)',
+          },
+        }}>
+          {/* Our Favorite Badge */}
+          <Box
+            sx={{
+              position: 'absolute',
+              top: 20,
+              right: 12,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.5,
+              bgcolor: 'rgba(233, 30, 99, 0.1)',
+              border: '1px solid #e91e63',
+              borderRadius: 2,
+              px: 1,
+              py: 0.5,
+              zIndex: 1,
+            }}
+          >
+            <FavoriteIcon 
+              sx={{ 
+                color: '#e91e63', 
+                fontSize: '0.875rem' 
+              }} 
+            />
+            <Typography
+              variant="caption"
+              sx={{
+                color: '#e91e63',
+                fontWeight: 600,
+                fontSize: '0.75rem',
+                lineHeight: 1,
+                textTransform: 'none',
+              }}
+            >
+              our favorite
+            </Typography>
+          </Box>
+
+          {/* Image Section */}
+          {vladCard.images && vladCard.images.length > 0 && (
+            <Box sx={{ 
+              flexShrink: 0,
+              borderRadius: 0, 
+              overflow: 'hidden',
+              boxShadow: 'none',
+              height: { xs: '200px', md: '250px' },
+              width: { xs: '100%', md: '300px' }
+            }}>
+              <ModernCarousel 
+                images={vladCard.images}
+                height={250}
+                autoplayInterval={4000}
+                showNavigation={false}
+                scaleToFit={true}
+                showPagination={false}
+                jacoStyle={jacoStyle}
+                smartFit={smartFit}
+              />
+            </Box>
+          )}
+
+          {/* Content Section */}
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <Typography 
+              variant="h5" 
+              fontWeight={700} 
+              mb={1} 
+              color="grey.900"
+              sx={{ 
+                mt: 3,
+                fontSize: { xs: '1.5rem', md: '1.75rem' }
+              }}
+            >
+              {vladCard.title}
+            </Typography>
+            
+            {vladCard.subtitle && (
+              <Typography 
+                variant="body1" 
+                color="text.secondary" 
+                sx={{ 
+                  mb: 2, 
+                  fontStyle: 'italic',
+                  fontSize: { xs: '1rem', md: '1.125rem' },
+                  lineHeight: 1.4
+                }}
+              >
+                {vladCard.subtitle}
+              </Typography>
+            )}
+
+            <Typography 
+              variant="body1" 
+              color="text.primary" 
+              sx={{ 
+                mb: 3,
+                lineHeight: 1.6,
+                fontSize: { xs: '0.9rem', md: '1rem' }
+              }}
+              dangerouslySetInnerHTML={{ __html: vladCard.description }}
+            />
+
+            {vladCard.highlights && vladCard.highlights.length > 0 && (
+              <Box sx={{ mb: 3 }}>
+                <Box sx={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+                  gap: 1 
+                }}>
+                  {vladCard.highlights.map((highlight, highlightIndex) => (
+                    <Box key={highlightIndex} sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <StarIcon sx={{ color: '#4caf50', fontSize: '1rem', flexShrink: 0 }} />
+                      <Typography 
+                        variant="body2" 
+                        color="#4caf50" 
+                        sx={{ 
+                          lineHeight: 1.5,
+                          fontSize: '0.875rem',
+                          fontWeight: 500
+                        }}
+                      >
+                        {highlight}
+                      </Typography>
+                    </Box>
+                  ))}
+                </Box>
+              </Box>
+            )}
+
+            {/* Contact Information for Vlad */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 3 }}>
+              {vladCard.phone && (
+                <Link
+                  href={`tel:${typeof vladCard.phone === 'string' ? vladCard.phone : vladCard.phone[0]?.number}`}
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    color: '#000000',
+                    textDecoration: 'none',
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                    transition: 'all 0.2s ease',
+                    padding: '12px 16px',
+                    borderRadius: 1,
+                    minHeight: '48px',
+                    border: '2px solid rgba(0,0,0,0.1)',
+                    backgroundColor: 'rgba(0,0,0,0.02)',
+                    '&:hover': {
+                      color: '#333333',
+                      textDecoration: 'underline',
+                      transform: 'translateX(2px)',
+                      backgroundColor: 'rgba(0,0,0,0.08)',
+                      borderColor: 'rgba(0,0,0,0.2)',
+                    },
+                    '&:active': {
+                      backgroundColor: 'rgba(0,0,0,0.12)',
+                      borderColor: 'rgba(0,0,0,0.3)',
+                    },
+                    '& .MuiSvgIcon-root': {
+                      fontSize: '1.5rem',
+                      transition: 'transform 0.2s ease',
+                    },
+                    '&:hover .MuiSvgIcon-root': {
+                      transform: 'translateX(2px)',
+                    },
+                  }}
+                >
+                  <PhoneIcon />
+                  {typeof vladCard.phone === 'string' ? vladCard.phone : vladCard.phone[0]?.number}
+                </Link>
+              )}
+
+              {vladCard.links && vladCard.links.find(link => link.name.toLowerCase().includes('whatsapp')) && (
+                <Link
+                  href={vladCard.links.find(link => link.name.toLowerCase().includes('whatsapp'))?.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    color: '#25D366',
+                    textDecoration: 'none',
+                    fontWeight: 600,
+                    fontSize: '1rem',
+                    transition: 'all 0.2s ease',
+                    padding: '12px 16px',
+                    borderRadius: 1,
+                    minHeight: '48px',
+                    border: '2px solid rgba(37, 211, 102, 0.2)',
+                    backgroundColor: 'rgba(37, 211, 102, 0.05)',
+                    '&:hover': {
+                      color: '#128C7E',
+                      textDecoration: 'underline',
+                      transform: 'translateX(2px)',
+                      backgroundColor: 'rgba(37, 211, 102, 0.1)',
+                      borderColor: 'rgba(37, 211, 102, 0.4)',
+                    },
+                    '&:active': {
+                      backgroundColor: 'rgba(37, 211, 102, 0.15)',
+                      borderColor: 'rgba(37, 211, 102, 0.6)',
+                    },
+                    '& .MuiSvgIcon-root': {
+                      fontSize: '1.5rem',
+                      transition: 'transform 0.2s ease',
+                    },
+                    '&:hover .MuiSvgIcon-root': {
+                      transform: 'translateX(2px)',
+                    },
+                  }}
+                >
+                  <LinkIcon />
+                  WhatsApp
+                </Link>
+              )}
+            </Box>
+
+            {vladCard.locationLabel && (
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2 }}>
+                <LocationIcon sx={{ color: '#4caf50', fontSize: '1.25rem' }} />
+                <Typography variant="subtitle2" fontWeight={600} color="#4caf50">
+                  {vladCard.locationLabel}
+                </Typography>
+              </Box>
+            )}
+          </Box>
+        </Box>
+      )}
+
       <Box sx={{ 
         display: 'flex',
         flexDirection: 'column',
         gap: 3,
-        mt: 4,
+        mt: vladCard ? 0 : 4,
         '@media (min-width: 900px)': {
           display: 'grid',
           gridTemplateColumns: 'repeat(2, 1fr)',
@@ -143,7 +443,7 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
           alignItems: 'start',
         },
       }}>
-        {cards.map((card, index) => (
+        {otherTourCards.map((card, index) => (
           <Box
             key={index}
             sx={{
@@ -336,7 +636,7 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
             
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                {card.phone && (
+                {!isTourGuideSection && card.phone && (
                   <>
                     {typeof card.phone === 'string' ? (
                       <Link
@@ -423,63 +723,100 @@ const TabContentSection: React.FC<TabContentSectionProps> = ({
                   </>
                 )}
                 
+                {/* Filter out WhatsApp links for Tour Guide section */}
                 {card.links && card.links.length > 0 ? (
-                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                    {card.links.map((link, linkIndex) => (
-                      <Link
-                        key={linkIndex}
-                        href={link.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        sx={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          gap: 1,
-                          color: '#1993e5',
-                          textDecoration: 'none',
-                          fontWeight: 600,
-                          fontSize: '0.875rem',
-                          transition: 'all 0.2s ease',
-                          padding: '12px 8px',
-                          borderRadius: 1,
-                          minHeight: '44px',
-                          border: '1px solid rgba(25, 147, 229, 0.2)',
-                          '&:hover': {
-                            color: '#1565c0',
-                            textDecoration: 'underline',
-                            transform: 'translateX(2px)',
-                            backgroundColor: 'rgba(25, 147, 229, 0.08)',
-                            borderColor: 'rgba(25, 147, 229, 0.4)',
-                          },
-                          '&:active': {
-                            backgroundColor: 'rgba(25, 147, 229, 0.12)',
-                            borderColor: 'rgba(25, 147, 229, 0.6)',
-                          },
-                          '& .MuiSvgIcon-root': {
-                            fontSize: '1.25rem',
-                            transition: 'transform 0.2s ease',
-                          },
-                          '&:hover .MuiSvgIcon-root': {
-                            transform: 'translateX(2px)',
-                          },
-                        }}
-                      >
-                        <LinkIcon />
-                        {link.name}
-                      </Link>
-                    ))}
-                  </Box>
+                  (() => {
+                    const filteredLinks = isTourGuideSection 
+                      ? card.links.filter(link => !link.name.toLowerCase().includes('whatsapp'))
+                      : card.links;
+                    
+                    return filteredLinks.length > 0 ? (
+                      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+                        {filteredLinks.map((link, linkIndex) => (
+                          <Link
+                            key={linkIndex}
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            sx={{
+                              display: 'flex',
+                              alignItems: 'center',
+                              gap: 1,
+                              color: '#1993e5',
+                              textDecoration: 'none',
+                              fontWeight: 600,
+                              fontSize: '0.875rem',
+                              transition: 'all 0.2s ease',
+                              padding: '12px 8px',
+                              borderRadius: 1,
+                              minHeight: '44px',
+                              border: '1px solid rgba(25, 147, 229, 0.2)',
+                              '&:hover': {
+                                color: '#1565c0',
+                                textDecoration: 'underline',
+                                transform: 'translateX(2px)',
+                                backgroundColor: 'rgba(25, 147, 229, 0.08)',
+                                borderColor: 'rgba(25, 147, 229, 0.4)',
+                              },
+                              '&:active': {
+                                backgroundColor: 'rgba(25, 147, 229, 0.12)',
+                                borderColor: 'rgba(25, 147, 229, 0.6)',
+                              },
+                              '& .MuiSvgIcon-root': {
+                                fontSize: '1.25rem',
+                                transition: 'transform 0.2s ease',
+                              },
+                              '&:hover .MuiSvgIcon-root': {
+                                transform: 'translateX(2px)',
+                              },
+                            }}
+                          >
+                            <LinkIcon />
+                            {link.name}
+                          </Link>
+                        ))}
+                      </Box>
+                    ) : (
+                      isTourGuideSection ? (
+                        <Box sx={{ 
+                          bgcolor: 'grey.100', 
+                          p: 2, 
+                          borderRadius: 2,
+                          textAlign: 'center'
+                        }}>
+                          <Typography variant="body2" color="text.secondary">
+                            Contact Vlad for booking details
+                          </Typography>
+                        </Box>
+                      ) : (
+                        !card.suppressInfoMessage && (
+                          <Box sx={{ 
+                            bgcolor: 'grey.100', 
+                            p: 2, 
+                            borderRadius: 2,
+                            textAlign: 'center'
+                          }}>
+                            <Typography variant="body2" color="text.secondary">
+                              Information Coming Soon
+                            </Typography>
+                          </Box>
+                        )
+                      )
+                    );
+                  })()
                 ) : (
-                  <Box sx={{ 
-                    bgcolor: 'grey.100', 
-                    p: 2, 
-                    borderRadius: 2,
-                    textAlign: 'center'
-                  }}>
-                    <Typography variant="body2" color="text.secondary">
-                      Information Coming Soon
-                    </Typography>
-                  </Box>
+                  !card.suppressInfoMessage && (
+                    <Box sx={{ 
+                      bgcolor: 'grey.100', 
+                      p: 2, 
+                      borderRadius: 2,
+                      textAlign: 'center'
+                    }}>
+                      <Typography variant="body2" color="text.secondary">
+                        {isTourGuideSection ? 'Contact Vlad for booking details' : 'Information Coming Soon'}
+                      </Typography>
+                    </Box>
+                  )
                 )}
               </Box>
 
